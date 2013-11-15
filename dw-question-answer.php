@@ -4,8 +4,11 @@
  *  Description: A WordPress plugin was make by DesignWall.com to build an Question Answer system for support, asking and comunitcate with your customer 
  *  Author: DesignWall
  *  Author URI: http://www.designwall.com
- *  Version: 1.0.0
+ *  Version: 1.0.1
+ *  Text Domain: dwqa
  */
+
+
 // Define constant for plugin info 
 if( !defined( 'DWQA_DIR' ) ) {
     define( 'DWQA_DIR', plugin_dir_path( __FILE__ ) );
@@ -45,7 +48,11 @@ function dwqa_activate() {
 }
 register_activation_hook( __FILE__, 'dwqa_activate' );
 
-
+//load plugin languages
+function dwqa_lang() {
+    load_plugin_textdomain( 'dwqa', false, DWQA_DIR  . 'languages/' ); 
+}
+add_action('plugins_loaded', 'dwqa_lang');
 /*** PLUGIN INIT */
 function dwqa_plugin_init(){
     global  $dwqa_general_settings;

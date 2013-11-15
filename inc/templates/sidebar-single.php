@@ -1,4 +1,4 @@
-    
+
     <div class="dwqa-sidebar" >
         <div class="info well">
             <div class="author-info">     

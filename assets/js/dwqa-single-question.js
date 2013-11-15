@@ -269,7 +269,7 @@ jQuery(function($){
         }
     });
     //Comment update task
-    $('.answers-list, .commentlist').delegate('.comment-edit-link','click',function(event){
+    $('#comments, .answers-list, .commentlist').delegate('.comment-edit-link','click',function(event){
         event.preventDefault();
         var t = $(this),
             comment_container = t.closest('li'),
@@ -293,7 +293,7 @@ jQuery(function($){
         comment_content.html( edit_content );
     });
 
-    $('.answers-list, .commentlist').delegate('.comment .comment-edit-submit-button', 'click', function(event){
+    $('#comments, .answers-list, .commentlist').delegate('.comment .comment-edit-submit-button', 'click', function(event){
         event.preventDefault();
         var comment_container = $(this).closest('li'),
             edit_content, 
@@ -323,7 +323,7 @@ jQuery(function($){
     //End comment edit
 
     //Delete comment 
-    $('.answers-list, .commentlist').delegate('.comment-delete-link','click',function(event){
+    $('#comments, .answers-list, .commentlist').delegate('.comment-delete-link','click',function(event){
         event.preventDefault();
         var t = $(this), comment_type = t.data('comment-type'),
             comment_count = $('.dwqa-'+comment_type+' .'+comment_type+'-comment .comment-count');
@@ -362,7 +362,7 @@ jQuery(function($){
     // });
     
     var current_answer_editor = null;
-    $('.answers-list, .commentlist').delegate('.answer-edit-cancel', 'click', function(event){
+    $('#comments, .answers-list, .commentlist').delegate('.answer-edit-cancel', 'click', function(event){
         event.preventDefault();
         answer_editor.fadeIn();
         current_answer_editor.find('footer .answer-actions').show();

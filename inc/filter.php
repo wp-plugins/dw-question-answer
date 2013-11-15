@@ -302,10 +302,12 @@ class DWQA_Filter {
 
     // Filter post where
     function posts_where( $where ) {
-        global $wpdb;
+        global $wpdb, $dwqa_general_settings;
+
         switch ( $this->filter['filter_plus'] ) {
             case 'overdue' :
-                $where .= " AND post_date < '" . date('Y-m-d H:i:s', strtotime('-2 days') ) . "'";
+                $overdue_time_frame = isset($dwqa_general_settings['question-overdue-time-frame']) ? $dwqa_general_settings['question-overdue-time-frame'] : 2;
+                $where .= " AND post_date < '" . date('Y-m-d H:i:s', strtotime('-'.$overdue_time_frame.' days') ) . "'";
             case 'open':
                 // answered
                 $where .= " AND ID NOT IN (
@@ -317,11 +319,32 @@ class DWQA_Filter {
                     ON `t1`.question = `t2`.question AND `t1`.post_date = `t2`.lastdate
 
                     JOIN `{$wpdb->prefix}usermeta` ON `t1`.post_author = `{$wpdb->prefix}usermeta`.user_id
-                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' AND ( `{$wpdb->prefix}usermeta`.meta_value LIKE '%administrator%' 
+                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' AND ( 
+                                    `{$wpdb->prefix}usermeta`.meta_value LIKE '%administrator%' 
                                     OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%editor%' 
                                     OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%author%' 
-                                ) 
-                )";
+                                ) ";
+                if( current_user_can('edit_posts' ) ) {
+                    $where .= " AND ID NOT IN (
+                                    SELECT `{$wpdb->prefix}postmeta`.meta_value FROM 
+                                        `{$wpdb->prefix}comments` 
+                                    JOIN 
+                                        ( SELECT `{$wpdb->prefix}comments`.comment_ID, `{$wpdb->prefix}comments`.comment_post_ID, max( `{$wpdb->prefix}comments`.comment_date ) as comment_time FROM `{$wpdb->prefix}comments` 
+                                         JOIN `{$wpdb->prefix}posts` ON `{$wpdb->prefix}comments`.comment_post_ID = `{$wpdb->prefix}posts`.ID 
+                                         WHERE `{$wpdb->prefix}comments`.comment_approved = 1 AND `{$wpdb->prefix}posts`.post_type = 'dwqa-answer'
+                                         GROUP BY `{$wpdb->prefix}comments`.comment_post_ID ) as t1 
+                                    ON `{$wpdb->prefix}comments`.comment_post_ID = t1.comment_post_ID AND `{$wpdb->prefix}comments`.comment_date = t1.comment_time 
+                                    JOIN `{$wpdb->prefix}usermeta` ON `{$wpdb->prefix}comments`.user_id = `{$wpdb->prefix}usermeta`.user_id
+                                    JOIN `{$wpdb->prefix}postmeta` ON `{$wpdb->prefix}postmeta`.post_id = `{$wpdb->prefix}comments`.comment_post_ID
+                                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' 
+                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%administrator%'
+                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%editor%' 
+                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%author%'
+                                        AND `{$wpdb->prefix}postmeta`.meta_key = '_question'
+                                ) ";
+                }
+                $where .= " )";
+
                 break;
             case 'replied':
                 // answered
@@ -344,7 +367,6 @@ class DWQA_Filter {
                 # code...
                 break;
         }
-
         return $where;
     }
 

@@ -455,22 +455,15 @@ function dwqa_submit_question(){
                 'post_content'   => $content,
                 'post_status'    => $post_status,
                 'post_title'     => $title,
-                'post_type'      => 'dwqa-question'
+                'post_type'      => 'dwqa-question',
+                'tax_input'      => array(
+                    'dwqa-question_category'    => array( $category ),
+                    'dwqa-question_tag'         => explode(',', $tags )
+                )
             );  
-            
-            $new_question = wp_insert_post( $postarr, true );
+            $new_question = dwqa_insert_question( $postarr );
 
             if( ! is_wp_error( $new_question ) ) {
-            
-                wp_set_object_terms( $new_question, array( $category ), 'dwqa-question_category' );
-                wp_set_object_terms( $new_question, explode(',', $tags ), 'dwqa-question_tag' );
-
-                update_post_meta( $new_question, '_dwqa_status', 'open' );
-                update_post_meta( $new_question, '_dwqa_views', 0 );
-                update_post_meta( $new_question, '_dwqa_votes', 0 );
-                //Call action when add question successfull
-                do_action( 'dwqa_add_question', $new_question, $user_id );
-
                 exit( wp_safe_redirect( get_permalink( $new_question ) ) );
             } else {
                 $dwqa_current_error = $new_question;
@@ -483,6 +476,39 @@ function dwqa_submit_question(){
     }
 }
 add_action( 'init','dwqa_submit_question', 11 );
+
+
+function dwqa_insert_question( $args ){
+
+    $user_id = get_current_user_id();
+
+    $args = wp_parse_args( $args, array(
+        'comment_status' => 'open',
+        'post_author'    => $user_id,
+        'post_content'   => '',
+        'post_status'    => 'draft',
+        'post_title'     => '',
+        'post_type'      => 'dwqa-question'
+    ) );
+            
+    $new_question = wp_insert_post( $args, true );
+
+    if( ! is_wp_error( $new_question ) ) {
+
+        if( isset($args['tax_input']) ) {
+            foreach ($args['tax_input'] as $taxonomy => $tags ) {
+                wp_set_post_terms( $new_question, $tags, $taxonomy );
+            }
+        }
+        update_post_meta( $new_question, '_dwqa_status', 'open' );
+        update_post_meta( $new_question, '_dwqa_views', 0 );
+        update_post_meta( $new_question, '_dwqa_votes', 0 );
+        //Call action when add question successfull
+        do_action( 'dwqa_add_question', $new_question, $user_id );
+    } 
+
+    return $new_question;
+}
 
 /**
  * Return number of answer for a question
@@ -497,6 +523,7 @@ function dwqa_question_answers_count( $question_id = null){
 
     $args = array(
        'post_type' => 'dwqa-answer',
+       'post_status' => 'publish',
        'meta_query' => array(
            array(
                'key' => '_question',

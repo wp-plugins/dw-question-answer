@@ -1,4 +1,19 @@
 jQuery(function($){
+    function URLToArray() {
+        var url = $(location).attr('href');
+        var request = {};
+        var pairs = url.substring(url.indexOf('?') + 1).split('&');
+
+        if( url.indexOf('?') >= 0 ) {
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                request[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+            return request;
+        } else {
+            return ( new Array() )
+        }
+    }
     function getURLParameter(name) {
         var param = decodeURI(
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
@@ -18,7 +33,8 @@ jQuery(function($){
         category = getURLParameter('dwqa-category'),
         tag_select = $('.filter-bar #dwqa-filter-by-tags'),
         tags = getURLParameter('dwqa-tag'),
-        paged = 1,
+        paged = getURLParameter('paged'),
+        paged = paged ? paged : 1,
         search_form =  $('.dwqa-search-form'),
         title = null, tags = 'null' ;
 
@@ -48,31 +64,55 @@ jQuery(function($){
         if( $filter != null ) {
             $filter.abort();
         } 
-        
-        var $url_args = '';
+        $url_args = URLToArray() ;
 
         if( filter_plus != 'all' ) {
-            $url_args +=  '&status=' + filter_plus;
-        }
-        if( category != 'all' ) {
-            $url_args += '&dwqa-category=' + category;
-        }
-        if( tags ) {
-            $url_args += '&dwqa-tag=' + tags;
-        }
-        if( type != 'all' ) {
-            $url_args += '&orderby=' + type;
-        }
-        if( paged > 1 ) {
-            $url_args += '&paged=' + paged;
+            $url_args['status'] =  filter_plus;
+        }else{
+            delete( $url_args['status']);
         }
 
-        if( $url_args ) {
-            if( $url_args.indexOf('&') == 0 ) {
-                $url_args = $url_args.substr( 1,$url_args.length);
-            }
-            window.history.pushState( null,null, '?' + $url_args );
+        if( category != 'all' ) {
+            $url_args['dwqa-category'] = category;
+        }else{
+            delete( $url_args['dwqa-category']);
         }
+        if( tags ) {
+            $url_args['dwqa-tag'] = tags;
+        }else{
+            delete( $url_args['dwqa-tag']);
+        }
+        if( type != 'all' ) {
+            $url_args['orderby'] = type;
+        }else{
+            delete( $url_args['orderby']);
+        }
+        if( paged > 1 ) {
+            $url_args['paged'] = paged;
+        }else{
+            delete( $url_args['paged']);
+        }
+
+        var $paramString = '';
+        for( var i in $url_args ) {
+            if( ! i ) {
+                continue;
+            }
+            $paramString += '&' + i + '=' + $url_args[i];
+        }
+        if( $paramString.substring(0,1) == '&' ) {
+            $paramString = $paramString.substring(1, $paramString.length );
+        } 
+        if( $paramString.length > 0 ){
+            $paramString = '?' + $paramString;
+            if (history.pushState)
+                window.history.pushState( null,document.title, $paramString );
+        } else {
+            if (history.pushState)
+                history.pushState("", document.title, $(location).attr('href').substring(0,  $(location).attr('href').indexOf("?") ) );
+        }
+
+
         $filter = $.ajax({
             url: dwqa.ajax_url,
             type: 'POST',

@@ -68,6 +68,7 @@ get_header('dwqa'); ?>
 					?>
 						<div class="filter-by-category select">
 							<?php 
+								$selected = false;
 								$taxonomy = get_query_var( 'taxonomy' );
 								if( $taxonomy && 'dwqa-question_category' == $taxonomy ) {
 									$term_name = get_query_var( $taxonomy );
@@ -99,6 +100,7 @@ get_header('dwqa'); ?>
 						</div>
 					<?php if( $taxonomy == 'dwqa-question_tag' ) { ?>
 						<?php
+							$selected = false;
 							if( $taxonomy ) {
 								$term_name = get_query_var( $taxonomy );
 								$term = get_term_by( 'slug', $term_name, $taxonomy );

@@ -3,7 +3,7 @@ Contributors: DesignWall
 Tags: question, answer, support, quora, stackoverflow
 Requires at least: 3.0.1
 Tested up to: 3.7.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,3 +49,8 @@ Here is the list of features of this plugin:
 = 1.0 =
 
 * The first version of DW Question & Answer
+
+= 1.0.1 =
+
+* Remove small bugs 
+* Add languages translation pot file

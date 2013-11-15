@@ -149,7 +149,8 @@ function dwqa_answers($question_id){
         </div>
     
     <?php }
-
+    
+    wp_reset_query();
     //Create answer form
     global $dwqa_options;
     $status = get_post_meta( $question_id, '_dwqa_status', true );
@@ -187,18 +188,17 @@ function dwqa_answers($question_id){
         </form>
     </div>
     <?php
-        } else {
-            $register_link = wp_register( '', '', false );
-            ?>
-            <h3 class="dwqa-title"><?php _e('Please <a href="'.wp_login_url( get_post_permalink( $question_id ) ).'">Login</a> to Submit Question', 'dwqa' ); ?></h3>
-            <div class="login-box">
-                <?php
-                wp_login_form();
-                ?>
-            </div>
+    } else {
+        $register_link = wp_register( '', '', false );
+        ?>
+        <h3 class="dwqa-title"><?php _e('Please <a href="'.wp_login_url( get_post_permalink( $question_id ) ).'">Login</a> to Submit Question', 'dwqa' ); ?></h3>
+        <div class="login-box">
             <?php
-        }
-    wp_reset_query();
+            wp_login_form();
+            ?>
+        </div>
+        <?php
+    }
 }
 
 function dwqa_question_add_class($classes, $class, $post_id){
@@ -336,4 +336,23 @@ function dwqa_title( $title ){
     return $title;
 }
 add_action( 'the_title', 'dwqa_title' );
+
+function dwqa_body_class($classes) {
+    global $post, $dwqa_options;
+    if( ( $dwqa_options['pages']['archive-question'] && is_page( $dwqa_options['pages']['archive-question'])  )
+        || ( is_archive() &&  ( 'dwqa-question' == get_post_type() 
+                || 'dwqa-question' == get_query_var( 'post_type' ) 
+                || 'dwqa-question_category' == get_query_var( 'taxonomy' ) 
+                || 'dwqa-question_tag' == get_query_var( 'taxonomy' ) ) )
+    ){
+        $classes[] = 'list-dwqa-question';
+    }
+
+    if( $dwqa_options['pages']['submit-question'] && is_page( $dwqa_options['pages']['submit-question'] ) ){
+        $classes[] = 'submit-dwqa-question';
+    }
+    return $classes;
+}
+add_filter('body_class', 'dwqa_body_class');
+
 ?>

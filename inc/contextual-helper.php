@@ -118,10 +118,10 @@ class dwqa_help_tab {
         }
         get_current_screen()->set_help_sidebar(
             '<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-            '<p>' . __( '<a href="#" target="_blank">Documentations</a>' ) . '</p>' .
-            '<p>' . __( '<a href="http://www.designwall.com/questions/" target="_blank">Support</a>' ) . '</p>'.
-            '<p>' . __( '<a href="http://www.designwall.com/product/category/wordpress-theme/" target="_blank">DesignWall Wordpress Themes</a>' ) . '</p>'.
-            '<p>' . __( '<a href="http://designwall.com" target="_blank">DesignWall Homepage</a>' ) . '</p>'
+            '<p><a href="#" target="_blank">' . __( 'Documentations' ) . '</a></p>' .
+            '<p><a href="http://www.designwall.com/question/" target="_blank">' . __( 'Support' ) . '</a></p>'.
+            '<p><a href="http://www.designwall.com/product/category/wordpress-theme/" target="_blank">' . __( 'DesignWall Wordpress Themes' ) . '</a></p>'.
+            '<p><a href="http://designwall.com" target="_blank">' . __( 'DesignWall Homepage' ) . '</a></p>'
         );
     }
 

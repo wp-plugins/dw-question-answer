@@ -112,6 +112,7 @@ function dwqa_is_new( $question_id = null ){
  */
 // detect overdue question
 function dwqa_is_overdue( $question_id ){
+    global  $dwqa_general_settings;
     $created_date = get_post_time( 'U', false, $question_id );
 
     $days = isset( $dwqa_general_settings['question-overdue-time-frame'] ) ? (int) $dwqa_general_settings['question-new-time-frame'] : 2;
