@@ -38,6 +38,7 @@ global $dwqa_permission;
 $dwqa_permission = new DWQA_Permission();
 
 function dwqa_deactivate_hook(){
+    global $dwqa_permission;
     wp_clear_scheduled_hook( 'dwqa_hourly_event' );
     $dwqa_permission->remove_permision_caps();
     flush_rewrite_rules();
@@ -45,6 +46,7 @@ function dwqa_deactivate_hook(){
 register_deactivation_hook( __FILE__, 'dwqa_deactivate_hook' );
 // Update rewrite url when active plugin
 function dwqa_activate() {
+    global $dwqa_permission;
     $dwqa_permission->prepare_permission_caps();
     flush_rewrite_rules();
 }
