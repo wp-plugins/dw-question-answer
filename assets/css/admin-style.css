@@ -29,3 +29,16 @@
 .dwqa-notification-settings {
     max-width: 800px;
 }
+
+.dwqa-question_page_dwqa-settings .dwqa-permission-settings td,
+.dwqa-question_page_dwqa-settings .dwqa-permission-settings th {
+    text-align: center;
+}
+
+.dwqa-question_page_dwqa-settings .dwqa-permission-settings tr.group td:first-child{
+    text-align: left;
+}
+
+.dwqa-question_page_dwqa-settings .dwqa-permission-settings tr.available td{
+    background-color: #fff;
+}

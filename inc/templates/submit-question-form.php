@@ -32,12 +32,12 @@
             </div>   
             <div class="input-tag">
                 <label for="question-tag"><?php _e('Question Tags','dwqa') ?></label>
-                <input type="text" name="question-tag" id="question-tag" placeholder="tag 1, tag 2,..." />
+                <input type="text" name="question-tag" id="question-tag" placeholder="<?php _e('tag 1, tag 2,...','dwqa') ?>" />
             </div>
         </div>
         <div class="input-title">
             <label for="question-title"><?php _e('Your question','dwqa') ?> *</label>
-            <input type="text" name="question-title" id="question-title" placeholder="How to..." autocomplete="off" data-nonce="<?php echo wp_create_nonce( '_dwqa_filter_nonce' ) ?>" />
+            <input type="text" name="question-title" id="question-title" placeholder="<?php _e('How to...','dwqa') ?>" autocomplete="off" data-nonce="<?php echo wp_create_nonce( '_dwqa_filter_nonce' ) ?>" />
             <span class="dwqa-search-loading hide"></span>
             <span class="dwqa-search-clear icon-remove hide"></span>
         </div>  

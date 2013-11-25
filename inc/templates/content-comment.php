@@ -12,7 +12,7 @@
                     }
                 ?>
             </strong>
-            <span class="date"><a href="#li-comment-<?php comment_ID(); ?>" title="Link to comment #<?php comment_ID(); ?>"><?php comment_time('c') ?></a></span>
+            <span class="date"><a href="#li-comment-<?php comment_ID(); ?>" title="Link to comment #<?php comment_ID(); ?>"><?php echo get_comment_date(); ?></a></span>
         </div>
         <div class="comment-content">
             <?php echo str_replace( esc_html('<br>'), '<br>', esc_html( get_comment_text() ) ); ?>

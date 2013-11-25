@@ -76,7 +76,7 @@
                     }
                 ?>
 
-                <span class="date"> <a href="#answer-<?php the_ID(); ?>" title="<?php echo __( 'Link to answer', 'dwqa' ) ?> #<?php echo $answer_id; ?>"><?php echo get_the_time( 'c' ) ?></a></span>
+                <span class="date"> <a href="#answer-<?php the_ID(); ?>" title="<?php echo __( 'Link to answer', 'dwqa' ) ?> #<?php echo $answer_id; ?>"><?php echo get_the_date(); ?></a></span>
             </div> <!-- Entry meta -->
         </header>
         <div class="answer-inner">

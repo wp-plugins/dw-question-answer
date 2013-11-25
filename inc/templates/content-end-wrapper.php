@@ -10,9 +10,6 @@ switch( $template ) {
     case 'twentythirteen' :
         echo '</div></div>';
         break;
-    default :
-        echo '</div>';
-        break;
 }
 
 

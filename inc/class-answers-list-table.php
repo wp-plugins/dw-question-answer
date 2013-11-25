@@ -105,7 +105,7 @@ class DWQA_answer_list_table extends WP_List_Table {
 
     function trim_exceprt_more( $excerpt ){
 	    if( $excerpt ) {
-	        return str_replace( '[...]', '<a href="'.get_permalink().'" title="'.__( 'Read more', 'dw_focus' ).'" >...</a>', $excerpt ); 
+	        return str_replace( '[...]', '<a href="'.get_permalink().'" title="'.__( 'Read more', 'dwqa' ).'" >...</a>', $excerpt ); 
 	    }
 	}
 

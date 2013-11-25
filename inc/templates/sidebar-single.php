@@ -6,7 +6,7 @@
                     $question = get_post( get_the_ID() );
                     echo get_avatar( $question->post_author, 32, false ); ?>
                 <strong class="author"><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author_meta(  'display_name', $question->post_author ); ?></a></strong>
-                <div class="time"><?php echo human_time_diff( get_post_time('U'), current_time('timestamp'), $question )  . ' ago';  ?></div>
+                <div class="time"><?php the_date();  ?></div>
             </div>
             <ul class="unstyled list-info">
                 <li class="status">Status 

@@ -18,16 +18,14 @@
     <article id="question-<?php echo $post_id; ?>" <?php post_class(); ?>>
 
         <header class="entry-header">
-            <h1 class="entry-title">
-                <?php if( current_user_can( 'edit_posts' ) ) { ?>
-                    <?php if( dwqa_is_pending( $post_id ) ) { ?>
-                    <span class="tag-label pending">Pending</span>
-                    <?php } ?>
+            <?php if( current_user_can( 'edit_posts' ) ) { ?>
+                <?php if( dwqa_is_pending( $post_id ) ) { ?>
+                <span class="tag-label pending">Pending</span>
                 <?php } ?>
-                <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'dwqa' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
-                    <?php the_title(); ?>
-                </a>
-            </h1>
+            <?php } ?>
+            <a class="entry-title" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'dwqa' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
+                <?php the_title(); ?>
+            </a>
             <div class="entry-meta">
                 <?php dwqa_question_print_status($post_id); ?>
                 <?php
@@ -45,7 +43,7 @@
                     printf( 
                         '%1$s  <span>%2$s</span>  %3$s', 
                         $author_link,
-                        get_the_time( 'c' ), 
+                        get_the_date(), 
                         $cats_html
                     );
                 ?>
@@ -96,5 +94,4 @@
                 ?>
             </div>
         </footer>
-
     </article>

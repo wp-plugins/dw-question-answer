@@ -227,6 +227,7 @@ class DWQA_Filter {
                 break;
             case 'replied':
             case 'overdue':
+            case 'new-comment':
             case 'open' :
                 $args['meta_query'][] = array(
                    'key' => '_dwqa_status',
@@ -324,25 +325,7 @@ class DWQA_Filter {
                                     OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%editor%' 
                                     OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%author%' 
                                 ) ";
-                if( current_user_can('edit_posts' ) ) {
-                    $where .= " AND ID NOT IN (
-                                    SELECT `{$wpdb->prefix}postmeta`.meta_value FROM 
-                                        `{$wpdb->prefix}comments` 
-                                    JOIN 
-                                        ( SELECT `{$wpdb->prefix}comments`.comment_ID, `{$wpdb->prefix}comments`.comment_post_ID, max( `{$wpdb->prefix}comments`.comment_date ) as comment_time FROM `{$wpdb->prefix}comments` 
-                                         JOIN `{$wpdb->prefix}posts` ON `{$wpdb->prefix}comments`.comment_post_ID = `{$wpdb->prefix}posts`.ID 
-                                         WHERE `{$wpdb->prefix}comments`.comment_approved = 1 AND `{$wpdb->prefix}posts`.post_type = 'dwqa-answer'
-                                         GROUP BY `{$wpdb->prefix}comments`.comment_post_ID ) as t1 
-                                    ON `{$wpdb->prefix}comments`.comment_post_ID = t1.comment_post_ID AND `{$wpdb->prefix}comments`.comment_date = t1.comment_time 
-                                    JOIN `{$wpdb->prefix}usermeta` ON `{$wpdb->prefix}comments`.user_id = `{$wpdb->prefix}usermeta`.user_id
-                                    JOIN `{$wpdb->prefix}postmeta` ON `{$wpdb->prefix}postmeta`.post_id = `{$wpdb->prefix}comments`.comment_post_ID
-                                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' 
-                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%administrator%'
-                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%editor%' 
-                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%author%'
-                                        AND `{$wpdb->prefix}postmeta`.meta_key = '_question'
-                                ) ";
-                }
+                
                 $where .= " )";
 
                 break;
@@ -363,7 +346,26 @@ class DWQA_Filter {
                                 ) 
                 )";
                 break;
-            default:
+            case 'new-comment':
+                if( current_user_can('edit_posts' ) ) {
+                    $where .= " AND ID IN (
+                                    SELECT `{$wpdb->prefix}postmeta`.meta_value FROM 
+                                        `{$wpdb->prefix}comments` 
+                                    JOIN 
+                                        ( SELECT `{$wpdb->prefix}comments`.comment_ID, `{$wpdb->prefix}comments`.comment_post_ID, max( `{$wpdb->prefix}comments`.comment_date ) as comment_time FROM `{$wpdb->prefix}comments` 
+                                         JOIN `{$wpdb->prefix}posts` ON `{$wpdb->prefix}comments`.comment_post_ID = `{$wpdb->prefix}posts`.ID 
+                                         WHERE `{$wpdb->prefix}comments`.comment_approved = 1 AND `{$wpdb->prefix}posts`.post_type = 'dwqa-answer'
+                                         GROUP BY `{$wpdb->prefix}comments`.comment_post_ID ) as t1 
+                                    ON `{$wpdb->prefix}comments`.comment_post_ID = t1.comment_post_ID AND `{$wpdb->prefix}comments`.comment_date = t1.comment_time 
+                                    JOIN `{$wpdb->prefix}usermeta` ON `{$wpdb->prefix}comments`.user_id = `{$wpdb->prefix}usermeta`.user_id
+                                    JOIN `{$wpdb->prefix}postmeta` ON `{$wpdb->prefix}postmeta`.post_id = `{$wpdb->prefix}comments`.comment_post_ID
+                                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' 
+                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%administrator%'
+                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%editor%' 
+                                        AND `{$wpdb->prefix}usermeta`.meta_value NOT LIKE '%author%'
+                                        AND `{$wpdb->prefix}postmeta`.meta_key = '_question'
+                                ) ";
+                }
                 # code...
                 break;
         }

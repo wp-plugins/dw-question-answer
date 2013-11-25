@@ -64,6 +64,14 @@ function dwqa_new_answer_nofity( $answer_id ){
             return false;
         }
     } else {
+        // if user is not the author of question/answer, add user to followers list
+        if( $question->post_author != $answer->post_author ) {
+
+            if(  ! in_array( $answer->post_author, get_post_meta( $question_id, '_dwqa_followers', false ) ) ) {
+                add_post_meta( $question_id, '_dwqa_followers', $answer->post_author );
+            }
+        }
+
         $email = get_the_author_meta( 'user_email', $question->post_author );
     }
 
@@ -118,7 +126,18 @@ function dwqa_new_answer_nofity( $answer_id ){
     $message = str_replace( '{site_description}', get_bloginfo( 'description' ), $message );
     $message = str_replace( '{site_url}', site_url(), $message);
 
-    wp_mail( $email, $subject, $message, $headers );
+    $followers = get_post_meta( $question_id, '_dwqa_followers' );
+    if( ! empty($followers) ) {
+        foreach ( $followers as $follower ) {
+            $follow_email = get_the_author_meta( 'user_email', $follower );
+            if( $follow_email && $follow_email != $email ) {
+                wp_mail( $follow_email, $subject, $message, $headers );
+            }
+        }
+    }
+    if( $question->post_author != $answer->post_author ) {
+        wp_mail( $email, $subject, $message, $headers );
+    }
 }
 add_action( 'dwqa_add_answer', 'dwqa_new_answer_nofity' );
 add_action( 'dwqa_update_answer', 'dwqa_new_answer_nofity' );
@@ -130,18 +149,28 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
     if ( 1 == $comment->comment_approved && ( 'dwqa-question' == $parent || 'dwqa-answer' == $parent )  ) { 
 
         $post_parent = get_post( $comment->comment_post_ID );
+
+        
         if( dwqa_is_anonymous( $comment->comment_post_ID ) ) {
             $post_parent_email = get_post_meta( $comment->comment_post_ID, '_dwqa_anonymous_email', true );
             if( ! is_email( $post_parent_email ) ) {
                 return false;
             }
         } else {
+            // if user is not the author of question/answer, add user to followers list
+            if( $post_parent->post_author != $comment->user_id ) {
+
+                if(  ! in_array( $comment->user_id, get_post_meta( $post_parent->ID, '_dwqa_followers', false ) ) ) {
+                    add_post_meta( $post_parent->ID, '_dwqa_followers', $comment->user_id );
+                }
+            }
             $post_parent_email = get_the_author_meta( 'user_email', $post_parent->post_author );
         }
 
         // To send HTML mail, the Content-type header must be set
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+
         if( $parent == 'dwqa-question' ) {
             $message = dwqa_get_mail_template( 'dwqa_subscrible_new_comment_question_email', 'new-comment-question' );    
             $subject = get_option( 'dwqa_subscrible_new_comment_question_email_subject',__('[{site_name}] You have a new comment for question {question_title} ', 'dwqa')  );
@@ -168,6 +197,7 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
         $subject = str_replace('{comment_author}', get_the_author_meta( 'display_name', $comment->user_id ), $subject );
         $message = str_replace( '{site_logo}', $logo, $message);
         $message = str_replace( '{question_link}', get_permalink( $question->ID ), $message);
+        $message = str_replace( '{comment_link}', get_permalink( $question->ID ) . '#li-comment-' . $comment_id, $message);
         $message = str_replace( '{question_title}', $question->post_title, $message);
         $message = str_replace( '{comment_author_avatar}', get_avatar( $comment->user_id, '60'), $message);
         $message = str_replace( '{comment_author_link}', get_author_posts_url( $comment->user_id ), $message);
@@ -177,10 +207,23 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
         $message = str_replace( '{site_description}', get_bloginfo( 'description' ), $message );
         $message = str_replace( '{site_url}', site_url(), $message);
         
-        wp_mail( $post_parent_email, $subject, $message, $headers );
+        $followers = get_post_meta( $post_parent->ID, '_dwqa_followers' );
+        if( ! empty($followers) ) {
+            foreach ( $followers as $follower ) {
+                $follow_email = get_the_author_meta( 'user_email', $follower );
+                if( $follow_email && $follow_email != $post_parent_email ) {
+                    wp_mail( $follow_email, $subject, $message, $headers );
+                }
+            }
+        }
+        if( $post_parent->post_author != $comment->user_id ) {
+            wp_mail( $post_parent_email, $subject, $message, $headers );
+        }
 
     }
 }
 add_action( 'wp_insert_comment', 'dwqa_new_comment_notify',10,2 );
+
+
 
 ?>

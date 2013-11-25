@@ -3,7 +3,7 @@ Contributors: DesignWall
 Tags: question, answer, support, quora, stackoverflow
 Requires at least: 3.0.1
 Tested up to: 3.7.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,11 +46,22 @@ Here is the list of features of this plugin:
 
 == Changelog ==
 
+= 1.0.2 =
+
+* Tweak: When user add a new comment/answer, status of question is changed to "open".
+* Fixed: Do not press "enter" key to post new comment.
+* Fixed: The answer cloned automatically after changing question status.
+* Fixed: When flag an answer, the answer should be automatically hidden.
+* Fixed: Function to Show/Hide an answer after flagging the answer works incorrectly.
+* Fixed: Question link and "View Comment" button don't work on new comment to question notification email.
+* Fixed: Can pick best answer for a draft answer.
+* Fixed: Filter functions don't work on IE8.
+* Fixed: Related questions were not being displayed by related Tags & Categories.
+* Fixed: Timestamp of the comment in the single post is incorrect after activating DW QA plugin.
+* Fixed: Questions don't appear on IE9.
+* New: Ready to translate into your native language. 
+
+
 = 1.0 =
 
 * The first version of DW Question & Answer
-
-= 1.0.1 =
-
-* Remove small bugs 
-* Add languages translation pot file

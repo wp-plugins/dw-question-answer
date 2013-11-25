@@ -21,11 +21,11 @@ jQuery(function($){
         return param == 'null' ? null : param;
     }
 
-
     var filter_bar = $('.filter-bar'),
         container = $('.questions-wrap'),
         old_type = 'all' , type = 'all', order = 'DESC',
-        pagenavi_box = filter_bar.find('#_dwqa_filter_posts_per_page'),
+        pagenavi_box = filter_bar.find('#dwqa_filter_posts_per_page'),
+        posts_per_page = 10,
         filter_plus = getURLParameter('status');
         filter_plus = filter_plus ? filter_plus : 'all',
         nonce = filter_bar.find('#_filter_wpnonce').val(),
@@ -39,7 +39,6 @@ jQuery(function($){
         title = null, tags = 'null' ;
 
     var get_filter_args = function(){
-        pagenavi_box = filter_bar.find('#_dwqa_filter_posts_per_page');
         posts_per_page = pagenavi_box.val();
         if( category_select.is('ul') ){
             category = parseInt( category_select.data('selected') ) > 0 ? category_select.data('selected') : 'all';
@@ -52,7 +51,11 @@ jQuery(function($){
         } else {
             tags = tag_select.val();
         }
+
         title = search_form.find('.dwqa-search-input').val();
+        if( ($.browser.version == "9.0" || $.browser.version == "8.0" ) && title == search_form.find('.dwqa-search-input').attr('placeholder') ) {
+            title = '';
+        }
     }
     get_filter_args();
     var $filter = null;
@@ -71,8 +74,8 @@ jQuery(function($){
         }else{
             delete( $url_args['status']);
         }
-
-        if( category != 'all' ) {
+        
+        if( category != 'all' && typeof category != 'undefined' ) {
             $url_args['dwqa-category'] = category;
         }else{
             delete( $url_args['dwqa-category']);

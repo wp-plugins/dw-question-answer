@@ -9,7 +9,7 @@
                 <?php printf(' - <a href="%s" alt="%s">%s</a>', get_author_posts_url( $comment->user_id ), $author->display_name, $author->display_name); 
                 ?>
             </strong>
-            <span class="date"><a href="#li-comment-<?php comment_ID(); ?>" title="Link to comment #<?php comment_ID(); ?>"><?php comment_time('c') ?></a></span>
+            <span class="date"><a href="#li-comment-<?php comment_ID(); ?>" title="Link to comment #<?php comment_ID(); ?>"><?php echo get_comment_date(); ?></a></span>
         </span>
         <div class="comment-action">
             <?php 

@@ -16,7 +16,7 @@ get_header('dwqa'); ?>
 		<div class="loading"></div>
 			<div class="dw-search">
 		    	<form action="" class="dwqa-search-form">
-		     		<input class="dwqa-search-input" placeholder="Search">
+		     		<input class="dwqa-search-input" placeholder="<?php _e('Search','dwqa') ?>">
 		            <span class="dwqa-search-submit icon-search show"></span>
 		            <span class="dwqa-search-loading hide"></span>
 		            <span class="dwqa-search-clear icon-remove hide"></span>
@@ -24,7 +24,7 @@ get_header('dwqa'); ?>
 		   	</div>
 			<div class="filter-bar">
 				<?php wp_nonce_field( '_dwqa_filter_nonce', '_filter_wpnonce', false ); ?>
-				<input type="hidden" id="_dwqa_filter_posts_per_page" name="posts_per_page" value="<?php echo get_query_var( 'posts_per_page' ); ?>">
+				<input type="hidden" id="dwqa_filter_posts_per_page" name="posts_per_page" value="<?php echo get_query_var( 'posts_per_page' ); ?>">
 				<?php  
 					global $dwqa_options;
 					$submit_question_link = get_permalink( $dwqa_options['pages']['submit-question'] );
@@ -56,8 +56,9 @@ get_header('dwqa'); ?>
 								<a href="#"><?php _e( 'Closed','dwqa' ); ?></a>
 							</li>
 							<?php if( current_user_can( 'edit_published_posts' ) ) : ?>
-							<li class="<?php echo $selected == 'overdue' ? 'active' : ''; ?> status-overdue" data-type="overdue"><a href="#"><?php _e('Overdue','dw') ?></a></li>
-							<li class="<?php echo $selected == 'pending-review' ? 'active' : ''; ?> status-pending-review" data-type="pending-review"><a href="#"><?php _e('Queue','dw') ?></a></li>
+							<li class="<?php echo $selected == 'overdue' ? 'active' : ''; ?> status-overdue" data-type="overdue"><a href="#"><?php _e('Overdue','dwqa') ?></a></li>
+							<li class="<?php echo $selected == 'pending-review' ? 'active' : ''; ?> status-pending-review" data-type="pending-review"><a href="#"><?php _e('Queue','dwqa') ?></a></li>
+	
 							<?php endif; ?>
 						</ul>
 					</li>

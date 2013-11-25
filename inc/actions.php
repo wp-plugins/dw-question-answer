@@ -261,6 +261,7 @@ function dwqa_add_answer(){
                         }
                     }
                     do_action( 'dwqa_add_answer', $answer_id );
+                    wp_safe_redirect( get_permalink($question_id) );
                     return true;
                 } else {
                     $dwqa_current_error = $answer_id;
@@ -1109,6 +1110,9 @@ function dwqa_vote_best_answer_button(){
     $question = get_post( $question_id );
         $best_answer = dwqa_get_the_best_answer( $question_id );
         $data =  is_user_logged_in() && ( $current_user->ID == $question->post_author || current_user_can( 'edit_posts' ) ) ? 'data-answer="'.get_the_ID().'" data-nonce="'.wp_create_nonce( '_dwqa_vote_best_answer' ).'" data-ajax="true"' : 'data-ajax="false"';
+    if( get_post_status( get_the_ID() ) != 'publish' ) {
+        return false;
+    }
     if( $best_answer == get_the_ID() || ( is_user_logged_in() && ( $current_user->ID == $question->post_author || current_user_can( 'edit_posts' ) ) ) ) {
     ?>
     <div class="entry-vote-best <?php echo $best_answer == get_the_ID() ? 'active' : ''; ?>" <?php echo $data ?> >
@@ -1141,5 +1145,68 @@ function dwqa_prepare_archive_posts(){
     }
 }
 add_action( 'dwqa-prepare-archive-posts', 'dwqa_prepare_archive_posts' );
+
+function dwqa_user_post_count( $user_id, $post_type = 'post' ) {
+    $posts = get_posts( array(
+        'author' => $user_id,
+        'post_status'  => 'any',
+        'post_type'   => $post_type,
+        'posts_per_page' => -1
+    ) );
+    if( $posts ) {
+        return count($posts);
+    }
+    return 0;
+}
+function dwqa_user_question_count( $user_id ){
+    return dwqa_user_post_count( $user_id, 'dwqa-question' );
+}
+
+function dwqa_user_answer_count( $user_id ){
+    return dwqa_user_post_count( $user_id, 'dwqa-answer' );
+}
+
+function dwqa_user_comment_count( $user_id ) {
+    global $wpdb;
+
+    $query = "SELECT count(*) FROM `{$wpdb->prefix}comments` JOIN `{$wpdb->prefix}posts` ON `{$wpdb->prefix}comments`.comment_post_ID = `{$wpdb->prefix}posts`.ID WHERE `{$wpdb->prefix}comments`.user_id = {$user_id} AND  ( `{$wpdb->prefix}posts`.post_type = 'dwqa-question' OR `{$wpdb->prefix}posts`.post_type = 'dwqa-answer' ) AND  `{$wpdb->prefix}comments`.comment_approved = 1";
+    $comment_count = $wpdb->get_var( $query );
+    return $comment_count;
+}
+
+function dwqa_user_most_answer( $number = 10, $from = false, $to = false ){
+    global $wpdb;
+    
+    $query = "SELECT post_author, count(*) as `answer_count` 
+                FROM `{$wpdb->prefix}posts` 
+                WHERE post_type = 'dwqa-answer' 
+                    AND post_status = 'publish'
+                    AND post_author <> 0";
+    if( $from ) {
+        $from = date('Y-m-d h:i:s', $from );
+        $query .= " AND `{$wpdb->prefix}posts`.post_date > '{$from}'";
+    }
+    if( $to ) {
+        $to = date('Y-m-d h:i:s', $to );
+        $query .= " AND `{$wpdb->prefix}posts`.post_date < '{$to}'";
+    }
+
+    $query .=    " GROUP BY post_author 
+                ORDER BY `answer_count` DESC LIMIT 0,{$number}";
+    $users = $wpdb->get_results( $query, ARRAY_A  );
+    return $users;            
+}
+
+function dwqa_user_most_answer_this_month( $number = 10 ){
+    $from = strtotime('first day of this month' );
+    $to = strtotime('last day of this month' );
+    return dwqa_user_most_answer( $number, $from, $to);
+}
+
+function dwqa_user_most_answer_last_month( $number = 10 ){
+    $from = strtotime('first day of last month' );
+    $to = strtotime('last day of last month' );
+    return dwqa_user_most_answer( $number, $from, $to);
+}
 
 ?>

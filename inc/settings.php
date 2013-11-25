@@ -12,6 +12,7 @@ function dwqa_init_options(){
         'question-registration'     => false
         
     ) );
+
 }
 add_action( 'init', 'dwqa_init_options' );
 
@@ -20,8 +21,8 @@ function dwqa_admin_menu(){
     global $dwqa_setting_page;
     $dwqa_setting_page = add_submenu_page( 
         'edit.php?post_type=dwqa-question', 
-        __('Plugin Settings','dw'), 
-        __('Settings','dw'), 
+        __('Plugin Settings','dwqa'), 
+        __('Settings','dwqa'), 
         'manage_options', 
         'dwqa-settings', 
         'dwqa_settings_display' 
@@ -34,7 +35,7 @@ function dwqa_settings_display(){
     global $dwqa_options;
     ?>
     <div class="wrap">
-        <h2><?php _e('DWQA Settings', 'dw') ?></h2>
+        <h2><?php _e('DWQA Settings', 'dwqa') ?></h2>
         <?php settings_errors(); ?>  
 
         <?php if( isset( $_GET[ 'tab' ] ) ) {  
@@ -44,8 +45,9 @@ function dwqa_settings_display(){
         } // end if/else ?>  
         
         <h2 class="nav-tab-wrapper">  
-            <a href="?post_type=dwqa-question&amp;page=dwqa-settings&amp;tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>">General</a> 
-            <a href="?post_type=dwqa-question&amp;page=dwqa-settings&amp;tab=email" class="nav-tab <?php echo $active_tab == 'email' ? 'nav-tab-active' : ''; ?>">Notification</a> 
+            <a href="?post_type=dwqa-question&amp;page=dwqa-settings&amp;tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('General','dwqa'); ?></a> 
+            <a href="?post_type=dwqa-question&amp;page=dwqa-settings&amp;tab=email" class="nav-tab <?php echo $active_tab == 'email' ? 'nav-tab-active' : ''; ?>"><?php _e('Notification','dwqa'); ?></a> 
+            <a href="?post_type=dwqa-question&amp;page=dwqa-settings&amp;tab=permission" class="nav-tab <?php echo $active_tab == 'permission' ? 'nav-tab-active' : ''; ?>"><?php _e('Permission','dwqa'); ?></a> 
         </h2>  
           
         <form method="post" action="options.php">  
@@ -74,6 +76,11 @@ function dwqa_settings_display(){
                 dwqa_subscrible_new_comment_answer_email_display();
                 submit_button( __('Save all changes','dwqa') );
                 echo '</div>';
+            } elseif ( 'permission' == $active_tab ) {
+                echo '<h3>'.__('Group permission settings','dwqa'). '</h3>';
+                settings_fields( 'dwqa-permission-settings' );
+                dwqa_permission_display();
+                submit_button();
             } else {
                 settings_fields( 'dwqa-settings' );
                 do_settings_sections( 'dwqa-settings' );
@@ -235,7 +242,8 @@ function dwqa_register_settings(){
     add_settings_field( 
         'dwqa_subscrible_new_comment_question_email_subject',
         __('New Comment Question Notification Subject','dwqa'),
-        'dwqa_subscrible_new_comment_question_email_subject_display', 'dwqa-email',
+        'dwqa_subscrible_new_comment_question_email_subject_display', 
+        'dwqa-email',
         'dwqa-subscribe-settings' 
     );
     add_settings_field( 
@@ -266,9 +274,25 @@ function dwqa_register_settings(){
     register_setting( 'dwqa-subscribe-settings', 'dwqa_subscrible_new_comment_answer_email_subject' );
     register_setting( 'dwqa-subscribe-settings', 'dwqa_subscrible_new_comment_answer_email' );
 
+    add_settings_section( 
+        'dwqa-permission-settings', 
+        __('Group Permission','dwqa'),
+        false,
+        'dwqa-permission' 
+    );
+
+    add_settings_field( 
+        'dwqa_permission', 
+        __('Group Permission','dwqa'), 
+        'dwqa_permission_display', 
+        'dwqa-permission', 
+        'dwqa-permission-settings' 
+    );
+
+    register_setting( 'dwqa-permission-settings', 'dwqa_permission' );
+
 }
 add_action( 'admin_init', 'dwqa_register_settings' );
-
 
 // Callback for dwqa-general-settings Option
 function dwqa_question_registration_setting_display(){
@@ -287,11 +311,11 @@ function dwqa_pages_settings_display(){
         <?php
             wp_dropdown_pages( array(
                 'name'              => 'dwqa_options[pages][archive-question]',
-                'show_option_none'  => __('Select Archive Question Page','dw'),
+                'show_option_none'  => __('Select Archive Question Page','dwqa'),
                 'option_none_value' => 0,
                 'selected'          => $archive_question_page
             ) );
-        ?><span class="description"><?php _e('A page where displays all questions','dw') ?></span>
+        ?><span class="description"><?php _e('A page where displays all questions','dwqa') ?></span>
     </p>
     <?php
 }
@@ -314,13 +338,13 @@ function dwqa_submit_question_page_display(){
         <?php
             wp_dropdown_pages( array(
                 'name'              => 'dwqa_options[pages][submit-question]',
-                'show_option_none'  => __('Select Submit Question Page','dw'),
+                'show_option_none'  => __('Select Submit Question Page','dwqa'),
                 'option_none_value' => 0,
                 'selected'          => $submit_question_page
             ) );
         ?>
         <span class="description"><?php _e('A page where users can submit questions.
-','dw') ?></span>
+','dwqa') ?></span>
     </p>
     <?php
 }
@@ -337,7 +361,7 @@ function dwqa_subscrible_email_logo_display(){
     ?>
     <div class="uploader">
         <p><?php _e('Email logo','dwqa') ?></p>
-        <p><input type="text" name="dwqa_subscrible_email_logo" id="dwqa_subscrible_email_logo" class="regular-text" value="<?php echo  get_option( 'dwqa_subscrible_email_logo' ); ?>" />&nbsp;<input type="button" class="button" name="dwqa_subscrible_email_logo_button" id="dwqa_subscrible_email_logo_button" value="<?php _e('Upload','dwttd') ?>" /><span class="description">&nbsp;<?php _e('Upload or choose a logo to be displayed at the top of the email','dwqa') ?></span></p>
+        <p><input type="text" name="dwqa_subscrible_email_logo" id="dwqa_subscrible_email_logo" class="regular-text" value="<?php echo  get_option( 'dwqa_subscrible_email_logo' ); ?>" />&nbsp;<input type="button" class="button" name="dwqa_subscrible_email_logo_button" id="dwqa_subscrible_email_logo_button" value="<?php _e('Upload','dwqa') ?>" /><span class="description">&nbsp;<?php _e('Upload or choose a logo to be displayed at the top of the email','dwqa') ?></span></p>
     </div>
     <script type="text/javascript">
     jQuery(document).ready(function($){
@@ -506,6 +530,67 @@ function dwqa_question_category_rewrite_display(){
 function dwqa_question_tag_rewrite_display(){
     global  $dwqa_general_settings;
     echo '<p><input type="text" name="dwqa_options[question-tag-rewrite]" id="dwqa_options_question_tag_rewrite" value="'.( isset( $dwqa_general_settings['question-tag-rewrite'] ) ? $dwqa_general_settings['question-tag-rewrite'] : 'question-tag' ).'" class="regular-text" /></p>';
+}
+
+function dwqa_permission_display(){
+    global $dwqa_permission;
+    $perms = $dwqa_permission->perms;
+    ?>
+    <table class="table widefat dwqa-permission-settings">
+        <thead>
+            <tr>
+                <th></th>
+                <th colspan="4"><?php _e('Question','dwqa') ?></th>
+                <th colspan="4"><?php _e('Answer','dwqa') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th></th>
+                <th>Read</th>
+                <th>Post</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Read</th>
+                <th>Post</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <?php  
+                $roles = get_editable_roles();
+                foreach ($dwqa_permission->defaults as $key => $role) {
+                    if( $key == 'anonymous' ) {
+                        continue;
+                    }
+            ?>
+            <tr class="group available">
+                <td><?php echo $roles[$key]['name'] ?></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['question']['read'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][question][read]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['question']['post'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][question][post]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['question']['edit'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][question][edit]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['question']['delete'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][question][delete]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['answer']['read'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][answer][read]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['answer']['post'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][answer][post]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['answer']['edit'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][answer][edit]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms[$key]['answer']['delete'] ); disabled( true, $perms[$key]['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][answer][delete]" value="1"></td>
+            </tr>
+            <?php
+                }
+            ?>
+            <tr class="group available">
+                <td><?php _e('Anonymous','dwqa') ?></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['read'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][question][read]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['post'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][question][post]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['edit'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][question][edit]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['delete'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][question][delete]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['answer']['read'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][answer][read]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['answer']['post'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][answer][post]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['answer']['edit'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][answer][edit]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['answer']['delete'] ); disabled( true, $perms['anonymous']['disabled']  ); ?> name="dwqa_permission[<?php echo $key ?>][answer][delete]" value="1"></td>
+            </tr>
+        </tbody>
+    </table>
+    <?php
 }
 
 
