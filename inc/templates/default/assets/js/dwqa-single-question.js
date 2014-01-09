@@ -6,9 +6,16 @@ function _e(event, obj, fn) {
     jQuery(obj)[fn](event);
 }
 
+
 jQuery(function($) {
-    var answers = $('#answers'),
-        answer_editor = $('#add-answer');
+
+    var answers = $('#dwqa-answers'),
+        answer_editor = $('#dwqa-add-answers');
+
+    function replaceURLWithHTMLLinks(text) {
+        var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+        return text.replace(exp, "<a href='$1'>$1</a>");
+    }
 
     function htmlForTextWithEmbeddedNewlines(text) {
         var htmls = [];
@@ -26,84 +33,61 @@ jQuery(function($) {
         $(this).closest('article').find('.comments-area').slideToggle();
     });
 
-
-    //Vote For Question
-    $('.question-vote .vote').on('click', function(event) {
-        event.preventDefault();
-        var t = $(this);
-        t.closest('span').hide().html('Thank you for your feedback').fadeIn();
-
-        $.ajax({
-            url: dwqa.ajax_url,
-            type: 'POST',
-            dataType: 'html',
-            data: {
-                action: 'dwqa-action-vote',
-                vote_for: 'question',
-                nonce: t.data('nonce'),
-                question_id: t.data('question'),
-                type: t.data('vote')
-            }
-        });
-
-    });
-
-    // Vote for Answer 
-    $('.answer-vote .vote').click(function(event) {
+    // DWQA Vote Function=========================================================================
+    $('.dwqa-vote .dwqa-vote-dwqa-btn').on('click', function(event) {
         event.preventDefault();
         var t = $(this),
-            count = t.closest('.answer-vote').find('.vote-count'),
-            voted = count.data('voted');
+            parent = t.parent(),
+            type = parent.data('type'),
+            vote = t.data('vote'),
+            nonce = parent.data('nonce');
 
-        point = parseInt(count.text().replace(/[^0-9\-]/, ''));
-        if (t.hasClass('vote-up')) {
-            if (voted == 'up') {
-                return false;
-            } else if (voted == 'down') {
-                point += 2;
-            } else {
-                point++;
-            }
-            voted = 'up';
-        } else if (t.hasClass('vote-down')) {
-            if (voted == 'down') {
-                return false;
-            } else if (voted == 'up') {
-                point -= 2;
-            } else {
-                point--;
-            }
-            voted = 'down';
+        if (type == 'question') {
+            question_id = parent.data('question');
+            $.ajax({
+                url: dwqa.ajax_url,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'dwqa-action-vote',
+                    vote_for: 'question',
+                    nonce: nonce,
+                    question_id: question_id,
+                    type: vote
+                }
+            })
+                .done(function(resp) {
+                    if (resp.success) {
+                        parent.find('.dwqa-vote-count').text(resp.data.vote);
+                    }
+                });
+        } else if (type == 'answer') {
+            answer_id = parent.data('answer');
+
+            $.ajax({
+                url: dwqa.ajax_url,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'dwqa-action-vote',
+                    vote_for: 'answer',
+                    nonce: nonce,
+                    answer_id: answer_id,
+                    type: vote
+                }
+            })
+                .done(function(resp) {
+                    if (resp.success) {
+                        parent.find('.dwqa-vote-count').text(resp.data.vote);
+                    }
+                });
+
         }
-        count.data('voted', voted);
-        count.text(point > 0 ? '+' + point : point);
-
-        var container = t.closest('.answer-vote');
-        $.ajax({
-            url: dwqa.ajax_url,
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                action: 'dwqa-action-vote',
-                vote_for: 'answer',
-                nonce: container.data('nonce'),
-                answer_id: container.data('answer'),
-                type: voted
-            }
-        });
-
     });
 
 
-    // Change single status
-    $('.change-question-status').click(function(event) {
-        event.preventDefault();
-        var t = $(this);
-        t.find('ul').slideToggle();
-        t.toggleClass('open');
-    });
-
-    $('.change-question-status ul li').click(function(event) {
+    // Change Question Status =====================================================================
+    $('.dwqa-change-status ul li').click(function(event) {
         event.preventDefault();
         var t = $(this),
             parent = t.parent();
@@ -125,12 +109,9 @@ jQuery(function($) {
             });
         }
     });
-    $(document).click(function(event) {
-        if (!$(event.target).is('.change-question-status, .change-question-status *')) {
-            $('.change-question-status').removeClass('open').find('ul').slideUp('slow');
-        }
-    });
-    //Answer Editor Submit 
+
+
+    //Answer Editor SUBMIT ======================================================================= 
     answers.delegate('#dwqa-answer-question-form', 'submit', function(event) {
         var t = $(this);
         var value = $('#dwqa-answer-question-editor').val().length,
@@ -161,6 +142,7 @@ jQuery(function($) {
         }
     }); //End Answer editor submit
 
+    // Comment ====================================================================================
     var onSubmitComment = false;
     $('[id^=comment_form_]').on('submit', function(event) {
         event.preventDefault();
@@ -169,15 +151,58 @@ jQuery(function($) {
             contentField = t.find('textarea[name="comment"]'),
             content = contentField.val().trim().replace(/\n/g, '<br>');
 
+        var name = '',
+            email = '',
+            url = '';
+
+        if (!dwqa.is_logged_in) {
+            if (t.find('[name="author"]').length > 0) {
+                name = t.find('[name="author"]').val();
+                if (name.length <= 0) {
+                    if (t.parent().find('.name-error').length > 0) {
+                        t.parent().find('.name-error').text('Please add your name').fadeIn();
+                    } else {
+                        t.before('<div class="alert alert-error name-error">' + 'Please add your name' + '</div>');
+                    }
+                } else {
+                    t.parent().find('.name-error').remove();
+                }
+            }
+
+            if ($(this).find('[name="email"]').length > 0) {
+                email = $(this).find('[name="email"]').val();
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                if (email.length <= 0 || !regex.test(email)) {
+                    if (t.parent().find('.email-error').length > 0) {
+                        t.parent().find('.email-error').text('Please enter a valid email').fadeIn();
+                    } else {
+                        t.before('<div class="alert alert-error email-error">' + 'Please enter a valid email' + '</div>');
+                    }
+                    email = '';
+                } else {
+                    t.parent().find('.email-error').remove();
+                }
+            }
+
+            if (!name || !email) {
+                return false;
+            }
+
+        }
+        if ($(this).find('[name="url"]').length > 0) {
+            url = $(this).find('[name="url"]').val();
+        }
+
         if (content.length <= 2) {
             var message = dwqa.error_missing_comment_content;
             if (content.length > 0) {
                 message = dwqa.error_not_enought_length;
             }
-            if (t.parent().find('.alert-error').length > 0) {
-                t.find('.alert-error').fadeIn();
+            if (t.parent().find('.content-error').length > 0) {
+                t.parent().find('.content-error').fadeIn();
             } else {
-                t.before('<div class="alert alert-error">' + message + '</div>');
+                t.before('<div class="alert alert-error content-error">' + message + '</div>');
             }
             return false;
         } else {
@@ -197,20 +222,23 @@ jQuery(function($) {
                     content: content,
                     wpnonce: 'test',
                     comment_post_ID: t.find('[name="comment_post_ID"]').val(),
-                    comment_parent: t.find('[name="comment_parent"]').val()
+                    comment_parent: t.find('[name="comment_parent"]').val(),
+                    name: name,
+                    email: email,
+                    url: url
                 },
                 complete: function() {
                     onSubmitComment = false;
                 },
                 success: function(data, textStatus, xhr) {
-                    var respond = t.closest('#respond'),
-                        commentList = respond.prev('.commentlist');
+                    var submitForm = t.closest('.dwqa-comment-form'),
+                        commentList = submitForm.parent().find('.dwqa-comment-list');
 
                     if (commentList.length > 0) {
                         commentList.append(data.data.html);
                     } else {
-                        var commentList = '<ol class="commentlist">' + data.data.html + '</ol>';
-                        respond.before(commentList);
+                        var commentList = '<ol class="dwqa-comment-list">' + data.data.html + '</ol>';
+                        submitForm.before(commentList);
                     }
                     contentField.val('');
                     loading.remove();
@@ -234,8 +262,7 @@ jQuery(function($) {
     var originHeight, current_form;
     $('[id^=comment_form_]').delegate('textarea', 'focus', function(event) {
         var t = $(this);
-        current_form = t.closest('#respond');
-        current_form.find('.form-submit').slideDown();
+        current_form = t.closest('.dwqa-comment-form');
         var lineHeight = parseInt(t.css('line-height').replace('px', '')),
             thisPadding = parseInt(t.css('padding-top').replace('px', '')),
             defaultHeight = (lineHeight + thisPadding) * 3;
@@ -253,38 +280,32 @@ jQuery(function($) {
                     t.height(newHeight);
                 }
             }
+
         }
 
-
         changeHeight();
+        current_form.find('.dwqa-form-submit').show();
         t.bind('keyup change', function(event) {
             changeHeight();
         });
 
     });
 
-
-    $(document).click(function(e) {
-        if (!$(e.target).is('#respond, #respond *') && current_form && current_form.length > 0) {
-            current_form.find('.form-submit').slideUp();
-            current_form.find('textarea').height(current_form.find('textarea').css('line-height').replace('px', ''));
-        }
-    });
-    //Comment update task
-    $('#comments, .answers-list, .commentlist').delegate('.comment-edit-link', 'click', function(event) {
+    //Comment Update ==============================================================================
+    $('.dwqa-comments').delegate('.dwqa-comment-edit-link', 'click', function(event) {
         event.preventDefault();
         var t = $(this),
-            comment_container = t.closest('li'),
-            comment_content = comment_container.find('.comment-content'),
+            comment_container = t.closest('.dwqa-comment'),
+            comment_content = comment_container.find('.dwqa-comment-content .dwqa-comment-content-inner'),
             status = t.data('edit'),
             edit_content;
 
         if (typeof status == 'undefined' || !status) {
             t.data('edit', 1);
-            edit_content = $('<div class="comment-edit-container"><textarea cols="50" rows="1" aria-required="true" class="comment-edit-field" data-current-content="' + escape(comment_content.html()) + '" data-comment-id="' + t.data('comment-id') + '" >' + comment_content.html().trim().replace(/\<br\>/g, "\n") + '</textarea><button class="comment-edit-submit-button btn btn-small">' + dwqa.comment_edit_submit_button + '</button>' + t[0].outerHTML + '</div>');
+            edit_content = $('<div class="comment-edit-container"><textarea cols="50" rows="1" aria-required="true" class="comment-edit-field" data-current-content="' + escape(comment_content.html()) + '" data-comment-id="' + t.data('comment-id') + '" >' + comment_content.html().trim().replace(/\<br\>/g, "\n").replace(/(<([^>]+)>)/ig, "") + '</textarea><button class="dwqa-btn dwqa-btn-default dwqa-btn-update-comment-submit">' + dwqa.comment_edit_submit_button + '</button>' + t[0].outerHTML + '</div>');
             t.hide();
-            var cancel_link = edit_content.find('.comment-edit-link');
-            cancel_link.text(dwqa.comment_edit_cancel_link).attr('class', 'cancel-link');
+            var cancel_link = edit_content.find('.dwqa-comment-edit-link');
+            cancel_link.text(dwqa.comment_edit_cancel_link).attr('class', 'answer-edit-cancel dwqa-btn dwqa-btn-link');
             cancel_link.bind('click', function(event) {
                 event.preventDefault();
                 edit_content = unescape(comment_container.find('.comment-edit-field').data('current-content'));
@@ -293,19 +314,20 @@ jQuery(function($) {
             });
         }
         comment_content.html(edit_content);
-    });
+    }); // SHOW FORM to UPDATE  comment
 
-    $('#comments, .answers-list, .commentlist').delegate('.comment .comment-edit-submit-button', 'click', function(event) {
+    $('.dwqa-comments').delegate('.comment .dwqa-btn-update-comment-submit', 'click', function(event) {
         event.preventDefault();
-        var comment_container = $(this).closest('li'),
+        var comment_container = $(this).closest('.dwqa-comment'),
             edit_content,
-            edit_link = comment_container.find('.comment-edit-link');
+            edit_link = comment_container.find('.dwqa-comment-edit-link');
+
         edit_content = comment_container.find('.comment-edit-field').val();
         if (edit_content.length <= 0) {
             return false;
         }
         var comment_id = comment_container.find('.comment-edit-field').data('comment-id');
-        comment_container.find('.comment-content').html(htmlForTextWithEmbeddedNewlines(edit_content));
+        comment_container.find('.dwqa-comment-content').html(replaceURLWithHTMLLinks(htmlForTextWithEmbeddedNewlines(edit_content)));
         edit_link.data('edit', 0);
         //edit_link.text( dwqa.comment_edit_link );
         edit_link.css('display', 'inline-block');
@@ -324,16 +346,15 @@ jQuery(function($) {
     });
     //End comment edit
 
-    //Delete comment 
+    //Delete Comment ============================================================================= 
     $('.dwqa-container').delegate('.comment-delete-link', 'click', function(event) {
         event.preventDefault();
-
         var t = $(this),
             comment_type = t.data('comment-type'),
             comment_count = $('.dwqa-' + comment_type + ' .' + comment_type + '-comment .comment-count');
 
         if (confirm(dwqa.comment_delete_confirm)) {
-            t.closest('li').fadeOut('slow', function() {
+            t.closest('.dwqa-comment').fadeOut('slow', function() {
                 if (comment_count.length > 0) {
                     var count = parseInt(comment_count.text());
                     if (count > 0 && count - 1 > 0) {
@@ -353,23 +374,17 @@ jQuery(function($) {
                     action: 'dwqa-action-delete-comment',
                     comment_id: t.data('comment-id'),
                     wpnonce: t.data('comment-delete-nonce')
-                },
+                }
             });
 
         }
     });
-    //End delete comment
-    //Answer edit
-    // answers.delegate('.answer-edit-link', 'click', function(event){
-    //     event.preventDefault();
-    //     dwqa_answer_edit(this);
-    // });
+    // DELETE comment
 
     var current_answer_editor = null;
-    $('#comments, .answers-list, .commentlist').delegate('.answer-edit-cancel', 'click', function(event) {
+    answers.delegate('.answer-edit-cancel', 'click', function(event) {
         event.preventDefault();
         answer_editor.fadeIn();
-        current_answer_editor.find('footer .answer-actions').show();
         remove_editor();
     });
 
@@ -380,9 +395,8 @@ jQuery(function($) {
         }
         var content = $('#dwqa-custom-content-editor').data('current-content'),
             edit_link = current_answer_editor.find('.answer-edit-link');
-        current_answer_editor.find('.entry-content').html(unescape(content));
 
-        edit_link.find('a').text('Edit');
+        current_answer_editor.find('.dwqa-content').html(unescape(content));
         edit_link.data('on-editor', '');
         current_answer_editor = null;
     }
@@ -440,7 +454,7 @@ jQuery(function($) {
         evt.preventDefault();
         var t = $(this),
             answer_container = t.closest('.dwqa-answer'),
-            answer_content = answer_container.find('.entry-content'),
+            answer_content = answer_container.find('.dwqa-content'),
             current_content = answer_content.html().trim();
 
 
@@ -487,21 +501,12 @@ jQuery(function($) {
 
                 var settings = tinyMCEPreInit.mceInit['dwqa-answer-question-editor'];
 
-                // //init quicktags
-                // var qt = quicktags({
-                //     id      : id,
-                //     buttons : tinyMCEPreInit.qtInit['dwqa-answer-question-editor']['buttons']
-                // });
-
-
                 settings.elements = id;
                 settings.body_class = id + ' post-type-dwqa-answer';
                 settings.editor_selector = id;
                 //init tinymce
                 tinymce.init(settings);
-                // dwqa_buttonsInit( qt );
                 editor.slideDown();
-                t.find('a').text('Cancel');
                 t.data('on-editor', true);
             }
         });
@@ -572,15 +577,16 @@ jQuery(function($) {
 
     });
 
-    //Flag answer
-    answers.delegate('.answer-flag', 'click', function(event) {
+    //Flag Answer
+    answers.delegate('.dwqa-answer-report', 'click', function(event) {
         event.preventDefault();
-        var confirm_text = $(this).find('a').text() == dwqa.flag.label ? dwqa.flag.text : dwqa.flag.revert;
-        if (confirm(confirm_text)) {
-            var t = $(this),
-                wpnonce = $(this).data('nonce'),
-                answer_id = $(this).data('answer-id'),
-                answer_container = t.closest('.dwqa-answer');
+        var t = $(this),
+            answer_container = t.closest('.dwqa-answer')
+            wpnonce = $(this).data('nonce'),
+            answer_id = $(this).data('answer-id');
+
+        if (confirm((answer_container.hasClass('answer-flagged-content') ? dwqa.flag.revert : dwqa.flag.text))) {
+
             $.ajax({
                 url: dwqa.ajax_url,
                 type: 'POST',
@@ -594,13 +600,16 @@ jQuery(function($) {
                     if (response.success) {
                         if (response.data.status == 1) {
 
-                            answer_container.find('.entry-content').before('<p class="answer-flagged-alert alert"><i class="icon-flag"></i>' + dwqa.flag.flag_alert + ' <strong class="answer-flagged-show ">' + dwqa.flag.flagged_show + '</strong></p>')
+                            answer_container.find('.dwqa-content').prepend('<p class="answer-flagged-alert alert"><i class="fa fa-flag"></i>' + dwqa.flag.flag_alert + ' <strong class="answer-flagged-show ">' + dwqa.flag.flagged_show + '</strong></p>')
                             answer_container.addClass('answer-flagged-content');
-                            t.find('a').text(dwqa.flag.label_revert);
+                            answer_container.find('.dwqa-content .dwqa-content-inner').addClass('hide');
+                            t.find('a').html('<i class="fa fa-flag"></i>' + dwqa.flag.label_revert);
                         } else {
+                            answer_container.removeClass('answer-flagged-content');
                             answer_container.find('.answer-flagged-alert').remove();
                             answer_container.removeClass('answer-flagged-content');
-                            t.find('a').text(dwqa.flag.label);
+                            answer_container.find('.dwqa-content .dwqa-content-inner').removeClass('hide');
+                            t.find('a').html('<i class="fa fa-flag"></i>' + dwqa.flag.label);
                         }
                     }
                 }
@@ -608,23 +617,18 @@ jQuery(function($) {
         }
     });
 
-    answers.delegate('.answer-flagged-show', 'click', function(event) {
+    answers.delegate('.answer-flagged-alert', 'click', function(event) {
         event.preventDefault();
-        if ($(this).text() == dwqa.flag.flagged_show) {
-            $(this).text(dwqa.flag.flagged_hide);
+        var answerContent = $(this).closest('.dwqa-content').find('.dwqa-content-inner');
+        answerContent.toggleClass('hide');
+        if (answerContent.is(':visible')) {
+            $(this).find('.answer-flagged-show').text(dwqa.flag.flagged_hide);
         } else {
-            $(this).text(dwqa.flag.flagged_show);
-        }
-        var answer = $(this).closest('.answer-flagged-alert').next('.answer-flagged-content .entry-content');
-        if (!answer.is(":visible")) {
-            answer.show().css('background-color', 'rgb(255, 255, 220)').animate({
-                'background-color': 'transparent'
-            }, 1000);
-        } else {
-            answer.hide();
+            $(this).find('.answer-flagged-show').text(dwqa.flag.flagged_show);
         }
     });
-    $('.entry-vote-best').on('click', function(event) {
+    // Vote Best Answer
+    $('.dwqa-best-answer').on('click', function(event) {
         event.preventDefault();
         var t = $(this);
 
@@ -646,7 +650,7 @@ jQuery(function($) {
                     });
             }
         } else {
-            $('.entry-vote-best').removeClass('active');
+            $('.dwqa-best-answer').removeClass('active');
             $.ajax({
                 url: dwqa.ajax_url,
                 type: 'POST',
@@ -672,5 +676,120 @@ jQuery(function($) {
             $('.dwqa-answer-signin').addClass('hide');
         }
 
+    });
+
+    $('.dwqa-container').delegate('.dwqa-change-privacy ul li', 'click', function(event) {
+        event.preventDefault();
+        var t = $(this),
+            privacy = t.closest('.dwqa-privacy'),
+            status = t.data('privacy'),
+            post = privacy.data('post'),
+            nonce = privacy.data('nonce');
+        privacy.find('.dwqa-change-privacy ul li').removeClass('current');
+        privacy.find('[name="privacy"]').val(status);
+        privacy.find('.dwqa-current-privacy').html(t.find('a').html());
+        t.addClass('current');
+
+        if (privacy.data('type') == 'question' || privacy.data('type') == 'answer') {
+            $.ajax({
+                url: dwqa.ajax_url,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'dwqa-update-privacy',
+                    nonce: nonce,
+                    post: post,
+                    status: status
+                }
+            })
+                .done(function(resp) {
+                    if (!resp.success) {
+                        console.log('error');
+                    } else {
+                        window.location.href = window.location.href;
+                    }
+                });
+
+        }
+    });
+
+    //View more Comment ==========================================================================
+    $('.dwqa-container').delegate('.dwqa-comments-more-link', 'click', function(event) {
+        event.preventDefault();
+        var t = $(this),
+            post = t.data('post');
+        $.ajax({
+            url: dwqa.ajax_url,
+            type: 'GET',
+            dataType: 'HTML',
+            data: {
+                action: 'dwqa-get-comments',
+                post: post
+            }
+        })
+            .done(function(resp) {
+                if (resp && resp.length > 0) {
+                    t.closest('.dwqa-comments-more').fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                    var commentList = t.closest('.dwqa-comments').find('.dwqa-comment-list');
+                    commentList.fadeOut('slow', function() {
+                        $(this).html(resp).slideDown();
+                    });
+                }
+            });
+
+    });
+
+    $('.dwqa-container').delegate('.dwqa-favourite', 'click', function(event) {
+        event.preventDefault();
+        var t = $(this);
+        t.toggleClass('active');
+        if (t.hasClass('active')) {
+            t.attr('title', dwqa.unfollow_tooltip);
+        } else {
+            t.attr('title', dwqa.follow_tooltip);
+        }
+
+        $.ajax({
+            url: dwqa.ajax_url,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'dwqa-follow-question',
+                nonce: t.data('nonce'),
+                post: t.data('post')
+            }
+        });
+
+    });
+
+    // Dropdown Toggle
+    $('.dwqa-container').delegate('.dropdown-toggle', 'click', function(event) {
+        event.preventDefault();
+        var t = $(this);
+        var parent = $(this).parent();
+        $('.dwqa-container .dwqa-btn-group').each(function() {
+
+            if ($(this).get(0) == parent.get(0)) {
+                return false;
+            }
+            $(this).removeClass('open');
+        });
+        parent.toggleClass('open');
+    });
+
+    //Document On Click ===========================================================================
+    $(document).click(function(e) {
+        if (!$(e.target).is('.dwqa-comment-form, .dwqa-comment-form *') && current_form && current_form.length > 0) {
+            current_form.find('.dwqa-form-submit').hide();
+            current_form.find('textarea').height(current_form.find('textarea').css('line-height').replace('px', ''));
+        }
+
+        if (!$(e.target).is('.dwqa-container .dropdown-toggle,.dwqa-container .dropdown-toggle *')) {
+            $('.dwqa-container .dropdown-toggle').each(function() {
+                $(this).parent().removeClass('open');
+            });
+        }
     });
 });

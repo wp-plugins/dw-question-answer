@@ -23,7 +23,7 @@ jQuery(function($) {
     }
 
     var filter_bar = $('.filter-bar'),
-        container = $('.questions-wrap'),
+        container = $('.dwqa-list-question'),
         old_type = 'all',
         type = getURLParameter('orderby') ? getURLParameter('orderby') : 'all',
         order = 'DESC',
@@ -33,14 +33,14 @@ jQuery(function($) {
     filter_plus = filter_plus ? filter_plus : 'all',
     nonce = filter_bar.find('#_filter_wpnonce').val(),
     category_select = $('.filter-bar #dwqa-filter-by-category'),
-    category = getURLParameter('dwqa-category'),
+    category = getURLParameter(dwqa.question_category_rewrite),
     tag_select = $('.filter-bar #dwqa-filter-by-tags'),
-    tags = getURLParameter('dwqa-tag'),
+    tags = getURLParameter(dwqa.question_tag_rewrite),
     paged = getURLParameter('paged'),
     paged = paged ? paged : $('#dwqa-paged').val(),
     search_form = $('.dwqa-search-form'),
     title = null, tags = 'null';
-    console.log(paged);
+
     var get_filter_args = function() {
         posts_per_page = pagenavi_box.val();
         if (category_select.is('ul')) {
@@ -79,20 +79,21 @@ jQuery(function($) {
         }
 
         if (category != 'all' && typeof category != 'undefined') {
-            $url_args['dwqa-category'] = category;
+            $url_args[dwqa.question_category_rewrite] = category;
         } else {
-            delete($url_args['dwqa-category']);
+            delete($url_args[dwqa.question_category_rewrite]);
         }
         if (tags) {
-            $url_args['dwqa-tag'] = tags;
+            $url_args[dwqa.question_tag_rewrite] = tags;
         } else {
-            delete($url_args['dwqa-tag']);
+            delete($url_args[dwqa.question_tag_rewrite]);
         }
         if (type != 'all') {
             $url_args['orderby'] = type;
         } else {
             delete($url_args['orderby']);
         }
+
         if (paged > 1) {
             $url_args['paged'] = paged;
         } else {
@@ -148,7 +149,7 @@ jQuery(function($) {
                 container.find('.questions-list').css('opacity', 1);
                 if (resp.success) {
                     container.find('.questions-list').hide().html(resp.data.results).fadeIn();
-                    $('.questions-wrap .pagination').html(resp.data.pagenavi);
+                    $('.dwqa-list-question .pagination').html(resp.data.pagenavi);
                 }
                 $filter = null;
             })
@@ -185,7 +186,7 @@ jQuery(function($) {
                 var $this = $(this);
                 if ($this.hasClass('active')) {
                     old_type = $this.data('type');
-                    $this.find('.sort').removeClass('icon-sort-up icon-sort-down');
+                    $this.find('.fa-sort').removeClass('fa-sort-up fa-sort-down');
                     $this.removeClass('active');
                 }
             });
@@ -194,13 +195,13 @@ jQuery(function($) {
 
 
 
-        var icon_sort = t.find('.sort');
+        var icon_sort = t.find('.fa-sort');
 
-        if (icon_sort.hasClass('icon-sort-up')) {
-            icon_sort.removeClass('icon-sort-up').addClass('icon-sort-down');
+        if (icon_sort.hasClass('fa-sort-up')) {
+            icon_sort.removeClass('fa-sort-up').addClass('fa-sort-down');
             order = 'DESC';
         } else {
-            icon_sort.removeClass('icon-sort-down').addClass('icon-sort-up');
+            icon_sort.removeClass('fa-sort-down').addClass('fa-sort-up');
             order = 'ASC';
         }
 
@@ -282,17 +283,17 @@ jQuery(function($) {
 
 
 
-    $('.questions-wrap').delegate('.pagination li', 'click', function(event) {
+    $('.dwqa-list-question').delegate('.pagination li', 'click', function(event) {
         event.preventDefault();
         var t = $(this),
-            pages = $('.questions-wrap .pagination ul').data('pages');
+            pages = $('.dwqa-list-question .pagination ul').data('pages');
 
         if (t.hasClass('hide') || t.hasClass('active') || t.hasClass('dot')) {
             return false;
         }
         $(window).scrollTop($('.questions-list').scrollTop());
 
-        var current = $('.questions-wrap .pagination ul li.active'),
+        var current = $('.dwqa-list-question .pagination ul li.active'),
             current_page = parseInt(current.text());
 
         // change paged
@@ -337,13 +338,13 @@ jQuery(function($) {
                 $('.archive-question-footer').animate({
                     'opacity': 0.3
                 }, 300);
-                $('.dwqa-search-form').find('.icon-search').hide();
+                $('.dwqa-search-form').find('.fa-search').hide();
 
                 get_filter_args();
                 if ($search) {
                     if ('object' == typeof $search) {
                         $search.abort();
-                        $('.dwqa-search-form').find('.icon-remove').hide();
+                        $('.dwqa-search-form').find('.fa-remove').hide();
                     }
                 }
                 if ($search_submit) {
@@ -365,13 +366,13 @@ jQuery(function($) {
                         if (resp.success) {
                             $results = '<ul>' + resp.data.html + '</ul>';
                             if (resp.data.number > 5) {
-                                $results += '<span>Or press <strong>ENTER</strong> to get more questions</span>';
+                                $results += '<span>' + dwqa.search_enter_get_more + '</span>';
                                 canEnter = true;
                             } else {
                                 canEnter = false;
                             }
                         } else {
-                            $results += '<span>Not found! Try another keyword.</span>';
+                            $results += '<span>' + dwqa.search_not_found_message + '</span>';
                         }
                         if (t.parent().find('.search-results-suggest').length > 0) {
                             t.parent().find('.search-results-suggest').html($results);
@@ -381,7 +382,7 @@ jQuery(function($) {
                     })
                     .always(function() {
                         $('.dwqa-search-form .dwqa-search-loading').hide();
-                        $('.dwqa-search-form').find('.icon-remove').show();
+                        $('.dwqa-search-form').find('.fa-remove').show();
                     });
 
 
@@ -392,7 +393,7 @@ jQuery(function($) {
                 if ($search) {
                     if ('object' == typeof $search) {
                         $search.abort();
-                        $('.dwqa-search-form').find('.icon-remove').hide();
+                        $('.dwqa-search-form').find('.fa-remove').hide();
                     }
                 }
                 $('.questions-list').animate({
@@ -401,8 +402,8 @@ jQuery(function($) {
                 $('.archive-question-footer').animate({
                     'opacity': 1
                 }, 300);
-                $('.dwqa-search-form').find('.icon-search').show();
-                $('.dwqa-search-form').find('.icon-remove').hide();
+                $('.dwqa-search-form').find('.fa-search').show();
+                $('.dwqa-search-form').find('.fa-remove').hide();
                 $('.dwqa-search-form').find('.dwqa-search-loading').hide();
                 $('.dwqa-search-form').find('.search-results-suggest').remove();
                 if ($search_submit) {
@@ -414,7 +415,7 @@ jQuery(function($) {
             timeout = false;
         }, 700);
     });
-    $('.dwqa-search-form').on('click', '.icon-remove', function(event) {
+    $('.dwqa-search-form').on('click', '.fa-remove', function(event) {
         event.preventDefault();
         $('.dwqa-search-form .dwqa-search-input').val('');
         filter_bar.animate({
@@ -426,8 +427,8 @@ jQuery(function($) {
         $('.archive-question-footer').animate({
             'opacity': 1
         }, 300);
-        $('.dwqa-search-form').find('.icon-search').show();
-        $('.dwqa-search-form').find('.icon-remove').hide();
+        $('.dwqa-search-form').find('.fa-search').show();
+        $('.dwqa-search-form').find('.fa-remove').hide();
         $('.dwqa-search-form').find('.search-results-suggest').remove();
     });
     $('.dwqa-search-form').on('submit', function(event) {
@@ -438,9 +439,9 @@ jQuery(function($) {
             if ($search) {
                 if ('object' == typeof $search) {
                     $search.abort();
-                    $('.dwqa-search-form').find('.icon-remove').hide();
+                    $('.dwqa-search-form').find('.fa-remove').hide();
                     $('.dwqa-search-form .dwqa-search-loading').hide();
-                    $('.dwqa-search-form').find('.icon-search').show();
+                    $('.dwqa-search-form').find('.fa-search').show();
                 }
             }
             $('.dwqa-search-form').find('.search-results-suggest').remove();
