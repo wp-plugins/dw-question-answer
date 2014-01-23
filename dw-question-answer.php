@@ -4,7 +4,7 @@
  *  Description: A WordPress plugin was make by DesignWall.com to build an Question Answer system for support, asking and comunitcate with your customer 
  *  Author: DesignWall
  *  Author URI: http://www.designwall.com
- *  Version: 1.1
+ *  Version: 1.1.1
  *  Text Domain: dwqa
  */
 global $script_version, $dwqa_template;
@@ -27,16 +27,18 @@ require_once DWQA_DIR  . 'inc/actions.php';
 require_once DWQA_DIR  . 'inc/filter.php';
 require_once DWQA_DIR  . 'inc/metaboxes.php';
 include_once DWQA_DIR  . 'inc/notification.php';
-require_once DWQA_DIR . 'inc/class-answers-list-table.php';
-require_once DWQA_DIR . 'inc/class-walker-category.php';
-require_once DWQA_DIR . 'inc/class-walker-dwqa-tag.php';
-require_once DWQA_DIR . 'inc/class-walker-tag-dropdown.php';
+require_once DWQA_DIR  . 'inc/class-answers-list-table.php';
+require_once DWQA_DIR  . 'inc/class-walker-category.php';
+require_once DWQA_DIR  . 'inc/class-walker-dwqa-tag.php';
+require_once DWQA_DIR  . 'inc/class-walker-tag-dropdown.php';
 include_once DWQA_DIR  . 'inc/contextual-helper.php'; 
 include_once DWQA_DIR  . 'inc/pointer-helper.php'; 
 include_once DWQA_DIR  . 'inc/beta.php'; 
 include_once DWQA_DIR  . 'inc/shortcodes.php';
 include_once DWQA_DIR  . 'inc/status.php';
 include_once DWQA_DIR  . 'inc/roles.php';
+include_once DWQA_DIR  . 'inc/widgets.php';
+require_once DWQA_DIR  . 'inc/lib/recaptcha-php/recaptchalib.php';
 global $dwqa_permission;
 $dwqa_permission = new DWQA_Permission();
 
@@ -559,7 +561,7 @@ function dwqa_answer_count( $question_id ){
 
 function dwqa_content_start_wrapper(){
     dwqa_load_template( 'content', 'start-wrapper' );
-    echo '<div class="dwqa-container">';
+    echo '<div class="dwqa-container" >';
 }
 add_action( 'dwqa_before_page', 'dwqa_content_start_wrapper' );
 
@@ -588,7 +590,7 @@ function dwqa_has_sidebar_template(){
     return;
 }
 
-function dwqa_related_question( $question_id = false ) {
+function dwqa_related_question( $question_id = false, $number = 5 ) {
     if( ! $question_id ) {
         $question_id = get_the_ID();
     }
@@ -609,7 +611,7 @@ function dwqa_related_question( $question_id = false ) {
     $args = array(
         'orderby'       => 'rand',
         'post__not_in'  => array($question_id),
-        'showposts'     => 5,
+        'showposts'     => $number,
         'ignore_sticky_posts' => 1,
         'post_type'     => 'dwqa-question'
     );
@@ -635,7 +637,6 @@ function dwqa_related_question( $question_id = false ) {
     $related_questions = new WP_Query( $args );
     
     if( $related_questions->have_posts() ) {
-        echo '<h3>'.__('Related Questions','dwqa').'</h3>';
         echo '<ul>';
         while ( $related_questions->have_posts() ) { $related_questions->the_post();
             echo '<li><a href="'.get_permalink().'" class="question-title">'.get_the_title().'</a> '.__('asked by','dwqa').' ';

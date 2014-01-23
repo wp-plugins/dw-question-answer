@@ -11,7 +11,9 @@
     setup_postdata( $answer );
 
     $post_class = 'dwqa-answer';
+    
 ?>
+
     <article id="answer-<?php echo $answer_id; ?>" <?php post_class(); ?>>
         <header class="dwqa-header">
             <div class="dwqa-meta">
@@ -34,6 +36,7 @@
                 ?>
                 <span class="dwqa-best-answer <?php echo dwqa_is_the_best_answer($answer_id,$question_id) ? 'active' : ''; ?>" title="<?php _e('This is the best answer','dwqa') ?>" <?php echo $data ?>><i class="fa fa-check-circle"></i></span>
                 <?php } ?>
+
             </div>
             <div class="dwqa-answer-author">
                 <?php echo get_avatar( get_the_author_meta( 'ID' ), 32 ); ?>
@@ -114,9 +117,13 @@
                 ?>
             </p>
             <?php } ?>
-            <div class="dwqa-content-inner <?php echo dwqa_is_answer_flag($answer_id) ? 'hide' : ''; ?>">
+            <div class="dwqa-content-inner <?php echo dwqa_is_answer_flag($answer_id) ? 'dwqa-hide' : ''; ?>">
                 <?php the_content(); ?>
             </div>
+
+            <span class="dwqa-anchor">
+                <a title="<?php _e('The answer link','dwqa') ?>" href="<?php echo  get_permalink( $question_id ) . '#answer-' . $answer_id; ?>">#answer-<?php echo $answer_id; ?></a>
+            </span>
         </div>
         <?php if( ! dwqa_is_closed( $question_id ) ) { ?>
         <div class="dwqa-comments">

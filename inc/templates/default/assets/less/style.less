@@ -434,7 +434,7 @@
 					filter: none !important;
 					border-color: @main-border;
 				}
-				li.hide a,
+				li.dwqa-hide a,
 				li.current a {
 					background: none !important;
 					filter: none !important;
@@ -481,6 +481,7 @@
 			padding: 15px 20px 0 !important;
 			margin-bottom: 30px;
 			position: relative;
+			word-wrap: break-word;
 
 			.loading{
 				background: url('../img/facebook-loading.gif') no-repeat center;
@@ -523,6 +524,17 @@
 				&:hover {
 					background: @hentry-border;
 				}
+			}
+		}
+
+		// Anchor
+		.dwqa-anchor {
+			text-align: right;
+			position: relative;
+			display: block;
+			font-size: 11px;
+			a {
+				color: @gray;
 			}
 		}
 
@@ -670,6 +682,10 @@
 			.dwqa-dropdown-menu {
 				right: -3px;
 
+				li {
+					width: 100%;
+				}
+
 				.dwqa-dropdown-caret {
 					right: 11px;
 				}
@@ -781,6 +797,7 @@
 			textarea {
 				height: 90px;
 				min-height: 90px;
+				margin-bottom: 10px;
 				outline: 0;
 				width: 100%;
 				padding: 5px 7px;
@@ -1413,11 +1430,15 @@
 			.transition(all 0s);
 		}
 	}
+	img {
+		max-width: 100%;
+		height: auto;
+	}
 	.avatar {
 		background: #fff;
 	}
 	.box-sizing(border-box);
-	.hide {display: none;}
+	.dwqa-hide {display: none;}
 	// Search
 	.dwqa-search {
 		margin-bottom: 20px;
@@ -1695,6 +1716,9 @@
 	// WordPress stuff
 	.wp-editor-container {
 		border: 1px solid @hentry-border;
+		margin-bottom: 20px;
+	}
+	#wp-dwqa-answer-question-editor-wrap {
 		margin-bottom: 20px;
 	}
 	#loginform {
