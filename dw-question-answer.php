@@ -4,13 +4,9 @@
  *  Description: A WordPress plugin was make by DesignWall.com to build an Question Answer system for support, asking and comunitcate with your customer 
  *  Author: DesignWall
  *  Author URI: http://www.designwall.com
- *  Version: 1.1.1
+ *  Version: 1.2.0
  *  Text Domain: dwqa
  */
-global $script_version, $dwqa_template;
-
-$dwqa_template = 'default';
-$script_version = 1389254729;
 
 // Define constant for plugin info 
 if( !defined( 'DWQA_DIR' ) ) {
@@ -219,7 +215,8 @@ function dwqa_plugin_init(){
                 'slug'          => $question_category_rewrite,
                 'with_front'    => false
             )
-        ) );
+        ) 
+    );
 
     // Question Tags
     $question_tag_labels = array(
@@ -266,51 +263,56 @@ function dwqa_plugin_init(){
     if( $flag == true ){
         flush_rewrite_rules();
     }
+
+    global $script_version, $dwqa_template, $dwqa_sript_vars;
+
+    $dwqa_template = 'default';
+    $script_version = 1392633101;
+    $dwqa_sript_vars = array(
+        'is_logged_in'  => is_user_logged_in(),
+        'code_icon'    => DWQA_URI . 'assets/img/icon-code.png',
+        'ajax_url'      => admin_url( 'admin-ajax.php' ),
+        'text_next'     => __('Next','dwqa'),
+        'text_prev'     => __('Prev','dwqa'),
+        'questions_archive_link'    => get_post_type_archive_link( 'dwqa-question' ),
+        'error_missing_question_content'    =>  __( 'Please enter your question', 'dwqa' ),
+        'error_question_length' => __('Your question must be at least 2 characters in length', 'dwqa' ),
+        'error_valid_email'    =>  __( 'Enter a valid email address', 'dwqa' ),
+        'error_valid_user'    =>  __( 'Enter a question title', 'dwqa' ),
+        'error_valid_name'    =>  __( 'Please add your name', 'dwqa' ),
+        'error_missing_answer_content'  => __('Please enter your answer','dwqa'),
+        'error_missing_comment_content' =>  __('Please enter your comment content','dwqa'),
+        'error_not_enought_length'      => __('Comment must have more than 2 characters','dwqa'),
+        'search_not_found_message'  => __('Not found! Try another keyword.','dwqa'),
+        'search_enter_get_more'  => __('Or press <strong>ENTER</strong> to get more questions','dwqa'),
+        'comment_edit_submit_button'    =>  __( 'Update', 'dwqa' ),
+        'comment_edit_link'    =>  __( 'Edit', 'dwqa' ),
+        'comment_edit_cancel_link'    =>  __( 'Cancel', 'dwqa' ),
+        'comment_delete_confirm'        => __('Do you want to delete this comment?', 'dwqa' ),
+        'answer_delete_confirm'     =>  __('Do you want to delete this answer?', 'dwqa' ),
+        'answer_update_privacy_confirm' => __('Do you want to update this answer', 'dwqa' ), 
+        'report_answer_confirm' => __('Do you want to report this answer','dwqa'),
+        'flag'      => array(
+            'label'         =>  __('Report','dwqa'),
+            'label_revert'  =>  __('Undo','dwqa'),
+            'text'          =>  __('This answer will be marked as spam and hidden. Do you want to flag it?', 'dwqa' ),
+            'revert'        =>  __('This answer was flagged as spam. Do you want to show it','dwqa'),
+            'flag_alert'         => __('This answer was flagged as spam','dwqa'),
+            'flagged_hide'  =>  __('hide','dwqa'),
+            'flagged_show'  =>  __('show','dwqa')
+        ),
+        'follow_tooltip'    => __('Follow This Question','dwqa'),
+        'unfollow_tooltip'  => __('Unfollow This Question','dwqa'),
+        'stick_tooltip'    => __('Stick This Question on Frontpage','dwqa'),
+        'unstick_tooltip'  => __('Untick This Question on Frontpage','dwqa'),
+        'question_category_rewrite' => $question_category_rewrite,
+        'question_tag_rewrite'      => $question_tag_rewrite
+          
+    );
 }
 add_action( 'init', 'dwqa_plugin_init' );
 
 
-/**
- * Add metabox for question status meta data
- * @return void
- */
-function dwqa_add_status_metabox(){
-    add_meta_box( 'dwqa-post-status', 'Status', 'dwqa_question_status_box_html', 'dwqa-question', 'side', 'high' );
-}
-add_action( 'admin_init', 'dwqa_add_status_metabox' );
-
-/**
- * Generate html for metabox of question status meta data
- * @param  object $post Post Object
- * @return void       
- */
-function dwqa_question_status_box_html($post){
-        $meta = get_post_meta( $post->ID, '_dwqa_status', true );
-        $meta = $meta ? $meta : 'open';
-    ?>
-    <p>
-        <label for="dwqa-question-status">
-            <?php _e('Status','dwqa') ?><br>&nbsp;
-            <select name="dwqa-question-status" id="dwqa-question-status" class="widefat">
-                <option <?php selected( $meta, 'open' ); ?> value="open"><?php _e('Open','dwqa') ?></option>
-                <option <?php selected( $meta, 'pending' ); ?> value="pending"><?php _e('Pending','dwqa') ?></option>
-                <option <?php selected( $meta, 'resolved' ); ?> value="resolved"><?php _e('Resolved','dwqa') ?></option>
-                <option <?php selected( $meta, 're-open' ); ?> value="re-open"><?php _e('Re-Open','dwqa') ?></option>
-                <option <?php selected( $meta, 'closed' ); ?> value="closed"><?php _e('Closed','dwqa') ?></option>
-            </select>
-        </label>
-    </p>    
-    <?php
-}
-
-function dwqa_question_status_save($post_id){
-    if( ! wp_is_post_revision( $post_id ) ) {
-        if( isset($_POST['dwqa-question-status']) ) {
-            update_post_meta( $post_id, '_dwqa_status', $_POST['dwqa-question-status'] );
-        }
-    }
-}
-add_action( 'save_post', 'dwqa_question_status_save' );
 
 function dwqa_human_time_diff( $from, $to = false, $format = false ){
     if( ! $format ) {
@@ -349,7 +351,7 @@ function dwqa_human_time_diff( $from, $to = false, $format = false ){
     } else {
         return date( $format, $from );
     }
-    return $since . ' ' . __('ago','dwqa');
+    return sprintf( __('%1$s ago', 'dwqa' ), $since );
 }
 
 
@@ -653,7 +655,7 @@ function dwqa_get_following_user( $question_id = false ){
         $question_id = get_the_ID();
     }
     $followers = get_post_meta( $question_id, '_dwqa_followers' );
-
+    
     if( empty($followers) ) {
         return false;
     }

@@ -146,11 +146,13 @@ class DWQA_Filter {
         if( is_user_logged_in() ) {
             $status = 'publish,private';
         }
+        $sticky_questions = get_option( 'dwqa_sticky_questions', array() );
         $args = array(
-            'numberposts'       => $number,
+            'posts_per_page'       => $number,
             'offset'            => $offset,
             'post_type'         => 'dwqa-question',
-            'suppress_filters'  => false
+            'suppress_filters'  => false,
+            'post__not_in'      => $sticky_questions
         );
         $args['order'] = ( $this->filter['order'] && $this->filter['order'] != 'ASC' ? 'DESC' : 'ASC' );
 
@@ -367,9 +369,15 @@ class DWQA_Filter {
             'post_status'   => $status,
             's'         => $_POST['title']
         ) );
-        if( $query->have_posts() ) {
+        query_posts( array(
+            'post_type' => 'dwqa-question',
+            'posts_per_page'    => 6,
+            'post_status'   => $status,
+            's'         => $_POST['title']
+        )  );
+        if( have_posts() ) {
             $html = '';
-            while ($query->have_posts()) { $query->the_post();
+            while (have_posts()) { the_post();
                 $words = explode(' ', $_POST['title']);
                 $title = get_the_title();
                 foreach ($words as $w) {
@@ -378,11 +386,13 @@ class DWQA_Filter {
                 }
                 $html .= '<li><a href="'.get_permalink( get_the_ID() ).'" >'.$title.'</a>';
             }
+            wp_reset_query();
             wp_send_json_success( array(
                 'number'    => $query->post_count,
                 'html'      => $html
             ) );
         } else {
+            wp_reset_query();
             wp_send_json_error( array( 'error' => 'not found' ) );
         }
     }

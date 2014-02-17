@@ -270,6 +270,19 @@
 				top: 0;
 			}
 		}
+		// Sticky questions
+		.sticky-questions {
+			border: 1px solid @main-border;
+			border-top: 0;
+			.dwqa-sticky-question,
+			.dwqa-sticky-question:hover {
+				background-color: rgb(255,255,224);
+			}
+			.fa-bookmark {
+				color: #f00;
+				margin-right: 5px;
+			}
+		}
 		// Question
 		.dwqa-question {
 			position: relative;
@@ -615,7 +628,7 @@
 		.author,
 		.dwqa-category-title,
 		.dwqa-status-title {
-			font-weight: 600;
+			font-weight: bold;
 			color: @gray;
 		}
 		.author a {
@@ -693,7 +706,8 @@
 		}
 
 		// Watch
-		.dwqa-favourite {
+		.dwqa-favourite,
+		.dwqa-stick-question {
 			height: auto;
 			left: -46px;
 			top: 90px;
@@ -717,6 +731,17 @@
 			&.active {
 				i {
 					color: #EEDB00;
+				}
+			}
+		}
+		.dwqa-stick-question {
+			top: 125px;
+			left: -43px;
+
+			&:hover,
+			&.active {
+				i {
+					color: #f00;
 				}
 			}
 		}
@@ -748,6 +773,11 @@
 				margin-bottom: 20px;
 
 				.dwqa-content-inner {
+					br {
+						display: block;
+						margin-bottom: 10px;
+						content: "";
+					}
 					ul,ol {
 						list-style-type: disc;
 						padding: 0;
@@ -1353,46 +1383,34 @@
 //
 // Sidebar widget
 // --------------------------------------------------
-.dwqa-widget {
-	h3 {
-		color: @gray-light;
-		font-size: @font-size-small;
-		line-height: 1;
-		margin: 0 0 15px;
-		letter-spacing: 1px;
-		font-weight: bold;
-		text-transform: uppercase;
-	}
-	ul {
-		margin: 15px 0 0;
-		padding: 0;
-		border-bottom: 1px solid @hentry-border;
-		list-style: none;
-	}
-	li {
-		border-top: 1px solid @hentry-border;
-		padding: 9px 0 9px 30px;
-		margin: 0;
-		font-size: @font-size-small;;
-	}
-	li:before {
-		font-family: 'FontAwesome';
-		font-size: 8px;
-		color: @gray-light;
-		float: left;
-		margin: 0 10px 0 0;
-		content: "\f059";
-		font-size: @font-size-base;
-		margin-left: -29px;
-	}
-	.dwqa-question-title {
-		display: block;
-		font-size: @font-size-base;
-		font-weight: 600;
-	}
-	a {
-		text-decoration: none;
-	}
+.dwqa-related-question,
+.dwqa-popular-question {
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li:first-child {
+    padding-top: 0;
+  }
+  li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  li {
+    padding: 10px 0;
+    border-bottom: 1px solid @hentry-border;
+    font-size: 11px;
+  }
+
+  .question-title {
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+  }
 }
 
 
