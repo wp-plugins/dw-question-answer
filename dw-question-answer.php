@@ -123,19 +123,19 @@ function dwqa_plugin_init(){
 
     /* Question Posttype Registration */
     $question_labels = array(
-        'name' => _x('Question', 'post type general name'),
-        'singular_name' => _x('Question', 'post type singular name'),
-        'add_new' => _x('Add New', 'theme'),
-        'add_new_item' => __('Add New Question'),
-        'edit_item' => __('Edit Question'),
-        'new_item' => __('New Question'),
-        'all_items' => __('All Questions'),
-        'view_item' => __('View Question'),
-        'search_items' => __('Search Question'),
-        'not_found' =>  __('No questions found'),
-        'not_found_in_trash' => __('No questions found in Trash'), 
+        'name' => _x('Question', 'post type general name', 'dwqa'),
+        'singular_name' => _x('Question', 'post type singular name', 'dwqa'),
+        'add_new' => _x('Add New', 'theme', 'dwqa'),
+        'add_new_item' => __('Add New Question', 'dwqa'),
+        'edit_item' => __('Edit Question', 'dwqa'),
+        'new_item' => __('New Question', 'dwqa'),
+        'all_items' => __('All Questions', 'dwqa'),
+        'view_item' => __('View Question', 'dwqa'),
+        'search_items' => __('Search Question', 'dwqa'),
+        'not_found' =>  __('No questions found', 'dwqa'),
+        'not_found_in_trash' => __('No questions found in Trash', 'dwqa'), 
         'parent_item_colon' => '',
-        'menu_name' => __('DW Q&A')
+        'menu_name' => __('DW Q&A', 'dwqa')
     );
     $question_args = array(
         'labels' => $question_labels,
@@ -157,19 +157,19 @@ function dwqa_plugin_init(){
     register_post_type( 'dwqa-question', $question_args );
     /* Question Posttype Registration */
     $answer_labels = array(
-        'name' => _x('Answer', 'post type general name'),
-        'singular_name' => _x('Answer', 'post type singular name'),
-        'add_new' => _x('Add New', 'theme'),
-        'add_new_item' => __('Add new answer'),
-        'edit_item' => __('Edit answer'),
-        'new_item' => __('New Answer'),
-        'all_items' => __('All Answers'),
-        'view_item' => __('View Answer'),
-        'search_items' => __('Search Answer'),
-        'not_found' =>  __('No Answers found'),
-        'not_found_in_trash' => __('No Answers found in Trash'), 
+        'name' => _x('Answer', 'post type general name', 'dwqa'),
+        'singular_name' => _x('Answer', 'post type singular name', 'dwqa'),
+        'add_new' => _x('Add New', 'theme', 'dwqa'),
+        'add_new_item' => __('Add new answer', 'dwqa'),
+        'edit_item' => __('Edit answer', 'dwqa'),
+        'new_item' => __('New Answer', 'dwqa'),
+        'all_items' => __('All Answers', 'dwqa'),
+        'view_item' => __('View Answer', 'dwqa'),
+        'search_items' => __('Search Answer', 'dwqa'),
+        'not_found' =>  __('No Answers found', 'dwqa'),
+        'not_found_in_trash' => __('No Answers found in Trash', 'dwqa'), 
         'parent_item_colon' => '',
-        'menu_name' => __('Answer')
+        'menu_name' => __('Answer', 'dwqa')
     );
     $answer = array(
         'labels' => $answer_labels,
