@@ -1,5 +1,18 @@
 <?php  
+
+
+function dwqa_get_admin_email(){
+    $admin_email = get_option( 'dwqa_subscrible_sendto_address' );
+    if( ! $admin_email ) {
+        $admin_email = get_bloginfo( 'admin_email' );
+    }
+    return explode(',', $admin_email);
+}
+
 function dwqa_new_question_notify( $question_id, $user_id ){
+    // receivers
+    $admin_email = dwqa_get_admin_email();
+
     $enabled = get_option( 'dwqa_subscrible_enable_new_question_notification', 1);
     if( !$enabled ) {
         return false;
@@ -20,16 +33,33 @@ function dwqa_new_question_notify( $question_id, $user_id ){
     // To send HTML mail, the Content-type header must be set
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+    //From email 
+    $from_email = get_option( 'dwqa_subscrible_from_address' );
+    if( $from_email ) {
+        $headers = "From: " . $from_email . "\r\n";
+    }
 
+    //Cc email
+    $cc_address = get_option( 'dwqa_subscrible_cc_address' );
+    if( $cc_address ) {
+        $headers .= "Cc: " . $cc_address . "\r\n";
+    }
+    //Bcc email
+    $bcc_address = get_option( 'dwqa_subscrible_bcc_address' );
+    if( $bcc_address ) {
+        $headers .= "Bcc: " . $bcc_address . "\r\n";
+    }
+    
     $message = dwqa_get_mail_template( 'dwqa_subscrible_new_question_email', 'new-question' );
     if( ! $message ) {
         return false;
     }
     // Replacement
-    // receiver
-    $admin_email = get_bloginfo( 'admin_email' );
-    $admin = get_user_by( 'email', $admin_email );
-    $message = str_replace( '{admin}', get_the_author_meta( 'display_name', $admin->id ), $message);
+    
+    $admin = get_user_by( 'email', $admin_email[0] );
+    if( $admin ) {
+        $message = str_replace( '{admin}', get_the_author_meta( 'display_name', $admin->ID ), $message);
+    }
     //sender
     $message = str_replace( '{user_avatar}', get_avatar( $user_id, '60'), $message);
     $message = str_replace( '{user_link}', get_author_posts_url( $user_id ), $message);
@@ -57,6 +87,11 @@ function dwqa_new_answer_nofity( $answer_id ){
     if( !$enabled ) {
         return false;
     }
+
+    //Admin email
+    $admin_email = dwqa_get_admin_email();
+    $enable_send_copy = get_option( 'dwqa_subscrible_send_copy_to_admin' );
+
     $question_id = get_post_meta( $answer_id, '_question', true );
     $question = get_post( $question_id );
     $answer = get_post( $answer_id );
@@ -91,7 +126,13 @@ function dwqa_new_answer_nofity( $answer_id ){
     // To send HTML mail, the Content-type header must be set
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    
+
+    //From email 
+    $from_email = get_option( 'dwqa_subscrible_from_address' );
+    if( $from_email ) {
+        $headers = "From: " . $from_email . "\r\n";
+    }
+
     $message = dwqa_get_mail_template( 'dwqa_subscrible_new_answer_email', 'new-answer' );
     if( ! $message ) {
         return false;
@@ -121,6 +162,7 @@ function dwqa_new_answer_nofity( $answer_id ){
     $message = str_replace( '{answer_avatar}', $avatar, $message);
     $message = str_replace( '{answer_author}', $answer_author, $message);
     $message = str_replace( '{question_link}', get_permalink( $question->ID ), $message);
+    $message = str_replace( '{answer_link}', get_permalink( $question->ID ) . '#answer-' . $answer_id, $message);
     $message = str_replace( '{question_title}', $question->post_title, $message);
     $message = str_replace( '{answer_content}', $answer->post_content, $message);
     // logo replace
@@ -173,6 +215,9 @@ function dwqa_new_answer_nofity( $answer_id ){
                     //Send email to follower
                     $message_to_each_follower = str_replace( '{follower}', $follower_name, $message_to_follower );
                     wp_mail( $follow_email, $follow_subject, $message_to_each_follower, $headers );
+                    if( $enable_send_copy && $follow_email != $admin_email ) {
+                        wp_mail( $admin_email, $follow_subject, $message_to_each_follower, $headers );
+                    }
                 }
             }
         }
@@ -180,6 +225,9 @@ function dwqa_new_answer_nofity( $answer_id ){
 
     if( $question->post_author != $answer->post_author ) {
         wp_mail( $email, $subject, $message, $headers );
+        if( $enable_send_copy && $email != $admin_email ) {
+            wp_mail( $admin_email, $subject, $message, $headers );
+        }
     }
 }
 add_action( 'dwqa_add_answer', 'dwqa_new_answer_nofity' );
@@ -187,10 +235,15 @@ add_action( 'dwqa_update_answer', 'dwqa_new_answer_nofity' );
 
 function dwqa_new_comment_notify( $comment_id, $comment ){
     $parent = get_post_type( $comment->comment_post_ID );
+
+    //Admin email
+    $admin_email = dwqa_get_admin_email();
+    $enable_send_copy = get_option( 'dwqa_subscrible_send_copy_to_admin' );
+
     if ( 1 == $comment->comment_approved && ( 'dwqa-question' == $parent || 'dwqa-answer' == $parent )  ) { 
         if( $parent == 'dwqa-question' ) {
             $enabled = get_option( 'dwqa_subscrible_enable_new_comment_question_notification', 1);        
-        } elseif( $parent == 'dwqa-answer' ) {
+        } elseif ( $parent == 'dwqa-answer' ) {
             $enabled = get_option( 'dwqa_subscrible_enable_new_comment_answer_notification', 1);
         }
     
@@ -220,10 +273,15 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
         // To send HTML mail, the Content-type header must be set
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-
+        //From email 
+        $from_email = get_option( 'dwqa_subscrible_from_address' );
+        if( $from_email ) {
+            $headers = "From: " . $from_email . "\r\n";
+        }
+        
         if( $parent == 'dwqa-question' ) {
             $message = dwqa_get_mail_template( 'dwqa_subscrible_new_comment_question_email', 'new-comment-question' );    
-            $subject = get_option( 'dwqa_subscrible_new_comment_question_email_subject',__('[{site_name}] You have a new comment for question {question_title} ', 'dwqa')  );
+            $subject = get_option( 'dwqa_subscrible_new_comment_question_email_subject',__('[{site_name}] You have a new comment for question {question_title}', 'dwqa')  );
             $message = str_replace( '{question_author}', get_the_author_meta( 'display_name', $post_parent->post_author ), $message);
             $question = $post_parent;
         } else {
@@ -247,7 +305,7 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
         $subject = str_replace('{comment_author}', get_the_author_meta( 'display_name', $comment->user_id ), $subject );
         $message = str_replace( '{site_logo}', $logo, $message);
         $message = str_replace( '{question_link}', get_permalink( $question->ID ), $message);
-        $message = str_replace( '{comment_link}', get_permalink( $question->ID ) . '#li-comment-' . $comment_id, $message);
+        $message = str_replace( '{comment_link}', get_permalink( $question->ID ) . '#comment-' . $comment_id, $message);
         $message = str_replace( '{question_title}', $question->post_title, $message);
         $message = str_replace( '{comment_author_avatar}', get_avatar( $comment->user_id, '60'), $message);
         $message = str_replace( '{comment_author_link}', get_author_posts_url( $comment->user_id ), $message);
@@ -269,7 +327,7 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
 
             if( $parent == 'dwqa-question' ) {
                 $message_to_follower = dwqa_get_mail_template( 'dwqa_subscrible_new_comment_question_followers_email', 'new-comment-question' );    
-                $follow_subject = get_option( 'dwqa_subscrible_new_comment_question_followers_email_subject',__('[{site_name}] You have a new comment for question {question_title} ', 'dwqa')  );
+                $follow_subject = get_option( 'dwqa_subscrible_new_comment_question_followers_email_subject',__('[{site_name}] You have a new comment for question {question_title}', 'dwqa')  );
                 $message_to_follower = str_replace( '{question_author}', get_the_author_meta( 'display_name', $post_parent->post_author ), $message_to_follower);
                 $question = $post_parent;
             } else {
@@ -285,7 +343,7 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
             $follow_subject = str_replace('{comment_author}', get_the_author_meta( 'display_name', $comment->user_id ), $follow_subject );
             $message_to_follower = str_replace( '{site_logo}', $logo, $message_to_follower);
             $message_to_follower = str_replace( '{question_link}', get_permalink( $question->ID ), $message_to_follower);
-            $comment_link = get_permalink( $question->ID ) . '#li-comment-' . $comment_id;
+            $comment_link = get_permalink( $question->ID ) . '#comment-' . $comment_id;
             $message_to_follower = str_replace( '{comment_link}', $comment_link, $message_to_follower);
             $message_to_follower = str_replace( '{question_title}', $question->post_title, $message_to_follower);
             $message_to_follower = str_replace( '{comment_author_avatar}', get_avatar( $comment->user_id, '60'), $message_to_follower);
@@ -307,6 +365,9 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
 
                         $message_to_each_follower = str_replace( '{follower}', $follower_name, $message_to_follower );
                         wp_mail( $follow_email, $follow_subject, $message_to_each_follower, $headers );
+                        if( $enable_send_copy && $follow_email != $admin_email ) {
+                            wp_mail( $admin_email, $follow_subject, $message_to_each_follower, $headers );
+                        }
                     }
                 }
             }
@@ -315,6 +376,9 @@ function dwqa_new_comment_notify( $comment_id, $comment ){
 
         if( $post_parent->post_author != $comment->user_id ) {
             wp_mail( $post_parent_email, $subject, $message, $headers );
+            if( $enable_send_copy && $admin_email != $post_parent_email ) {
+                wp_mail( $admin_email, $subject, $message, $headers );
+            }
         }
 
     }

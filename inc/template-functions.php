@@ -247,23 +247,25 @@ function dwqa_submit_question_form(){
             }
         ?>
         <form action="" name="dwqa-submit-question-form" id="dwqa-submit-question-form" method="post">
-            <div class="question-meta">
-                <div class="select-category">
-                    <label for="question-category"><?php _e('Question Category','dwqa') ?></label>
-                    <?php  
-                        wp_dropdown_categories( array( 
-                            'name'          => 'question-category',
-                            'id'            => 'question-category',
-                            'taxonomy'      => 'dwqa-question_category',
-                            'show_option_none' => __('Select question category','dwqa'),
-                            'hide_empty'    => 0,
-                            'quicktags'     => array( 'buttons' => 'strong,em,link,block,del,ins,img,ul,ol,li,code,spell,close' )
-                        ) );
-                    ?>
-                </div>   
-                <div class="input-tag">
-                    <label for="question-tag"><?php _e('Question Tags','dwqa') ?></label>
-                    <input type="text" name="question-tag" id="question-tag" placeholder="<?php _e('tag 1, tag 2,...','dwqa') ?>" />
+            <div class="question-advance">
+                <div class="question-meta">
+                    <div class="select-category">
+                        <label for="question-category"><?php _e('Question Category','dwqa') ?></label>
+                        <?php  
+                            wp_dropdown_categories( array( 
+                                'name'          => 'question-category',
+                                'id'            => 'question-category',
+                                'taxonomy'      => 'dwqa-question_category',
+                                'show_option_none' => __('Select question category','dwqa'),
+                                'hide_empty'    => 0,
+                                'quicktags'     => array( 'buttons' => 'strong,em,link,block,del,ins,img,ul,ol,li,code,spell,close' )
+                            ) );
+                        ?>
+                    </div>   
+                    <div class="input-tag">
+                        <label for="question-tag"><?php _e('Question Tags','dwqa') ?></label>
+                        <input type="text" name="question-tag" id="question-tag" placeholder="<?php _e('tag 1, tag 2,...','dwqa') ?>" />
+                    </div>
                 </div>
             </div>
             <div class="input-title">
@@ -273,38 +275,47 @@ function dwqa_submit_question_form(){
                 <span class="dwqa-search-clear fa fa-times dwqa-hide"></span>
             </div>  
                 
-            <div class="input-content">
-                <label for="question-content"><?php _e('Question details','dwqa') ?></label>
-                <?php dwqa_init_tinymce_editor( array( 'id' => 'dwqa-question-content-editor', 'textarea_name' => 'question-content' ) ); ?>
-            </div>
-            
-            <div class="checkbox-private">
-                <label for="private-message"><input type="checkbox" name="private-message" id="private-message" value="true"> <?php _e('Post this Question as Private.','dwqa') ?> <i class="fa fa-question-circle" title="<?php _e('Only you as Author and Admin can see the question', 'dwqa') ?>"></i></label>
-            </div>
+            <div class="question-advance">
+                <div class="input-content">
+                    <label for="question-content"><?php _e('Question details','dwqa') ?></label>
+                    <?php dwqa_init_tinymce_editor( array( 'id' => 'dwqa-question-content-editor', 'textarea_name' => 'question-content' ) ); ?>
+                </div>
                 
-            <div class="question-signin">
-                <?php do_action( 'dwqa_submit_question_ui' ); ?>
+                <?php if( isset($dwqa_options['enable-private-question']) && $dwqa_options['enable-private-question'] ) : ?>
+                <div class="checkbox-private">
+                    <label for="private-message"><input type="checkbox" name="private-message" id="private-message" value="true"> <?php _e('Post this Question as Private.','dwqa') ?> <i class="fa fa-question-circle" title="<?php _e('Only you as Author and Admin can see the question', 'dwqa') ?>"></i></label>
+                </div>
+                <?php endif; ?>
+                <div class="question-signin">
+                    <?php do_action( 'dwqa_submit_question_ui' ); ?>
+                </div>
+                <script type="text/javascript">
+                 var RecaptchaOptions = {
+                    theme : 'clean'
+                 };
+                 </script>
+                <?php  
+                    global  $dwqa_general_settings;
+                    if( dwqa_is_captcha_enable_in_submit_question() ) {
+                        $public_key = isset($dwqa_general_settings['captcha-google-public-key']) ?  $dwqa_general_settings['captcha-google-public-key'] : '';
+                        echo '<div class="google-recaptcha">';
+                        echo recaptcha_get_html($public_key);
+                        echo '<br></div>';
+                    }
+                ?>
+                
             </div>
-            <script type="text/javascript">
-             var RecaptchaOptions = {
-                theme : 'clean'
-             };
-             </script>
-            <?php  
-                global  $dwqa_general_settings;
-                if( dwqa_is_captcha_enable_in_submit_question() ) {
-                    $public_key = isset($dwqa_general_settings['captcha-google-public-key']) ?  $dwqa_general_settings['captcha-google-public-key'] : '';
-                    echo '<div class="google-recaptcha">';
-                    echo recaptcha_get_html($public_key);
-                    echo '<br></div>';
-                }
-            ?>
             <div class="form-submit">
                 <input type="submit" value="<?php _e('Ask Question','dwqa') ?>" class="dwqa-btn dwqa-btn-success btn-submit-question" />
             </div>  
         </form>
     </div>
     <?php
+}
+
+function dwqa_paste_srtip_disable( $mceInit ){
+    $mceInit['paste_strip_class_attributes'] = 'none';
+    return $mceInit;
 }
 
 function dwqa_submit_answer_form(){
@@ -320,10 +331,6 @@ function dwqa_submit_answer_form(){
         ?>
         <form action="<?php echo admin_url( 'admin-ajax.php?action=dwqa-add-answer' ); ?>" name="dwqa-answer-question-form" id="dwqa-answer-question-form" method="post">
             <?php  
-                function dwqa_paste_srtip_disable( $mceInit ){
-                    $mceInit['paste_strip_class_attributes'] = 'none';
-                    return $mceInit;
-                }
                 add_filter( 'tiny_mce_before_init', 'dwqa_paste_srtip_disable' );
                 $editor = array( 
                     'wpautop'       => false,
@@ -437,7 +444,11 @@ function dwqa_enqueue_scripts(){
     $question_tag_rewrite = $question_tag_rewrite ? $question_tag_rewrite : 'question-tag';
 
     $assets_folder = DWQA_URI . 'inc/templates/' . $dwqa_template . '/assets/';
-    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jquery' );   
+    if( is_singular( 'dwqa-question' ) ) {
+        wp_enqueue_script( 'jquery-effects-core' );
+        wp_enqueue_script( 'jquery-effects-highlight' );
+    }
     $version = $script_version;
     
 
@@ -446,10 +457,10 @@ function dwqa_enqueue_scripts(){
     // Enqueue for single question page
     if( is_single() && 'dwqa-question' == get_post_type() ) {
         // js
-        wp_enqueue_script( 'dwqa-single-question', $assets_folder . 'js/dwqa-single-question.js', array('jquery' ), $version, true );
-        wp_localize_script( 'dwqa-single-question', 'dwqa', $dwqa_sript_vars );
-
-        
+        wp_enqueue_script( 'dwqa-single-question', $assets_folder . 'js/dwqa-single-question.js', array('jquery'), $version, true );
+        $single_script_vars = $dwqa_sript_vars;
+        $single_script_vars['question_id'] = get_the_ID();
+        wp_localize_script( 'dwqa-single-question', 'dwqa', $single_script_vars );
     }
 
 
@@ -702,5 +713,21 @@ function dwqa_question_states( $states, $post ){
     return $states;
 }
 add_filter( 'display_post_states', 'dwqa_question_states', 10, 2 );
+
+
+function dwqa_get_ask_question_link( $echo = true, $label = false, $class = false ){
+    global $dwqa_options;
+    $submit_question_link = get_permalink( $dwqa_options['pages']['submit-question'] );
+    if( $dwqa_options['pages']['submit-question'] && $submit_question_link ) {
+        $label = $label ? $label : __('Ask a question','dwqa');
+        $class = $class ? $class  : 'dwqa-btn-success';
+        $button = '<a href="'.$submit_question_link.'" class="dwqa-btn '.$class.'">'.$label.'</a>';
+        $button = apply_filters( 'dwqa_ask_question_link', $button, $submit_question_link );
+        if( ! $echo ) {
+            return $button;
+        }
+        echo $button;
+    }
+}
 
 ?>

@@ -298,8 +298,10 @@ function dwqa_add_answer(){
                 if( isset($_POST['dwqa-action-draft']) && $_POST['dwqa-action-draft'] && strtolower( $_POST['submit-answer'] ) == 'publish' ) {
                     $answer_update['post_status'] = isset($_POST['privacy']) && 'private' == $_POST['privacy'] ? 'private' : 'publish';
                 }
+                $old_post = get_post( $_POST['answer-id'] );
                 $answer_id = wp_update_post( $answer_update );
-                do_action( 'dwqa_update_answer', $answer_id );
+                $new_post = get_post( $answer_id );
+                do_action( 'dwqa_update_answer', $answer_id, $old_post, $new_post );
                 if( $answer_id ) {
                     wp_safe_redirect( get_permalink( $question_id ) );
                     return true;
@@ -371,7 +373,7 @@ add_action( 'comment_form', 'dwqa_wp_comment_form_unfiltered_html_nonce' );
  */
 function dwqa_remove_answer(){
     if( ! isset($_POST['wpnonce']) || ! wp_verify_nonce( $_POST['wpnonce'], '_dwqa_action_remove_answer_nonce' ) ) {
-        wp_send_json_error( array( 'message' => __('Are you cheating huh?','dwqa' ) ) );
+        wp_send_json_error( array( 'message' => __( 'Are you cheating huh?','dwqa' ) ) );
     }
     if( ! isset($_POST['answer_id']) ) {
         wp_send_json_error( array( 'message' => __('Missing answer ID','dwqa') ) );
@@ -513,16 +515,17 @@ function dwqa_submit_question(){
                     $dwqa_current_error = $new_question;
                 }   
             } else {
-                $dwqa_submit_question_errors->add( 'submit_question', __('YCaptcha is not correct','dwqa') );
+                $dwqa_submit_question_errors->add( 'submit_question', __('Captcha is not correct','dwqa') );
             }
         }else{
-            $dwqa_submit_question_errors->add( 'submit_question', __('"Helllo", Are you cheating huh?.','dwqa') );
+            $dwqa_submit_question_errors->add( 'submit_question', __('Are you cheating huh?','dwqa') );
         }
         $dwqa_current_error = $dwqa_submit_question_errors;
 
     }
 }
 add_action( 'init','dwqa_submit_question', 11 );
+
 
 function dwqa_insert_question( $args ){
 
@@ -971,6 +974,7 @@ function dwqa_comment_action_add(){
     );
     if( is_user_logged_in() ) {
         $args['user_id'] =  $current_user->ID;
+        $args['comment_author'] = $current_user->display_name;
     } else {
         if( !isset($_POST['email']) || !$_POST['email'] ) {
             wp_send_json_error( array(
@@ -988,8 +992,8 @@ function dwqa_comment_action_add(){
         $args['user_id']    = -1;
     }
 
-    $comment_id = wp_insert_comment( $args );   
-    do_action( 'dwqa_add_comment', $comment_id );
+    $comment_id = wp_insert_comment( $args );  
+
     global $comment;
     $comment = get_comment( $comment_id );
     ob_start();
@@ -999,6 +1003,9 @@ function dwqa_comment_action_add(){
     echo '</li>';
     $comment_html = ob_get_contents();
     ob_end_clean();
+
+    do_action( 'dwqa_add_comment', $comment_id, $_POST['clientId'] );
+    
     wp_send_json_success( array(
             'html'   => $comment_html
         ) );
@@ -1165,11 +1172,24 @@ function dwqa_auto_convert_urls( $content ){
     global $post;
     if( is_single() && ( 'dwqa-question' == $post->post_type || 'dwqa-answer' == $post->post_type) ) {
         $content = make_clickable( $content );
-        $content = preg_replace('/(<a[^>]*)(>)/', '$1 target="_blank" $2', $content);
+        $content = preg_replace('/(<a[^>]*)(>)/', '$1 target="_blank" rel="nofollow" $2', $content);
+        $content = preg_replace_callback('/<a[^>]*>]+/', 'dwqa_auto_nofollow_callback', $content);
     }
     return $content;
 }
 add_filter( 'the_content', 'dwqa_auto_convert_urls' );
+
+function dwqa_auto_nofollow_callback($matches) {
+    $link = $matches[0];
+    $site_link = get_bloginfo('url');
+ 
+    if (strpos($link, 'rel') === false) {
+        $link = preg_replace("%(href=S(?!$site_link))%i", 'rel="nofollow" $1', $link);
+    } elseif (preg_match("%href=S(?!$site_link)%i", $link)) {
+        $link = preg_replace('/rel=S(?!nofollow)S*/i', 'rel="nofollow"', $link);
+    }
+    return $link;
+}
 
 function dwqa_sanitizie_comment( $content, $comment ){
     $post_type = get_post_type( $comment->comment_post_ID );
@@ -1520,7 +1540,9 @@ function dwqa_valid_captcha( $type ){
     
     global  $dwqa_general_settings;
     $private_key = isset($dwqa_general_settings['captcha-google-private-key']) ?  $dwqa_general_settings['captcha-google-private-key'] : '';
-
+    if( ! isset($_POST["recaptcha_challenge_field"]) || ! isset($_POST['recaptcha_response_field'] ) ) {
+        return false;
+    }
     $resp = recaptcha_check_answer (
         $private_key,
         $_SERVER["REMOTE_ADDR"],

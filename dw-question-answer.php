@@ -4,7 +4,7 @@
  *  Description: A WordPress plugin was make by DesignWall.com to build an Question Answer system for support, asking and comunitcate with your customer 
  *  Author: DesignWall
  *  Author URI: http://www.designwall.com
- *  Version: 1.2.0
+ *  Version: 1.2.1
  *  Text Domain: dwqa
  */
 
@@ -34,7 +34,10 @@ include_once DWQA_DIR  . 'inc/shortcodes.php';
 include_once DWQA_DIR  . 'inc/status.php';
 include_once DWQA_DIR  . 'inc/roles.php';
 include_once DWQA_DIR  . 'inc/widgets.php';
-require_once DWQA_DIR  . 'inc/lib/recaptcha-php/recaptchalib.php';
+
+if( ! defined('RECAPTCHA_VERIFY_SERVER') ) {
+    require_once DWQA_DIR  . 'inc/lib/recaptcha-php/recaptchalib.php';
+}
 global $dwqa_permission;
 $dwqa_permission = new DWQA_Permission();
 
@@ -267,9 +270,10 @@ function dwqa_plugin_init(){
     global $script_version, $dwqa_template, $dwqa_sript_vars;
 
     $dwqa_template = 'default';
-    $script_version = 1392633101;
+    $script_version = 1393484052;
     $dwqa_sript_vars = array(
         'is_logged_in'  => is_user_logged_in(),
+        'plugin_dir_url' => DWQA_URI,
         'code_icon'    => DWQA_URI . 'assets/img/icon-code.png',
         'ajax_url'      => admin_url( 'admin-ajax.php' ),
         'text_next'     => __('Next','dwqa'),

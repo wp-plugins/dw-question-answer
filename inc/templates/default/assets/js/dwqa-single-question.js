@@ -6,11 +6,20 @@ function _e(event, obj, fn) {
     jQuery(obj)[fn](event);
 }
 
+//Make client id
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+var clientId = randomString(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
 jQuery(function($) {
 
     var answers = $('#dwqa-answers'),
         answer_editor = $('#dwqa-add-answers');
+
+
 
     function replaceURLWithHTMLLinks(text) {
         var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
@@ -144,9 +153,24 @@ jQuery(function($) {
 
     // Comment ====================================================================================
     var onSubmitComment = false;
+
+    function append_comment(html, submitForm) {
+        var commentList = submitForm.parent().find('.dwqa-comment-list'),
+            contentField = submitForm.find('textarea[name="comment"]');
+        var comment = $(html);
+        if (commentList.length > 0) {
+            commentList.append(comment);
+            comment.closest('article').effect('highlight', 2000);
+        } else {
+            var commentList = $('<ol class="dwqa-comment-list">' + html + '</ol>');
+            submitForm.before(commentList);
+            commentList.closest('article').effect('highlight', 2000);
+        }
+        contentField.val('');
+    }
+
     $('[id^=comment_form_]').on('submit', function(event) {
         event.preventDefault();
-
         var t = $(this),
             contentField = t.find('textarea[name="comment"]'),
             content = contentField.val().trim().replace(/\n/g, '<br>');
@@ -160,7 +184,7 @@ jQuery(function($) {
                 name = t.find('[name="author"]').val();
                 if (name.length <= 0) {
                     if (t.parent().find('.name-error').length > 0) {
-                        t.parent().find('.name-error').text( dwqa.error_valid_name ).fadeIn();
+                        t.parent().find('.name-error').text(dwqa.error_valid_name).fadeIn();
                     } else {
                         t.before('<div class="alert alert-error name-error">' + dwqa.error_valid_name + '</div>');
                     }
@@ -212,6 +236,7 @@ jQuery(function($) {
             onSubmitComment = true;
             var loading = $('<span class="loading"></span>');
             $(this).find('[name="submit"]').after(loading);
+            t.find('textarea').attr('disable', 'disable');
             loading.css('display', 'inline-block').parent().css('position', 'relative');
             $.ajax({
                 url: dwqa.ajax_url,
@@ -225,22 +250,17 @@ jQuery(function($) {
                     comment_parent: t.find('[name="comment_parent"]').val(),
                     name: name,
                     email: email,
-                    url: url
+                    url: url,
+                    clientId: clientId
                 },
                 complete: function() {
                     onSubmitComment = false;
+                    t.find('textarea').removeAttr('disable');
                 },
                 success: function(data, textStatus, xhr) {
-                    var submitForm = t.closest('.dwqa-comment-form'),
-                        commentList = submitForm.parent().find('.dwqa-comment-list');
-
-                    if (commentList.length > 0) {
-                        commentList.append(data.data.html);
-                    } else {
-                        var commentList = '<ol class="dwqa-comment-list">' + data.data.html + '</ol>';
-                        submitForm.before(commentList);
-                    }
-                    contentField.val('');
+                    var html = data.data.html,
+                        submitForm = t.closest('.dwqa-comment-form');
+                    append_comment(html, submitForm);
                     loading.remove();
                 },
             });
@@ -262,6 +282,15 @@ jQuery(function($) {
     var originHeight, current_form;
     $('[id^=comment_form_]').delegate('textarea', 'focus', function(event) {
         var t = $(this);
+
+        //Collapse all comment form
+        if (current_form && t.get(0) != current_form.get(0)) {
+            $('[id^=comment_form_]').each(function(index, el) {
+                var comment_form = $(this);
+                comment_form.find('.dwqa-form-submit').hide();
+                comment_form.find('textarea').height(comment_form.find('textarea').css('line-height').replace('px', ''));
+            });
+        }
         current_form = t.closest('.dwqa-comment-form');
         var lineHeight = parseInt(t.css('line-height').replace('px', '')),
             thisPadding = parseInt(t.css('padding-top').replace('px', '')),
@@ -299,7 +328,6 @@ jQuery(function($) {
             comment_content = comment_container.find('.dwqa-comment-content .dwqa-comment-content-inner'),
             status = t.data('edit'),
             edit_content;
-            console.log( comment_content );
         if (typeof status == 'undefined' || !status) {
             t.data('edit', 1);
             edit_content = $('<div class="comment-edit-container"><textarea cols="50" rows="1" aria-required="true" class="comment-edit-field" data-current-content="' + escape(comment_content.html()) + '" data-comment-id="' + t.data('comment-id') + '" >' + comment_content.html().trim().replace(/\<br\>/g, "\n").replace(/(<([^>]+)>)/ig, "") + '</textarea><button class="dwqa-btn dwqa-btn-default dwqa-btn-update-comment-submit">' + dwqa.comment_edit_submit_button + '</button>' + t[0].outerHTML + '</div>');
@@ -807,14 +835,54 @@ jQuery(function($) {
     //Document On Click ===========================================================================
     $(document).click(function(e) {
         if (!$(e.target).is('.dwqa-comment-form, .dwqa-comment-form *') && current_form && current_form.length > 0) {
-            current_form.find('.dwqa-form-submit').hide();
-            current_form.find('textarea').height(current_form.find('textarea').css('line-height').replace('px', ''));
+            if (current_form.find('textarea').val().length <= 0) {
+                current_form.find('.dwqa-form-submit').hide();
+                current_form.find('textarea').height(current_form.find('textarea').css('line-height').replace('px', ''));
+            }
         }
 
         if (!$(e.target).is('.dwqa-container .dropdown-toggle,.dwqa-container .dropdown-toggle *')) {
             $('.dwqa-container .dropdown-toggle').each(function() {
                 $(this).parent().removeClass('open');
             });
+        }
+    });
+    //Highlight comment
+    var doHighlight = function(speed) {
+        if (document.location.hash.length > 0) {
+            var hash = document.location.hash;
+            if (hash.indexOf('#') >= 0) {
+                $(hash).effect('highlight', speed);
+            }
+        }
+    }
+    $(document).ready(function() {
+        doHighlight(2000);
+    });
+
+    var vis = (function() {
+        var stateKey, eventKey, keys = {
+                hidden: "visibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                mozHidden: "mozvisibilitychange",
+                msHidden: "msvisibilitychange"
+            };
+        for (stateKey in keys) {
+            if (stateKey in document) {
+                eventKey = keys[stateKey];
+                break;
+            }
+        }
+        return function(c) {
+            if (c) document.addEventListener(eventKey, c);
+            return !document[stateKey];
+        }
+    })();
+    var switchTab = 0;
+    vis(function() {
+        if (vis() && switchTab < 2) {
+            doHighlight(1500);
+            switchTab++;
         }
     });
 });

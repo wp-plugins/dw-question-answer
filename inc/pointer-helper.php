@@ -1,7 +1,6 @@
 <?php  
 
 add_action( 'admin_enqueue_scripts', 'dwqa_pointer_load', 1000 );
- 
 function dwqa_pointer_load( $hook_suffix ) {
  
     // Don't run on WP < 3.3
@@ -13,7 +12,7 @@ function dwqa_pointer_load( $hook_suffix ) {
 
     // Get pointers for this screen
     $pointers = apply_filters( 'dwqa_admin_pointers-' . $screen_id, array() );
- 
+
     if ( ! $pointers || ! is_array( $pointers ) )
         return;
  
@@ -48,22 +47,23 @@ function dwqa_pointer_load( $hook_suffix ) {
     wp_localize_script( 'dwqa-pointer', 'dwqaPointer', $valid_pointers );
 }
 
+
 add_filter( 'dwqa_admin_pointers-edit-dwqa-question', 'dwqa_register_pointer_testing' );
 function dwqa_register_pointer_testing( $p ) {
-    $p['xyz140'] = array(
-        'target' => '#adminmenu [href="edit.php?post_type=dwqa-question&page=dwqa-settings"]',
+    $p['document'] = array(
+        'target' => '#contextual-help-link',
         'options' => array(
             'content' => sprintf( '<h3> %s </h3> <p> %s </p>',
-                __( 'Config your support channel' ,'dwqa'),
-                __( 'Change comment setting, and create submit question page.','dwqa')
+                __( 'How to use DW Question Answer' ,'dwqa'),
+                __( 'Documents, Support From DesignWall (help)','dwqa')
             ),
-            'position' => array( 'edge' => 'left', 'align' => 'middle' )
+            'position' => array( 'edge' => 'top', 'align' => 'right' )
         )
     );
-    $p['test'] = array(
-        'target' => '#doaction',
+    $p['settings'] = array(
+        'target' => '#adminmenu a[href="edit.php?post_type=dwqa-question&page=dwqa-settings"]',
         'options' => array(
-            'content' => sprintf( '<h3> %s </h3> <p> %s </p> ',
+            'content' => sprintf( '<h3> %s </h3> <p> %s </p>',
                 __( 'Config your support channel' ,'dwqa'),
                 __( 'Change comment setting, and create submit question page.','dwqa')
             ),
