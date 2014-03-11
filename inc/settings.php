@@ -389,10 +389,10 @@ function dwqa_permission_display(){
         <thead>
             <tr>
                 <th width="20%"></th>
-                <th>Read</th>
-                <th>Post</th>
-                <!-- <th>Edit</th>
-                <th>Delete</th> -->
+                <th><?php _e('Read','dwqa') ?></th>
+                <th><?php _e('Post','dwqa') ?></th>
+                <!-- <th><?php _e('Edit','dwqa') ?></th>
+                <th><?php _e('Delete','dwqa') ?></th> -->
             </tr>
         </thead>
         <tbody>
@@ -727,33 +727,33 @@ class DWQA_Settings {
         );
 
         // Send to address setting
-        add_settings_field( 
-            'dwqa_subscrible_sendto_address', 
-            __('Admin Email', 'dwqa'), 
-            array( $this, 'email_sendto_address_display' ), 
-            'dwqa-email', 
-            'dwqa-subscribe-settings'
-        );
+        // add_settings_field( 
+        //     'dwqa_subscrible_sendto_address', 
+        //     __('Admin Email', 'dwqa'), 
+        //     array( $this, 'email_sendto_address_display' ), 
+        //     'dwqa-email', 
+        //     'dwqa-subscribe-settings'
+        // );
         register_setting( 'dwqa-subscribe-settings', 'dwqa_subscrible_sendto_address');
 
         // Cc address setting
-        add_settings_field( 
-            'dwqa_subscrible_cc_address', 
-            __('Cc', 'dwqa'), 
-            array( $this, 'email_cc_address_display' ), 
-            'dwqa-email', 
-            'dwqa-subscribe-settings'
-        );
+        // add_settings_field( 
+        //     'dwqa_subscrible_cc_address', 
+        //     __('Cc', 'dwqa'), 
+        //     array( $this, 'email_cc_address_display' ), 
+        //     'dwqa-email', 
+        //     'dwqa-subscribe-settings'
+        // );
         register_setting( 'dwqa-subscribe-settings', 'dwqa_subscrible_cc_address');
 
         // Bcc address setting
-        add_settings_field( 
-            'dwqa_subscrible_bcc_address', 
-            __('Bcc', 'dwqa'), 
-            array( $this, 'email_bcc_address_display' ), 
-            'dwqa-email', 
-            'dwqa-subscribe-settings'
-        );
+        // add_settings_field( 
+        //     'dwqa_subscrible_bcc_address', 
+        //     __('Bcc', 'dwqa'), 
+        //     array( $this, 'email_bcc_address_display' ), 
+        //     'dwqa-email', 
+        //     'dwqa-subscribe-settings'
+        // );
         register_setting( 'dwqa-subscribe-settings', 'dwqa_subscrible_bcc_address');
 
         // Bcc address setting
@@ -861,13 +861,12 @@ class DWQA_Settings {
                     echo '<h3>'.__('Email setup','dwqa').'</h3>';
                     settings_fields( 'dwqa-subscribe-settings' );
 
-                    do_settings_sections( 'dwqa-email' );
-                    echo '<h3>'.__('Email Template','dwqa') . '</h3>';
-
                     echo '<table class="form-table"><tr>';
                     echo '<th scope="row">'.__('Email Logo','dwqa').'</th><td>';
                     dwqa_subscrible_email_logo_display();
                     echo '</td></tr></table>';
+
+                    do_settings_sections( 'dwqa-email' );
 
                     echo '<div class="dwqa-mail-templates">';
                     echo '<div class="progress-bar"><div class="progress-bar-inner"></div></div>';
@@ -887,7 +886,9 @@ class DWQA_Settings {
 
                     echo '<div id="new-question" class="tab-pane active">';
                     echo '<h3>'.__('New Question Notification','dwqa') . '</h3>';
-
+                    $this->email_sendto_address_display();
+                    $this->email_cc_address_display();
+                    $this->email_bcc_address_display();
                     dwqa_subscrible_enable_new_question_notification();
                     dwqa_subscrible_new_question_email_subject_display();
                     dwqa_subscrible_new_question_email_display();
@@ -970,14 +971,17 @@ class DWQA_Settings {
     }
 
     public function email_sendto_address_display(){
+        echo '<p>'.__('Send to', 'dwqa').'</p>';
         $this->input_text_field( 'dwqa_subscrible_sendto_address' );
     }
 
     public function email_cc_address_display(){
+        echo '<p>'.__('Cc', 'dwqa').'</p>';
         $this->input_text_field( 'dwqa_subscrible_cc_address' );
     }
 
     public function email_bcc_address_display(){
+        echo '<p>'.__('Bcc', 'dwqa').'</p>';
         $this->input_text_field( 'dwqa_subscrible_bcc_address' );
     }
 
