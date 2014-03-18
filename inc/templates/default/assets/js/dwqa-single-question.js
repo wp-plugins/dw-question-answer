@@ -816,7 +816,7 @@ jQuery(function($) {
                 dataType: 'json',
                 data: {
                     'action': 'dwqa-delete-question',
-                    'question': t.data('post'),
+                    'question': t.closest('.dwqa-actions').data('post'),
                     'nonce': t.data('nonce')
                 }
             })
@@ -843,10 +843,10 @@ jQuery(function($) {
             if (!current_answer_editor) {
                 return false;
             }
-            console.log(current_answer_editor.find('.dwqa-content'));
             current_answer_editor.find('.dwqa-content').html(unescape($('#dwqa-custom-content-editor').data('current-content')));
             t.data('on-editor', '');
             current_answer_editor = null;
+            question.find('.dwqa-title').html(question.find('.dwqa-title').data('old'));
         }
 
         if (t.data('on-editor')) {
@@ -870,7 +870,7 @@ jQuery(function($) {
             dataType: 'json',
             data: {
                 action: 'dwqa-editor-update-question-init',
-                question: t.data('post'),
+                question: t.closest('.dwqa-actions').data('post'),
                 nonce: t.data('nonce')
             }
         })
@@ -879,6 +879,8 @@ jQuery(function($) {
                     var editor = $(unescape(resp.data.editor)),
                         id = 'dwqa-custom-content-editor';
                     editor.hide();
+
+                    question.find('.dwqa-title').data('old', question.find('.dwqa-title').text()).html('');
                     question_content.html(editor);
                     $('#' + id).data('current-content', escape(old_content));
 
@@ -893,13 +895,18 @@ jQuery(function($) {
                     editor.slideDown();
                     t.data('on-editor', true);
 
+                    //Question : Cancel Edit
+                    editor.find('.question-edit-cancel').bind('click', function(event) {
+                        event.preventDefault();
+                        editor.fadeIn();
+                        remove_question_editor();
+                    });
                     //question.find('.dwqa-content').html(resp.data.editor);
                 }
             });
 
         return false;
     });
-
     // Question : Change Status ===================================================================
     $('.dwqa-change-status ul li').click(function(event) {
         event.preventDefault();

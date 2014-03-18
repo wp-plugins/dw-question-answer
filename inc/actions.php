@@ -28,7 +28,6 @@ $post_submit_filter     = array(
                             'li'            => array(),
                             'ol'            => array(),
                             'pre'            => array()
-                            
                         );
 /**
  * AJAX: vote for a question/answer
@@ -320,6 +319,7 @@ function dwqa_add_answer(){
 }
 add_action( 'wp_ajax_dwqa-add-answer', 'dwqa_add_answer' );
 add_action( 'wp_ajax_nopriv_dwqa-add-answer', 'dwqa_add_answer' );
+
 
 /**
  * Change redirect link when comment for answer finished
@@ -931,8 +931,8 @@ function dwqa_ajax_create_update_answer_editor(){
                             <span class="dwqa-caret-inner"></span>
                         </div>
                         <ul role="menu">
-                            <li data-privacy="publish" class="current" title="<?php _e('Everyone can see','dwqa'); ?>"><a href="#"><i class="fa fa-globe"></i> <?php _e('Public','dwqa'); ?></a></li>
-                            <li data-privacy="private" <?php _e('Only Author and Administrator can see','dwqa'); ?>><a href="#"><i class="fa fa-lock"></i> <?php _e('Private','dwqa') ?></a></li>
+                            <li data-privacy="publish" <?php if( $answer->post_status == 'publish' ) { echo 'class="current"'; } ?> title="<?php _e('Everyone can see','dwqa'); ?>"><a href="#"><i class="fa fa-globe"></i> <?php _e('Public','dwqa'); ?></a></li>
+                            <li data-privacy="private"  <?php if( $answer->post_status == 'private' ) { echo 'class="current"'; } ?>  title="<?php _e('Only Author and Administrator can see','dwqa'); ?>" ><a href="#"><i class="fa fa-lock"></i> <?php _e('Private','dwqa') ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -947,6 +947,37 @@ function dwqa_ajax_create_update_answer_editor(){
     ) );
 }
 add_action( 'wp_ajax_dwqa-editor-update-answer-init', 'dwqa_ajax_create_update_answer_editor' ); 
+
+function dwqa_update_question(){
+    if( ! isset($_POST['_wpnonce']) 
+        || ! wp_verify_nonce( $_POST['_wpnonce'], '_dwqa_update_question' ) ) {
+        wp_send_json_error( array(
+            'message'   => __('Hello, Are you cheating huh?','dwqa')
+        ) );
+    }
+    if( isset($_POST['dwqa-action']) && $_POST['dwqa-action'] == 'update-question' ) {
+        //Start update question
+        $question_id = $_POST['question'];
+        $question_content = dwqa_pre_content_filter( $_POST['dwqa-question-content'] );
+        $question_update = array(
+            'ID'    => $question_id,
+            'post_content'   => $question_content
+        );
+        if( isset($_POST['dwqa-question-title']) && $_POST['dwqa-question-title'] ) {
+            $question_update['post_title'] = $_POST['dwqa-question-title'];
+        }
+        $old_post = get_post( $question_id );
+        $question_id = wp_update_post( $question_update );
+        $new_post = get_post( $question_id );
+        do_action( 'dwqa_update_question', $question_id, $old_post, $new_post );
+        if( $question_id ) {
+            wp_safe_redirect( get_permalink( $question_id ) );
+            return true;
+        }
+        break;
+    }
+}
+add_action( 'wp_ajax_dwqa-update-question', 'dwqa_update_question' );
 
 function dwqa_ajax_create_update_question_editor(){
 
@@ -967,41 +998,23 @@ function dwqa_ajax_create_update_question_editor(){
         <?php } ?> 
         <input type="hidden" name="dwqa-action" value="update-question" >
         <input type="hidden" name="question" value="<?php echo $question; ?>">
+        <?php $question = get_post( $question ); ?>
+        <input type="text" style="width:100%" name="dwqa-question-title" id="dwqa-question-title" value="<?php echo $question->post_title; ?>">
         <?php 
-            $question = get_post( $question );
             dwqa_init_tinymce_editor( array(
-                'content'       => htmlentities($question->post_content, ENT_COMPAT | ENT_HTML5, get_option( 'blog_charset' ) ), 
+                'content'       => htmlentities( $question->post_content, ENT_COMPAT | ENT_HTML5, get_option( 'blog_charset' ) ), 
                 'textarea_name' => 'dwqa-question-content',
                 'wpautop'       => false
             ) ); 
         ?>
-        <p class="dwqa-answer-form-btn">
+        <p class="dwqa-question-form-btn">
             <input type="submit" name="submit-question" class="dwqa-btn dwqa-btn-default" value="<?php _e('Update','dwqa') ?>">
-            <a type="button" class="answer-edit-cancel dwqa-btn dwqa-btn-link" ><?php _e('Cancel','dwqa') ?></a>
+            <a type="button" class="question-edit-cancel dwqa-btn dwqa-btn-link" ><?php _e('Cancel','dwqa') ?></a>
             <?php if( 'draft' == get_post_status( $question ) && current_user_can( 'manage_options' ) ) { 
             ?>
             <input type="submit" name="submit-question" class="btn btn-primary btn-small" value="<?php _e('Publish','dwqa') ?>">
             <?php } ?>
         </p>
-        <div class="dwqa-privacy">
-            <input type="hidden" name="privacy" value="publish">
-            <span class="dwqa-current-privacy"><i class="fa fa-globe"></i> <?php _e('Public','dwqa') ?></span>
-            <span class="dwqa-change-privacy">
-                <div class="dwqa-btn-group">
-                    <button class="dropdown-toggle" type="button"><i class="fa fa-caret-down"></i></button>
-                    <div class="dwqa-dropdown-menu">
-                        <div class="dwqa-dropdown-caret">
-                            <span class="dwqa-caret-outer"></span>
-                            <span class="dwqa-caret-inner"></span>
-                        </div>
-                        <ul role="menu">
-                            <li data-privacy="publish" class="current" title="<?php _e('Everyone can see','dwqa'); ?>"><a href="#"><i class="fa fa-globe"></i> <?php _e('Public','dwqa'); ?></a></li>
-                            <li data-privacy="private" <?php _e('Only Author and Administrator can see','dwqa'); ?>><a href="#"><i class="fa fa-lock"></i> <?php _e('Private','dwqa') ?></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </span>
-        </div>
     </form>
     <?php
     $editor = ob_get_contents();

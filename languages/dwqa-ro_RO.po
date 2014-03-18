@@ -2,529 +2,529 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DW Question Answer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-17 10:15+0700\n"
-"PO-Revision-Date: 2014-03-17 10:15+0700\n"
+"POT-Creation-Date: 2014-03-17 10:14+0700\n"
+"PO-Revision-Date: 2014-03-17 10:14+0700\n"
 "Last-Translator: DesignWall <webmaster@designwall.com>\n"
 "Language-Team: DesignWall <webmaster@designwall.com>\n"
-"Language: en\n"
+"Language: ro_RO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.4\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../dw-question-answer.php:62
 msgid "DWQA Questions"
-msgstr "پرسش های DWQA"
+msgstr "Întrebări DWQA"
 
 #: ../dw-question-answer.php:75
 msgid "DWQA Ask Question"
-msgstr "پرسش سؤال DWQA"
+msgstr "Întreabă DWQA"
 
 #: ../dw-question-answer.php:129
 msgctxt "post type general name"
 msgid "Question"
-msgstr "سؤال"
+msgstr "Întrebări"
 
 #: ../dw-question-answer.php:130
 msgctxt "post type singular name"
 msgid "Question"
-msgstr "سؤال"
+msgstr "Întrebare"
 
 #: ../dw-question-answer.php:131 ../dw-question-answer.php:165
 msgctxt "theme"
 msgid "Add New"
-msgstr "اضافه کردن"
+msgstr "Adaugă întrebare nouă"
 
 #: ../dw-question-answer.php:132
 msgid "Add New Question"
-msgstr "افزودن سؤال جدید"
+msgstr "Adaugă întrebare nouă"
 
 #: ../dw-question-answer.php:133
 msgid "Edit Question"
-msgstr "ویرایش سؤال"
+msgstr "Editează întrebarea"
 
 #: ../dw-question-answer.php:134 ../inc/settings.php:875
 msgid "New Question"
-msgstr "سؤال جدید"
+msgstr "Întrebare nouă"
 
 #: ../dw-question-answer.php:135
 msgid "All Questions"
-msgstr "تمام سؤالات"
+msgstr "Toate întrebările"
 
 #: ../dw-question-answer.php:136
 msgid "View Question"
-msgstr "دیدن سؤال"
+msgstr "Vezi întrebarea"
 
 #: ../dw-question-answer.php:137
 msgid "Search Question"
-msgstr "جست و جوی سؤال"
+msgstr "Caută întrebare"
 
 #: ../dw-question-answer.php:138
 msgid "No questions found"
-msgstr "هیچ سؤالی یافت نشد"
+msgstr "Nici o întrebare găsită"
 
 #: ../dw-question-answer.php:139
 msgid "No questions found in Trash"
-msgstr "هیچ سؤالی در سطل زباله یافت نشد"
+msgstr "Nici o întrebare găsită în Gunoi"
 
 #: ../dw-question-answer.php:141
 msgid "DW Q&A"
-msgstr "پرسش و پاسخ"
+msgstr "DW Q&A"
 
 #: ../dw-question-answer.php:163
 msgctxt "post type general name"
 msgid "Answer"
-msgstr "پاسخ"
+msgstr "Răspunde"
 
 #: ../dw-question-answer.php:164
 msgctxt "post type singular name"
 msgid "Answer"
-msgstr "پاسخ"
+msgstr "Răspunde"
 
 #: ../dw-question-answer.php:166
 msgid "Add new answer"
-msgstr "افزودن پاسخ جدید"
+msgstr "Adaugă răspuns nou"
 
 #: ../dw-question-answer.php:167
 msgid "Edit answer"
-msgstr "ویرایش پاسخ"
+msgstr "Editează răspuns"
 
 #: ../dw-question-answer.php:168 ../inc/settings.php:876
 msgid "New Answer"
-msgstr "پاسخ جدید"
+msgstr "Răspuns nou"
 
 #: ../dw-question-answer.php:169
 msgid "All Answers"
-msgstr "تمام پاسخها"
+msgstr "Toate răspunsurile"
 
 #: ../dw-question-answer.php:170
 msgid "View Answer"
-msgstr "دیدن پاسخ"
+msgstr "Vezi răspuns"
 
 #: ../dw-question-answer.php:171
 msgid "Search Answer"
-msgstr "جست و جوی پاسخ"
+msgstr "Caută răspuns"
 
 #: ../dw-question-answer.php:172
 msgid "No Answers found"
-msgstr "هیچ پاسخی یافت نشد"
+msgstr "Nici un răspuns găsit"
 
 #: ../dw-question-answer.php:173
 msgid "No Answers found in Trash"
-msgstr "هیچ پاسخی در سطل زباله یافت نشد"
+msgstr "Nici un răspuns în Gunoi"
 
 #: ../dw-question-answer.php:175 ../dw-question-answer.php:460
 #: ../inc/settings.php:429 ../inc/shortcodes.php:145
 #: ../inc/templates/default/archive-question.php:111
 #: ../thesis/dwqa/box.php:172
 msgid "Answer"
-msgstr "پاسخ"
+msgstr "Răspunsuri"
 
 #: ../dw-question-answer.php:197
 msgctxt "taxonomy general name"
 msgid "Categories"
-msgstr "دسته ها"
+msgstr "Categorii"
 
 #: ../dw-question-answer.php:198
 msgctxt "taxonomy singular name"
 msgid "Category"
-msgstr "دسته"
+msgstr "Categoria"
 
 #: ../dw-question-answer.php:199
 msgid "Search Categories"
-msgstr "جست و جو در دسته ها"
+msgstr "Căutare în categorii"
 
 #: ../dw-question-answer.php:200
 msgid "All Categories"
-msgstr "تمام دسته ها"
+msgstr "Toate categoriile"
 
 #: ../dw-question-answer.php:201
 msgid "Parent Category"
-msgstr "دسته ی مادر"
+msgstr "Categoria părinte"
 
 #: ../dw-question-answer.php:202
 msgid "Parent Category:"
-msgstr "دسته ی مادر :"
+msgstr "Categoria părinte:"
 
 #: ../dw-question-answer.php:203
 msgid "Edit Category"
-msgstr "ویرایش دسته "
+msgstr "Editează categoria"
 
 #: ../dw-question-answer.php:204
 msgid "Update Category"
-msgstr "به روزرسانی دسته"
+msgstr "Actualizare categorie"
 
 #: ../dw-question-answer.php:205
 msgid "Add New Category"
-msgstr "افزودن دسته حدید"
+msgstr "Adaugă categorie nouă"
 
 #: ../dw-question-answer.php:206
 msgid "New Category Name"
-msgstr "نام دسته حدید"
+msgstr "Denumire categorie nouă"
 
 #: ../dw-question-answer.php:207
 msgid "Question Categories"
-msgstr "دسته سؤالات"
+msgstr "Categorii pentru întrebări"
 
 #: ../dw-question-answer.php:226
 msgctxt "taxonomy general name"
 msgid "Tags"
-msgstr "برچسب ها"
+msgstr "Etichete"
 
 #: ../dw-question-answer.php:227
 msgctxt "taxonomy singular name"
 msgid "Tag"
-msgstr "برچسب"
+msgstr "Etichetă"
 
 #: ../dw-question-answer.php:228
 msgid "Search Tags"
-msgstr "جست و جو در برچسب ها"
+msgstr "Caută etichete"
 
 #: ../dw-question-answer.php:229
 msgid "Popular Tags"
-msgstr "برچسب های محبوب"
+msgstr "Etichete populare"
 
 #: ../dw-question-answer.php:230
 msgid "All Tags"
-msgstr "تمام برچسب ها"
+msgstr "Toate etichetele"
 
 #: ../dw-question-answer.php:233
 msgid "Edit Tag"
-msgstr "ویرایش برچسب"
+msgstr "Editează eticheta"
 
 #: ../dw-question-answer.php:234
 msgid "Update Tag"
-msgstr "به روزرسانی برچسب"
+msgstr "Actualizare etichetă"
 
 #: ../dw-question-answer.php:235
 msgid "Add New Tag"
-msgstr "افزودن برچسب جدید"
+msgstr "Adaugă etichetă nouă"
 
 #: ../dw-question-answer.php:236
 msgid "New Tag Name"
-msgstr "نام برچسب جدید"
+msgstr "Denumire etichetă nouă"
 
 #: ../dw-question-answer.php:237
 msgid "Separate tags with commas"
-msgstr "برچسب ها را با کاما جدا کنید"
+msgstr "Separare etichete cu virgulă"
 
 #: ../dw-question-answer.php:238
 msgid "Add or remove tags"
-msgstr "افزودن یا حذف برچسب ها"
+msgstr "Adaugă sau elimină etichete"
 
 #: ../dw-question-answer.php:239
 msgid "Choose from the most used tags"
-msgstr "از بین برچسب های استفاده شده انتخاب کنید"
+msgstr "Alege dintre cele mai folosite etichete"
 
 #: ../dw-question-answer.php:240 ../inc/template-functions.php:266
 msgid "Question Tags"
-msgstr "برچسب های مربوط به سؤال"
+msgstr "Etichete pentru această întrebare"
 
 #: ../dw-question-answer.php:279 ../dw-question-answer.php:412
 #: ../inc/filter.php:83 ../inc/shortcodes.php:257
 #: ../inc/templates/default/navigation-archive.php:93
 #: ../thesis/dwqa/box.php:282
 msgid "Next"
-msgstr "بعدی"
+msgstr "Următor"
 
 #: ../dw-question-answer.php:280 ../dw-question-answer.php:413
 #: ../inc/shortcodes.php:221
 #: ../inc/templates/default/navigation-archive.php:57
 #: ../thesis/dwqa/box.php:246
 msgid "Prev"
-msgstr "قبلی"
+msgstr "Anterior"
 
 #: ../dw-question-answer.php:282 ../dw-question-answer.php:415
 msgid "Please enter your question"
-msgstr "لطفا سؤال خود را وارد نمایید"
+msgstr "Adaugă întrebarea"
 
 #: ../dw-question-answer.php:283
 msgid "Your question must be at least 2 characters in length"
-msgstr "سؤال شما باید حداقل 2 کارکتر طول داشته باشد"
+msgstr "Întrebarea trebuie să aibă cel puțin două caractere în lungime"
 
 #: ../dw-question-answer.php:284
 msgid "Enter a valid email address"
-msgstr "ایمیل معتبر وارد کنید"
+msgstr "Adaugă o adresă de e-mail validă"
 
 #: ../dw-question-answer.php:285
 msgid "Enter a question title"
-msgstr "عنوان سؤال را وارد کنید"
+msgstr "Adaugă un titlu întrebării"
 
 #: ../dw-question-answer.php:286
-#, fuzzy
 msgid "Please add your name"
-msgstr "لطفا پاسخ خود را وارد نمایید"
+msgstr "Adaugă numele tău"
 
 #: ../dw-question-answer.php:287 ../dw-question-answer.php:416
 msgid "Please enter your answer"
-msgstr "لطفا پاسخ خود را وارد نمایید"
+msgstr "Adaugă răspunsul tău"
 
 #: ../dw-question-answer.php:288 ../dw-question-answer.php:417
 msgid "Please enter your comment content"
-msgstr "لطفا محتوای نظر خود را وارد کنید"
+msgstr "Adaugă comentariul tău"
 
 #: ../dw-question-answer.php:289 ../dw-question-answer.php:418
 msgid "Comment must have more than 2 characters"
-msgstr "نظر باید بیش از 2 کارکتر باشد"
+msgstr "Comentariile trebuie să aibă mai mult de două caractere"
 
 #: ../dw-question-answer.php:290
 msgid "Not found! Try another keyword."
-msgstr "پیدا نشد ! یک کلمه ی کلیدی دیگر امتحان کنید"
+msgstr "Nu am găsit! Încearcă să cauți altceva."
 
 #: ../dw-question-answer.php:291
 msgid "Or press <strong>ENTER</strong> to get more questions"
-msgstr "یا <strong>ورود</strong> را فشار دهید تا سؤالات بیشتر بیابید"
+msgstr "Sau apasă <strong>ENTER</strong> pentru a afișa mai multe întrebări"
 
 #: ../dw-question-answer.php:292 ../dw-question-answer.php:419
 #: ../inc/actions.php:915 ../inc/actions.php:1008
 msgid "Update"
-msgstr "به روزرسانی"
+msgstr "Actualizare"
 
 #: ../dw-question-answer.php:293 ../dw-question-answer.php:420
 #: ../inc/settings.php:394 ../inc/templates/default/content-answer.php:99
 #: ../inc/templates/default/content-comment.php:48
 #: ../inc/templates/default/single-question.php:59
 msgid "Edit"
-msgstr "ویرایش"
+msgstr "Editare"
 
 #: ../dw-question-answer.php:294 ../dw-question-answer.php:421
 #: ../inc/actions.php:916 ../inc/actions.php:1009
 msgid "Cancel"
-msgstr "منصرف شدن"
+msgstr "Anulează"
 
 #: ../dw-question-answer.php:295 ../dw-question-answer.php:422
 msgid "Do you want to delete this comment?"
-msgstr "آیا می خواهید این نظر را پاک کنید ؟"
+msgstr "Vrei să ștergi acest comentariu?"
 
 #: ../dw-question-answer.php:296 ../dw-question-answer.php:423
 msgid "Do you want to delete this answer?"
-msgstr "آیا می خواهید این پاسخ را پاک کنید ؟"
+msgstr "Vrei să ștergi acest răspuns?"
 
 #: ../dw-question-answer.php:297
 msgid "Do you want to update this answer"
-msgstr "آیا می خواهید این پاسخ را به روز کنید"
+msgstr "Vrei să actualizezi acest răspuns"
 
 #: ../dw-question-answer.php:298
 msgid "Do you want to report this answer"
-msgstr "آیا می خواهید این پاسخ را گزارش دهید"
+msgstr "Vrei să raportezi acest răspuns"
 
 #: ../dw-question-answer.php:300
 #: ../inc/templates/default/content-answer.php:104
 msgid "Report"
-msgstr "گزارش"
+msgstr "Raportează"
 
 #: ../dw-question-answer.php:301
 msgid "Undo"
-msgstr "برگرداندن"
+msgstr "Anulează"
 
 #: ../dw-question-answer.php:302
 msgid "This answer will be marked as spam and hidden. Do you want to flag it?"
-msgstr ""
-"این پاسخ به عنوان اسپم نشان دار و مخفی خواهد شد . آیا می خواهید نشان دار "
-"شود ؟"
+msgstr "Acest răspuns va fi marcat ca spam și ascuns. Vrei să îl marchezi?"
 
 #: ../dw-question-answer.php:303 ../dw-question-answer.php:428
 msgid "This answer was flagged as spam. Do you want to show it"
-msgstr ""
-"این پاسخ به عنوان اسپم نشان دار شده است . آیا می خواهید آن را نشان دهید "
+msgstr "Acest răspuns a fost marcat ca spam. Vrei să fie afișat"
 
 #: ../dw-question-answer.php:304
 msgid "This answer was flagged as spam"
-msgstr "این پاسخ به عنوان اسپم نشان دار شده بود"
+msgstr "Acest răspuns a fost marcat ca spam"
 
 #: ../dw-question-answer.php:305 ../dw-question-answer.php:429
 msgid "hide"
-msgstr "مخفی کردن"
+msgstr "ascunde"
 
 #: ../dw-question-answer.php:306 ../dw-question-answer.php:430
 msgid "show"
-msgstr "نشان دادن"
+msgstr "arată"
 
 #: ../dw-question-answer.php:308
 #: ../inc/templates/default/single-question.php:28 ../thesis/dwqa/box.php:344
 msgid "Follow This Question"
-msgstr "دنبال کردن این سؤال"
+msgstr "Urmărește această întrebare"
 
 #: ../dw-question-answer.php:309
 #: ../inc/templates/default/single-question.php:28 ../thesis/dwqa/box.php:344
 msgid "Unfollow This Question"
-msgstr "دنبال نکردن این سؤال"
+msgstr "Nu mai urmări această întrebare"
 
 #: ../dw-question-answer.php:310
-#, fuzzy
 msgid "Stick This Question on Frontpage"
-msgstr "ارسال این سؤال به صورت خصوصی."
+msgstr "Fixează această întrebare pe prima pagină"
 
 #: ../dw-question-answer.php:311
-#, fuzzy
 msgid "Untick This Question on Frontpage"
-msgstr "ارسال این سؤال به صورت خصوصی."
+msgstr "Defixează această întrebare de pe prima pagină"
 
 #: ../dw-question-answer.php:314
 #, fuzzy
 msgid "Do you want to delete this question?"
-msgstr "آیا می خواهید این نظر را پاک کنید ؟"
+msgstr "Vrei să ștergi acest comentariu?"
 
 #: ../dw-question-answer.php:334
 #, php-format
 msgid "%s second"
 msgid_plural "%s seconds"
-msgstr[0] "ثانیه%s"
-msgstr[1] "ثانیه%s"
+msgstr[0] "%s secundă"
+msgstr[1] "%s secunde"
+msgstr[2] "%s secunde"
 
 #. translators: min=minute
 #: ../dw-question-answer.php:343
 #, php-format
 msgid "about %s min"
 msgid_plural "%s mins"
-msgstr[0] "حدود %s دقیقه"
-msgstr[1] "حدود %s دقیقه"
+msgstr[0] "aprox. %s minut"
+msgstr[1] "%s minute"
+msgstr[2] "%s minute"
 
 #: ../dw-question-answer.php:349
 #, php-format
 msgid "about %s hour"
 msgid_plural "%s hours"
-msgstr[0] "حدود %s روز"
-msgstr[1] "حدود %s روز"
+msgstr[0] "aprox. %s oră"
+msgstr[1] "%s ore"
+msgstr[2] "%s ore"
 
 #: ../dw-question-answer.php:355
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
-msgstr[0] "روز%s"
-msgstr[1] "روز%s"
+msgstr[0] "%s zi"
+msgstr[1] "%s zile"
+msgstr[2] "%s zile"
 
 #: ../dw-question-answer.php:359
 #, php-format
 msgid "%1$s ago"
-msgstr ""
+msgstr "%1$s în urmă"
 
 #: ../dw-question-answer.php:425
 msgid "Flag"
-msgstr "نشان کردن"
+msgstr "Marchează"
 
 #: ../dw-question-answer.php:426
 msgid "Unflag"
-msgstr "بی نشان کردن"
+msgstr "Demarchează"
 
 #: ../dw-question-answer.php:427
 msgid "This answer will be hide when flag it. Are you sure?"
-msgstr "اگر نشان دار شود این پاسخ مخفی می شود . آیا مطمئن هستید ؟"
+msgstr "Acest răspuns va fi ascuns dacă este marcat. Ești sigur?"
 
 #: ../dw-question-answer.php:461 ../inc/class-answers-list-table.php:77
 msgid "Author"
-msgstr "نویسنده"
+msgstr "Autor"
 
 #: ../dw-question-answer.php:463
 msgid "In Response To"
-msgstr "در پاسخ به"
+msgstr "Ca răspuns la"
 
 #: ../dw-question-answer.php:467
 msgid "Info"
-msgstr "اطلاعات"
+msgstr "Info"
 
 #: ../dw-question-answer.php:484
 msgid "Submitted"
-msgstr "ثبت شده"
+msgstr "Adăugată"
 
 #: ../dw-question-answer.php:485
 msgid "on"
-msgstr "روی"
+msgstr "în"
 
 #: ../dw-question-answer.php:512
 msgid "Reset all changed to default"
-msgstr "برگرداندن تنظیمات به حالت اولیه"
+msgstr "Resetează toate modificările"
 
 #: ../dw-question-answer.php:526
 msgid "answered"
-msgstr "پاسخ داده شده"
+msgstr "răspunse"
 
 #: ../dw-question-answer.php:527
 msgid "voted"
-msgstr "رای داده شده"
+msgstr "votate"
 
 #: ../dw-question-answer.php:528
 msgid "views"
-msgstr "بازدید"
+msgstr "afișate"
 
 #: ../dw-question-answer.php:649 ../inc/shortcodes.php:359
 #: ../inc/widgets.php:101
 msgid "asked by"
-msgstr "پرسیده شده توسط"
+msgstr "întrebate de"
 
 #: ../inc/actions.php:39
 msgid "Are you cheating, huh?"
-msgstr ""
+msgstr "Trișezi?"
 
 #: ../inc/actions.php:53
 msgid "What "
-msgstr "چی"
+msgstr "Ce"
 
 #: ../inc/actions.php:84
 msgid "You voted for this "
-msgstr "شما برای این نظر داده اید"
+msgstr "Ai votat deja"
 
 #: ../inc/actions.php:205
 msgid "Delete draft"
-msgstr "پاک کردن پیش نویس"
+msgstr "Șterge ciornă"
 
 #: ../inc/actions.php:234
 msgid "Answer for "
-msgstr "پاسخ برای"
+msgstr "Răspuns pentru"
 
 #: ../inc/actions.php:247 ../inc/template-functions.php:363
 msgid "Save draft"
-msgstr "ذخیره به عنوان پیشنویس"
+msgstr "Salvare ciornă"
 
 #: ../inc/actions.php:261 ../inc/actions.php:508
 msgid "You do not have permission to submit question."
-msgstr "شما اجازه ثبت سؤال ندارید"
+msgstr "Nu ai permisiuni pentru a adăuga întrebarea."
 
 #: ../inc/actions.php:287 ../inc/actions.php:517
 msgid "Captcha is not correct"
-msgstr "کد کپچا درست نیست"
+msgstr "Captcha nu este corect"
 
 #: ../inc/actions.php:375 ../inc/actions.php:520 ../inc/actions.php:727
 #: ../inc/actions.php:752 ../inc/actions.php:770 ../inc/actions.php:1491
 #: ../inc/filter.php:356 ../inc/status.php:286
 msgid "Are you cheating huh?"
-msgstr ""
+msgstr "Trișezi?"
 
 #: ../inc/actions.php:378
 msgid "Missing answer ID"
-msgstr "ای دی پاسخ از دست رفته"
+msgstr "Lipsește ID-ul răspunsului"
 
 #: ../inc/actions.php:477
 msgid "User Registration was disabled."
-msgstr "عضویت غیر فعال شده است "
+msgstr "Înregistrarea a fost dezactivată."
 
 #: ../inc/actions.php:480
 msgid "This email is already registered, please choose another one."
-msgstr "این ایمیل ثبت شده است ، لطفا یکی دیگر استفاده کنید"
+msgstr "Acest e-mail este deja înregistrat, te rugăm să alegi altul."
 
 #: ../inc/actions.php:483
 msgid "This username is already registered. Please choose another one."
-msgstr "این نام کاربری ثبت شده است ، لطفا نام دیگری انتخاب کنید"
+msgstr ""
+"Acest nume de utilizator este deja înregistrat, te rugăm să alegi altul."
 
 #: ../inc/actions.php:732
 msgid "Comment content must not be empty."
-msgstr "محتوای نظر نباید خالی باشد"
+msgstr "Comentariul nu poate să lipsească."
 
 #: ../inc/actions.php:757
 msgid "Comment ID must be show."
-msgstr "ای دی نظر باید نمایش داده شود"
+msgstr "ID-ul comentariului trebuie să fie afișat."
 
 #: ../inc/actions.php:773
 msgid "Missing id of answer"
-msgstr "ای دی پاسخ از دست رفته"
+msgstr "Lipsește ID-ul răspunsului"
 
 #: ../inc/actions.php:919 ../inc/actions.php:1012
 msgid "Publish"
-msgstr "منتشر کردن"
+msgstr "Publică"
 
 #: ../inc/actions.php:924 ../inc/actions.php:934
 #: ../inc/template-functions.php:368 ../inc/template-functions.php:378
@@ -534,19 +534,19 @@ msgstr "منتشر کردن"
 #: ../inc/templates/default/single-question.php:111 ../thesis/dwqa/box.php:387
 #: ../thesis/dwqa/box.php:398
 msgid "Public"
-msgstr "عمومی"
+msgstr "Public"
 
 #: ../inc/actions.php:934 ../inc/template-functions.php:378
 #: ../inc/templates/default/content-answer.php:75
 #: ../inc/templates/default/single-question.php:111 ../thesis/dwqa/box.php:398
 msgid "Everyone can see"
-msgstr "هرکس میتواند ببیند"
+msgstr "Vizibil pentru oricine"
 
 #: ../inc/actions.php:935 ../inc/template-functions.php:379
 #: ../inc/templates/default/content-answer.php:76
 #: ../inc/templates/default/single-question.php:112 ../thesis/dwqa/box.php:399
 msgid "Only Author and Administrator can see"
-msgstr "فقط نویسنده و مدیریت میتوانند ببینند"
+msgstr "Doar autorul și administratorul pot vedea"
 
 #: ../inc/actions.php:935 ../inc/template-functions.php:379
 #: ../inc/templates/default/content-answer.php:63
@@ -555,41 +555,41 @@ msgstr "فقط نویسنده و مدیریت میتوانند ببینند"
 #: ../inc/templates/default/single-question.php:112 ../thesis/dwqa/box.php:387
 #: ../thesis/dwqa/box.php:399
 msgid "Private"
-msgstr "خصوصی"
+msgstr "Privat"
 
 #: ../inc/actions.php:955 ../inc/actions.php:1699
+#, fuzzy
 msgid "Hello, Are you cheating huh?"
-msgstr ""
+msgstr "\"Helllo\", trișezi?."
 
 #: ../inc/actions.php:1039
 msgid "You can't post comment"
-msgstr "شما اجازه نظر دادن ندارید"
+msgstr "Nu poți adăuga comentariu"
 
 #: ../inc/actions.php:1053
 msgid "Missing email infomation"
-msgstr "اطلاعات ایمیل از دست رفته"
+msgstr "Lipsește e-mail-ul"
 
 #: ../inc/actions.php:1058
 msgid "Missing name infomation"
-msgstr "اطلاعات نام از دست رفته"
+msgstr "Lipsește numele"
 
 #: ../inc/actions.php:1319
 msgid "Choose as best answer"
-msgstr "انتخاب به عنوان بهترین پاسخ"
+msgstr "Alege ca Cel mai bun răspuns"
 
 #: ../inc/actions.php:1538 ../inc/actions.php:1568
 msgid "Invalid Post"
-msgstr "پست نادرست"
+msgstr "Postare invalidă"
 
 #: ../inc/actions.php:1670
-#, fuzzy
 msgid "Sticky Questions"
-msgstr "ثبت سؤال"
+msgstr "Intrebări fixate"
 
 #: ../inc/actions.php:1705
 #, fuzzy
 msgid "Question is not valid"
-msgstr "برگه ی لیست سؤالات"
+msgstr "Pagina cu lista întrebărilor"
 
 #: ../inc/actions.php:1736
 msgid "Delete Action was failed"
@@ -598,38 +598,38 @@ msgstr ""
 #: ../inc/actions.php:1741
 #, fuzzy
 msgid "You do not have permission to delete this question"
-msgstr "شما اجازه ثبت سؤال ندارید"
+msgstr "Nu ai permisiunea să vezi întrebările"
 
 #: ../inc/class-answers-list-table.php:78
 msgid "Detail"
-msgstr "جزئیات"
+msgstr "Detalii"
 
 #: ../inc/class-answers-list-table.php:97
 msgid "Answered on "
-msgstr "پاسخ داده شده در"
+msgstr "Răspuns pe"
 
 #: ../inc/class-answers-list-table.php:108 ../inc/contextual-helper.php:202
 msgid "Read more"
-msgstr "خواندن بیشتر"
+msgstr "Citește mai mult"
 
 #: ../inc/class-walker-category.php:20 ../inc/class-walker-tag-dropdown.php:19
 #, php-format
 msgid "View all posts filed under %s"
-msgstr ""
+msgstr "Vezi toate postările din %s"
 
 #: ../inc/class-walker-category.php:35 ../inc/class-walker-tag-dropdown.php:34
 #, php-format
 msgid "Feed for all posts filed under %s"
-msgstr ""
+msgstr "Flux pentru toate postările din %s"
 
 #: ../inc/contextual-helper.php:48
 msgid "Overview"
-msgstr "دورنما"
+msgstr "Vedere de ansamblu"
 
 #: ../inc/contextual-helper.php:49
 #, fuzzy
 msgid "DW Question Answer Plugin"
-msgstr "پرسش های DWQA"
+msgstr "De ce să folosești DW Question & Answer"
 
 #: ../inc/contextual-helper.php:50
 msgid ""
@@ -642,12 +642,12 @@ msgstr ""
 #: ../inc/contextual-helper.php:53
 #, fuzzy
 msgid "Setup Question List Page"
-msgstr "برگه ی لیست سؤالات"
+msgstr "Pagina cu lista întrebărilor"
 
 #: ../inc/contextual-helper.php:57
 #, fuzzy
 msgid "Setup Ask Question Page"
-msgstr "برگه ی پرسش سؤال"
+msgstr "Pagina pentru adăugarea întrebării"
 
 #: ../inc/contextual-helper.php:61
 msgid "Shortcode"
@@ -659,40 +659,41 @@ msgstr ""
 
 #: ../inc/contextual-helper.php:223
 msgid "For more information:"
-msgstr ""
+msgstr "Pentru mai multe informații:"
 
 #: ../inc/contextual-helper.php:224
 #, fuzzy
 msgid "DW Question Answer Guide"
-msgstr "پرسش های DWQA"
+msgstr "De ce să folosești DW Question & Answer"
 
 #: ../inc/contextual-helper.php:225
 #, fuzzy
 msgid "Community"
-msgstr "نظر"
+msgstr "Comentariu"
 
 #: ../inc/contextual-helper.php:226
 msgid "DesignWall Wordpress Themes"
-msgstr ""
+msgstr "DesignWall Teme Wordpress"
 
 #: ../inc/contextual-helper.php:227
+#, fuzzy
 msgid "DesignWall Wordpress Plugins"
-msgstr ""
+msgstr "DesignWall Teme Wordpress"
 
 #: ../inc/filter.php:101 ../inc/shortcodes.php:270
 #: ../inc/templates/default/archive-question-notfound.php:4
 #: ../thesis/dwqa/box.php:295
 msgid "You do not have permission to view questions"
-msgstr ""
+msgstr "Nu ai permisiunea să vezi întrebările"
 
 #: ../inc/filter.php:104
 msgid "Sorry, but nothing matched your filter. "
-msgstr ""
+msgstr "Ne pare rău, dar nu s-a potrivit nimic la această căutare."
 
 #: ../inc/filter.php:111 ../inc/shortcodes.php:281
 #, fuzzy
 msgid "You can ask question"
-msgstr "سؤال شما"
+msgstr "Poți adăuga o întrebare <a href=\""
 
 #: ../inc/filter.php:113 ../inc/shortcodes.php:283
 msgid "here"
@@ -700,9 +701,8 @@ msgstr ""
 
 #: ../inc/filter.php:119 ../inc/shortcodes.php:289
 #: ../inc/templates/default/archive-question-notfound.php:14
-#, fuzzy
 msgid "Please"
-msgstr "لطفا وارد شوید"
+msgstr ""
 
 #: ../inc/filter.php:121 ../inc/shortcodes.php:291
 #: ../inc/templates/default/archive-question-notfound.php:16
@@ -713,77 +713,77 @@ msgstr ""
 #: ../inc/templates/default/archive-question-notfound.php:17
 #: ../thesis/dwqa/box.php:313
 msgid " or"
-msgstr "یا"
+msgstr "sau"
 
 #: ../inc/filter.php:127 ../inc/shortcodes.php:298
 #: ../inc/templates/default/archive-question-notfound.php:18
 #: ../thesis/dwqa/box.php:315
 msgid " to submit question."
-msgstr "تا سؤال بپرسید"
+msgstr "pentru a adăuga o întrebare"
 
 #: ../inc/filter.php:364
 msgid "Search query are empty"
-msgstr ""
+msgstr "Nu s-a căutat nimic"
 
 #: ../inc/metaboxes.php:5
 msgid "Answers"
-msgstr "پاسخ ها"
+msgstr "Răspunsuri"
 
 #: ../inc/metaboxes.php:29
-#, fuzzy
 msgid "Question Meta Data"
-msgstr "جزئیات سؤال"
+msgstr "Meta date întrebare"
 
 #: ../inc/metaboxes.php:44 ../inc/templates/default/single-question.php:138
 #: ../thesis/dwqa/box.php:425
 msgid "Status"
-msgstr "وضعیت ها"
+msgstr "Stare"
 
 #: ../inc/metaboxes.php:46 ../inc/shortcodes.php:64 ../inc/status.php:277
 #: ../inc/templates/default/archive-question.php:30 ../thesis/dwqa/box.php:91
 msgid "Open"
-msgstr "باز"
+msgstr "Deschise"
 
 #: ../inc/metaboxes.php:47 ../inc/status.php:264
 #: ../inc/templates/default/content-question.php:8
 #: ../inc/templates/default/single-question.php:166 ../thesis/dwqa/box.php:453
 msgid "Pending"
-msgstr "درحال ارسال"
+msgstr "În așteptare"
 
 #: ../inc/metaboxes.php:48 ../inc/shortcodes.php:70 ../inc/status.php:261
 #: ../inc/templates/default/archive-question.php:36
 #: ../inc/templates/default/single-question.php:171 ../thesis/dwqa/box.php:97
 #: ../thesis/dwqa/box.php:458
 msgid "Resolved"
-msgstr "حل شده"
+msgstr "Rezolvate"
 
 #: ../inc/metaboxes.php:49 ../inc/status.php:267
 #: ../inc/templates/default/single-question.php:156 ../thesis/dwqa/box.php:443
 msgid "Re-Open"
-msgstr "دوباره باز شده"
+msgstr "Redeschisă"
 
 #: ../inc/metaboxes.php:50 ../inc/shortcodes.php:73 ../inc/status.php:270
 #: ../inc/templates/default/archive-question.php:39
 #: ../inc/templates/default/single-question.php:161 ../thesis/dwqa/box.php:100
 #: ../thesis/dwqa/box.php:448
 msgid "Closed"
-msgstr "بسته شده"
+msgstr "Închise"
 
 #: ../inc/metaboxes.php:56
 msgid "Sticky"
-msgstr ""
+msgstr "Fixată"
 
 #: ../inc/metaboxes.php:60
 msgid "Sticky question on top of archive page."
-msgstr ""
+msgstr "Întrebare fixată în capul paginii arhivă"
 
 #: ../inc/notification.php:27
 msgid "A new question was posted on {site_name}"
-msgstr "یک سؤال جدید در {site_name} پست شده است"
+msgstr "A fost adăugată o întrebare nouă pe {site_name}"
 
 #: ../inc/notification.php:120
 msgid "A new answer for \"{question_title}\" was posted on {site_name}"
-msgstr "یک پاسخ جدید برای \"{question_title}\" در  {site_name} پست شده است"
+msgstr ""
+"A fost adăugat un răspuns nou pentru \"{question_title}\" pe {site_name}"
 
 #: ../inc/notification.php:148 ../inc/notification.php:150
 #: ../inc/settings.php:418 ../inc/settings.php:459 ../inc/settings.php:500
@@ -791,25 +791,26 @@ msgstr "یک پاسخ جدید برای \"{question_title}\" در  {site_name} �
 #: ../inc/templates/default/content-comment.php:15
 #: ../inc/templates/default/content-question.php:25
 msgid "Anonymous"
-msgstr "هرکس"
+msgstr "Anonim"
 
 #: ../inc/notification.php:188
 msgid "You got new answer for your followed question"
-msgstr "شما یک پاسخ جدید برای سؤالی که دنبال کردید،دریافت نموده اید."
+msgstr "Ai primit un răspuns nou la întrebarea urmărită"
 
 #: ../inc/notification.php:284 ../inc/notification.php:330
 #, fuzzy
 msgid "[{site_name}] You have a new comment for question {question_title}"
-msgstr "[{site_name}] شما یک نظر جدید برای سؤال دارید .{question_title} "
+msgstr ""
+"[{site_name}] Ai primit un comentariu nou la întrebarea {question_title} "
 
 #: ../inc/notification.php:289 ../inc/notification.php:335
 msgid "[{site_name}] You have a new comment for answer"
-msgstr "[{site_name}] شما یک نظر جدید برای پاسخ دارید"
+msgstr "[{site_name}] Ai primit un comentariu nou la răspuns"
 
 #: ../inc/pointer-helper.php:57
 #, fuzzy
 msgid "How to use DW Question Answer"
-msgstr "انتخاب به عنوان بهترین پاسخ"
+msgstr "De ce să folosești DW Question & Answer"
 
 #: ../inc/pointer-helper.php:58
 msgid "Documents, Support From DesignWall (help)"
@@ -817,132 +818,135 @@ msgstr ""
 
 #: ../inc/pointer-helper.php:67
 msgid "Config your support channel"
-msgstr ""
+msgstr "Configurează canalul tău de suport"
 
 #: ../inc/pointer-helper.php:68
 msgid "Change comment setting, and create submit question page."
-msgstr "تنظیمات نظر را عوض کنید و صفحه ی ثبت سؤال بسازید "
+msgstr ""
+"Modifică setările comentariilor și crează o pagină pentru adăugarea "
+"întrebărilor."
 
 #: ../inc/settings.php:9
 msgid "Login required. No anonymous allowed"
-msgstr "وارد شدن نیاز است . کسی اجازه ندارد"
+msgstr "Trebuie să te autentifici. Nu sunt permise postări anonime"
 
 #: ../inc/settings.php:21
 msgid "Select Archive Question Page"
-msgstr "آرشیو صفحه ی سؤالات را انتخاب کنید"
+msgstr "Alege pagina arhivă întrebări"
 
 #: ../inc/settings.php:25
 msgid "A page where displays all questions"
-msgstr "صفحه ای که تمام سؤالات را نمایش میدهد"
+msgstr "Pagina în care se afișează toate întrebările"
 
 #: ../inc/settings.php:32
 msgid "hours"
-msgstr "ساعت"
+msgstr "ore"
 
 #: ../inc/settings.php:32
 msgid ""
 "A period of time in which new questions are highlighted and marked as New"
-msgstr ""
+msgstr "Pagina în care se afișează toate întrebările"
 
 #: ../inc/settings.php:37
 msgid "days"
-msgstr "روز"
+msgstr "zile"
 
 #: ../inc/settings.php:37
 msgid ""
 "A Question will be marked as overdue if passes this period of time, starting "
 "from the date the question was submitted"
 msgstr ""
+"O întrebare va fi marcată ca având termenul depășit dacă trece această "
+"perioadă de timp, din momentul în care a fost adăugată"
 
 #: ../inc/settings.php:48
 msgid "Select Submit Question Page"
-msgstr "صفحه ی ثبت سؤال را انتخاب کنید"
+msgstr "Alege pagina de adăugare a întrebării"
 
 #: ../inc/settings.php:53
 #, fuzzy
 msgid "A page where users can submit questions."
-msgstr "صفحه ای که کاربران می توانند سؤالات خود را ثبت کنند .\n"
+msgstr "Pagina în care utilizatorii pot adăuga întrebări.\n"
 
 #: ../inc/settings.php:69
 msgid "Upload"
-msgstr "بارگذاری"
+msgstr "Încarcă"
 
 #: ../inc/settings.php:69
 msgid "Upload or choose a logo to be displayed at the top of the email"
-msgstr "انتخاب/آپلود کنید لوگویی که در بالای ایمیل نمایش داده میشود"
+msgstr "Încarcă sau alege un logo pentru a fi afișat în e-mail"
 
 #: ../inc/settings.php:108
 msgid "Enable notification for new question"
-msgstr "فعال کردن هشدار برای سؤال جدید"
+msgstr "Activează notificările pentru întrebările noi"
 
 #: ../inc/settings.php:113 ../inc/settings.php:149 ../inc/settings.php:186
 #: ../inc/settings.php:223 ../inc/settings.php:260 ../inc/settings.php:297
 #: ../inc/settings.php:334
 msgid "Email subject"
-msgstr "موضوع ایمیل"
+msgstr "Subiect e-mail"
 
 #: ../inc/settings.php:118 ../inc/settings.php:154 ../inc/settings.php:191
 #: ../inc/settings.php:228 ../inc/settings.php:265 ../inc/settings.php:302
 #: ../inc/settings.php:339
 msgid "Email Content"
-msgstr "محتوای ایمیل"
+msgstr "Conținut e-mail"
 
 #: ../inc/settings.php:144
 msgid "Enable notification for new answer"
-msgstr "فعال کردن هشدار برای پاسخ جدید"
+msgstr "Activează notificările pentru răspunsuri noi"
 
 #: ../inc/settings.php:181
 msgid "Enable notification for new answer (to Followers)"
-msgstr "فعال کردن هشدار برای پاسخ جدید(به دنبال کنندگان)"
+msgstr "Activează notificările pentru răspunsuri noi (pentru urmăritori)"
 
 #: ../inc/settings.php:218 ../inc/settings.php:255
 msgid "Enable notification for new comment of question"
-msgstr "فعال کردن هشدار برای نظر جدید به سؤال"
+msgstr "Activează notificările pentru comentarii noi la întrebare"
 
 #: ../inc/settings.php:292 ../inc/settings.php:329
 msgid "Enable notification for new comment of answer"
-msgstr "فعال کردن هشدار برای نظر جدید به جواب"
+msgstr "Activează notificările pentru comentarii noi la răspuns"
 
 #: ../inc/settings.php:387
 msgid "Question"
-msgstr "سؤال"
+msgstr "Întrebare"
 
 #: ../inc/settings.php:392
 #, fuzzy
 msgid "Read"
-msgstr "خواندن بیشتر"
+msgstr "Citește mai mult"
 
 #: ../inc/settings.php:393
 #, fuzzy
 msgid "Post"
-msgstr "پست شده توسط"
+msgstr "Adăugat de"
 
 #: ../inc/settings.php:395 ../inc/templates/default/content-answer.php:102
 #: ../inc/templates/default/content-comment.php:51
 #: ../inc/templates/default/single-question.php:62
 msgid "Delete"
-msgstr "حذف"
+msgstr "Șterge"
 
 #: ../inc/settings.php:427 ../inc/settings.php:468 ../inc/settings.php:510
 msgid "Reset Default"
-msgstr "بازگرداندان به حالت اولیه"
+msgstr "Resetare"
 
 #: ../inc/settings.php:470
 msgid "Comment"
-msgstr "نظر"
+msgstr "Comentariu"
 
 #: ../inc/settings.php:519
 msgid "Enable/Disable captcha on submit question page"
-msgstr "فعال/غیر فعال کردن کپچا در صفحه ی ثبت سؤال"
+msgstr "Activează/Dezactivează captcha pe pagina de adăugare a întrebării"
 
 #: ../inc/settings.php:525
 msgid "Enable/Disable captcha on single question page"
-msgstr "فعال/غیر فعال کردن کپچا در صفحه ی سؤال جدا"
+msgstr "Activează/Dezactivează captcha pe pagina întrebării"
 
 #: ../inc/settings.php:543
-#, fuzzy
 msgid "questions"
-msgstr "سؤال"
+msgstr "întrebări"
 
 #: ../inc/settings.php:549
 msgid "Allow members to post private question"
@@ -950,165 +954,165 @@ msgstr ""
 
 #: ../inc/settings.php:567
 msgid "Plugin Settings"
-msgstr "تنظیمات"
+msgstr "Setări modul"
 
 #: ../inc/settings.php:567
 msgid "Settings"
-msgstr "تنظیمات"
+msgstr "Setări"
 
 #: ../inc/settings.php:593
 msgid "Question List Page"
-msgstr "برگه ی لیست سؤالات"
+msgstr "Pagina cu lista întrebărilor"
 
 #: ../inc/settings.php:601
 msgid "Archive page show at most"
-msgstr ""
+msgstr "Pagina arhivă afișează cel mult"
 
 #: ../inc/settings.php:609
 msgid "Ask Question Page"
-msgstr "برگه ی پرسش سؤال"
+msgstr "Pagina pentru adăugarea întrebării"
 
 #: ../inc/settings.php:616
 #, fuzzy
 msgid "Private Question"
-msgstr "ویرایش سؤال"
+msgstr "Editează întrebarea"
 
 #: ../inc/settings.php:624
 msgid "Time settings"
-msgstr "تنظیمات ساعت"
+msgstr "Setări timp"
 
 #: ../inc/settings.php:631
 msgid "New Question Time Frame"
-msgstr "قالب زمانی سؤال جدید"
+msgstr "Perioadă pentru întrebare nouă"
 
 #: ../inc/settings.php:639
 msgid "Question Overdue - Time Frame"
-msgstr "قالب زمانی سؤالی که از زمان پرسیدنش گذشته است"
+msgstr "Termen valabilitate întrebare"
 
 #: ../inc/settings.php:649
 msgid "Captcha settings"
-msgstr "تنظیمات کپچا"
+msgstr "Setări Captcha"
 
 #: ../inc/settings.php:656
 msgid "Captcha in Submit Question Page"
-msgstr "کد کپچا در صفحه ی ثبت سؤالات "
+msgstr "Captcha în pagina de adăugare a întrebării"
 
 #: ../inc/settings.php:664
 msgid "Captcha in Single Question Page"
-msgstr "کپچا در صفحه ی سؤال جدا"
+msgstr "Captcha în pagina întrebării"
 
 #: ../inc/settings.php:672
 msgid "Google Captcha Public Key"
-msgstr "Google Captcha Public Key"
+msgstr "Cheia publică Google Captcha"
 
 #: ../inc/settings.php:680
 msgid "Google Captcha Private Key"
-msgstr "Google Captcha Private Key"
+msgstr "Cheia privată Google Captcha"
 
 #: ../inc/settings.php:690
 msgid "Permalink Settings"
-msgstr "تنظیمات پیوند یکتا"
+msgstr "Setări legături permanente"
 
 #: ../inc/settings.php:697
 msgid "Single Question"
-msgstr "سؤال تنها"
+msgstr "Întrebare unică"
 
 #: ../inc/settings.php:705
 msgid "Single Category"
-msgstr "دسته ی تنها"
+msgstr "Categorie unică"
 
 #: ../inc/settings.php:713
 msgid "Single Tag"
-msgstr "برچسب تنها"
+msgstr "Etichetă unică"
 
 #: ../inc/settings.php:762
 #, fuzzy
 msgid "From Email"
-msgstr "ایمیل"
+msgstr "E-mail"
 
 #: ../inc/settings.php:826 ../inc/settings.php:833
 msgid "Group Permission"
-msgstr "اجازه گروه"
+msgstr "Permisii grup"
 
 #: ../inc/settings.php:846
 msgid "DWQA Settings"
-msgstr "تنظیمات بخش پرسش و پاسخ"
+msgstr "Setări DWQA"
 
 #: ../inc/settings.php:851
 msgid "General"
-msgstr "کلی"
+msgstr "General"
 
 #: ../inc/settings.php:852
 msgid "Notification"
-msgstr "هشدارها"
+msgstr "Notificări"
 
 #: ../inc/settings.php:853
 msgid "Permission"
-msgstr "دسترسی ها"
+msgstr "Permisii"
 
 #: ../inc/settings.php:861
 #, fuzzy
 msgid "Email setup"
-msgstr "موضوع ایمیل"
+msgstr "Subiect e-mail"
 
 #: ../inc/settings.php:865
 msgid "Email Logo"
-msgstr "لوگوی ایمیل"
+msgstr "Logo e-mail"
 
 #: ../inc/settings.php:877
 msgid "New Comment to Question"
-msgstr "نظر جدید برای سؤال"
+msgstr "Comentariu nou la întrebare"
 
 #: ../inc/settings.php:878
 msgid "New Comment to Answer"
-msgstr "نظر جدید برای پاسخ"
+msgstr "Comentariu nou la răspuns"
 
 #: ../inc/settings.php:879
 msgid "New Answer (to Followers)"
-msgstr "پاسخ جدید (به دنبال کنندگان)"
+msgstr "Răspuns nou (urmăritori)"
 
 #: ../inc/settings.php:880
 msgid "New Comment to Question (to Followers)"
-msgstr "نظر جدید به سؤال (به دنبال کنندگان)"
+msgstr "Comentariu nou la întrebare (urmăritori)"
 
 #: ../inc/settings.php:881
 msgid "New Comment to Answer (to Followers)"
-msgstr "نظر جدید به پاسخ (به دنبال کنندگان)"
+msgstr "Comentariu nou la răspuns (urmăritori)"
 
 #: ../inc/settings.php:888
 msgid "New Question Notification"
-msgstr "هشدار سؤال جدید"
+msgstr "Notificare întrebare nouă"
 
 #: ../inc/settings.php:895 ../inc/settings.php:904 ../inc/settings.php:913
 #: ../inc/settings.php:922 ../inc/settings.php:932 ../inc/settings.php:940
 #: ../inc/settings.php:950
 msgid "Save all changes"
-msgstr "ذخیره تمام تغییرات"
+msgstr "Salvează toate modificările"
 
 #: ../inc/settings.php:900
 msgid "New Answer Notification"
-msgstr "هشدار برای پاسخ جدید"
+msgstr "Notificare răspuns nou"
 
 #: ../inc/settings.php:909
 #, fuzzy
 msgid "New Answer Notification (to Followers)"
-msgstr "هشدار پاسخ جدید(به دنبال کنندگان)"
+msgstr "Notificare răspuns nou (urmăritori)"
 
 #: ../inc/settings.php:918
 msgid "New Comment to Question Notification"
-msgstr "نظر جدید برای سؤال"
+msgstr "Comentariu nou la notificare întrebare"
 
 #: ../inc/settings.php:928
 msgid "New Comment to Answer Notification"
-msgstr "نظر جدید به پاسخ "
+msgstr "Comentariu nou la notificare răspuns"
 
 #: ../inc/settings.php:936
 msgid "New Comment to Question Notification (to Followers)"
-msgstr "نظر جدید به سؤال(به دنبال کنندگان)"
+msgstr "Comentariu nou la notificare întrebare (urmăritori)"
 
 #: ../inc/settings.php:946
 msgid "New Comment to Answer Notification (to Followers)"
-msgstr "نظر جدید به پاسخ(به دنبال کنندگان)"
+msgstr "Comentariu nou la notificare răspuns (urmăritori)"
 
 #: ../inc/settings.php:974
 msgid "Send to"
@@ -1133,219 +1137,218 @@ msgstr ""
 #: ../inc/shortcodes.php:37 ../inc/templates/default/search-question.php:4
 #: ../thesis/dwqa/box.php:64
 msgid "Search"
-msgstr "جست و جو"
+msgstr "Caută o întrebare sau găsește un răspuns..."
 
 #: ../inc/shortcodes.php:50 ../inc/shortcodes.php:264
 #: ../inc/template-functions.php:722 ../thesis/dwqa/box.php:77
 #: ../thesis/dwqa/box.php:289
 msgid "Ask a question"
-msgstr "پرسیدن یک سؤال"
+msgstr "Adaugă întrebare"
 
 #: ../inc/shortcodes.php:58 ../inc/templates/default/archive-question.php:24
 #: ../thesis/dwqa/box.php:85
 msgid "Status:"
-msgstr "وضعیت :"
+msgstr "Stare:"
 
 #: ../inc/shortcodes.php:60 ../inc/shortcodes.php:108
 #: ../inc/templates/default/archive-question.php:26
 #: ../inc/templates/default/archive-question.php:74 ../thesis/dwqa/box.php:87
 #: ../thesis/dwqa/box.php:135
 msgid "All"
-msgstr "همه"
+msgstr "Toate"
 
 #: ../inc/shortcodes.php:64 ../inc/templates/default/archive-question.php:30
 #: ../thesis/dwqa/box.php:91
 msgid "Need Answer"
-msgstr "نیازمند پاسخ"
+msgstr "Deschise"
 
 #: ../inc/shortcodes.php:67 ../inc/templates/default/archive-question.php:33
 #: ../thesis/dwqa/box.php:94
 msgid "Answered"
-msgstr "پاسخ داده شده"
+msgstr "Răspunse"
 
 #: ../inc/shortcodes.php:76 ../inc/templates/default/archive-question.php:42
 #: ../thesis/dwqa/box.php:103
 msgid "Overdue"
-msgstr "سر رسیده"
+msgstr "Expirate"
 
 #: ../inc/shortcodes.php:77 ../inc/templates/default/archive-question.php:43
 #: ../thesis/dwqa/box.php:104
 msgid "Queue"
-msgstr "در صف"
+msgstr "În așteptare"
 
 #: ../inc/shortcodes.php:98 ../inc/templates/default/archive-question.php:64
 #: ../thesis/dwqa/box.php:125
 msgid "Select a category"
-msgstr "یک دسته را انتخاب کنید"
+msgstr "Alege o categorie"
 
 #: ../inc/shortcodes.php:109 ../inc/templates/default/archive-question.php:75
 #: ../thesis/dwqa/box.php:136
 msgid "Empty"
-msgstr "خالی"
+msgstr "Gol"
 
 #: ../inc/shortcodes.php:142 ../inc/templates/default/archive-question.php:108
 #: ../thesis/dwqa/box.php:169
 msgid "View"
-msgstr "بازدید"
+msgstr "Afișări"
 
 #: ../inc/shortcodes.php:148 ../inc/templates/default/archive-question.php:114
 #: ../thesis/dwqa/box.php:175
 msgid "Vote"
-msgstr "امتیاز"
+msgstr "Voturi"
 
 #: ../inc/shortcodes.php:273
 #: ../inc/templates/default/archive-question-notfound.php:7
 #: ../thesis/dwqa/box.php:298
 msgid "Sorry, but nothing matched your filter."
-msgstr ""
+msgstr "Ne pare rău, dar nu s-a găsit nimic."
 
 #: ../inc/shortcodes.php:336 ../inc/widgets.php:79
-#, fuzzy
 msgid "Popular Questions"
-msgstr "سؤالات محبوب"
+msgstr "Întrebări populare"
 
 #: ../inc/shortcodes.php:373
-#, fuzzy
 msgid "Latest Answers"
-msgstr "پاسخ جدید"
+msgstr "Cele mai recente răspunsuri"
 
 #: ../inc/shortcodes.php:396
-#, fuzzy
 msgid "Answer at"
-msgstr "پاسخ"
+msgstr "Răspunde la"
 
 #: ../inc/shortcodes.php:396 ../inc/templates/default/single-question.php:89
 #: ../thesis/dwqa/box.php:376
 msgid "Link to"
-msgstr "لینک به"
+msgstr "Legătură la"
 
 #: ../inc/shortcodes.php:423
-#, fuzzy
 msgid "people are following this question."
-msgstr "دنبال نکردن این سؤال"
+msgstr "oameni urmăresc această întrebare."
 
 #: ../inc/status.php:273
 msgid "New"
-msgstr "جدید"
+msgstr "Nou"
 
 #: ../inc/status.php:291
 #, fuzzy
 msgid "Missing post ID"
-msgstr "ای دی پست گم شده"
+msgstr "Lipsește ID-ul postării"
 
 #: ../inc/status.php:306
 #, fuzzy
 msgid "Post does not exist"
-msgstr "پست وجود ندارد"
+msgstr "Postarea nu există"
 
 #: ../inc/status.php:311
 msgid "Invalid post status"
-msgstr "وضعیت پست اشتباه"
+msgstr "Stare postare invalidă"
 
 #: ../inc/template-functions.php:159
 msgid "You need an account to submit question and get answers. Create one:"
 msgstr ""
-"شما برای ثبت سؤال و دریافت پاسخ نیاز به یک نام کاربری دارید . یکی بسازید :"
+"Ai nevoie de un cont pentru a putea adăuga o întrebare. Poți să-ți faci unul "
+"acum:"
 
 #: ../inc/template-functions.php:161 ../inc/template-functions.php:193
 msgid "Type your email"
-msgstr "ایمیل خود را وارد کنید"
+msgstr "Adresa ta de e-mail"
 
 #: ../inc/template-functions.php:166
 msgid "Already a member?"
-msgstr "عضو هستید ؟"
+msgstr "Ești deja înscris?"
 
 #: ../inc/template-functions.php:166
 msgid "Log In"
-msgstr "وارد شدن"
+msgstr "Autentifică-te acum"
 
 #: ../inc/template-functions.php:170
 msgid "Login to submit your question"
-msgstr "برای ثبت سؤال وارد شوید"
+msgstr "Trebuie să te autentifici pentru a adăuga întrebarea"
 
 #: ../inc/template-functions.php:177
 msgid "Not yet a member?"
-msgstr "عضو نیستید ؟"
+msgstr "Încă nu ești înscris?"
 
 #: ../inc/template-functions.php:177 ../inc/templates/default/answers.php:114
 msgid "Register"
-msgstr "عضویت"
+msgstr "Înregistrează-te"
 
 #: ../inc/template-functions.php:205
 #, php-format
 msgid "Private: %s"
-msgstr "خصوصی :%s"
+msgstr "Privat: %s"
 
 #: ../inc/template-functions.php:253
 msgid "Question Category"
-msgstr "دسته ی سؤال"
+msgstr "Categoria întrebării:"
 
 #: ../inc/template-functions.php:259
 msgid "Select question category"
-msgstr "دسته ی سؤال را انتخاب کنید"
+msgstr "Alege o categorie pentru întrebare"
 
 #: ../inc/template-functions.php:267
 msgid "tag 1, tag 2,..."
-msgstr "برچسب 1 , برچسب 2"
+msgstr "eticheta 1, eticheta 2,..."
 
 #: ../inc/template-functions.php:272
 msgid "Your question"
-msgstr "سؤال شما"
+msgstr "Întrebarea ta:"
 
 #: ../inc/template-functions.php:273
 msgid "How to..."
-msgstr "چگونه ..."
+msgstr "Cum să..."
 
 #: ../inc/template-functions.php:280
 msgid "Question details"
-msgstr "جزئیات سؤال"
+msgstr "Detaliază întrebarea:"
 
 #: ../inc/template-functions.php:286
 msgid "Post this Question as Private."
-msgstr "ارسال این سؤال به صورت خصوصی."
+msgstr "Adaugă această întrebare în mod privat!"
 
 #: ../inc/template-functions.php:286
 msgid "Only you as Author and Admin can see the question"
-msgstr "فقط شما ، به عنوان نویسنده و مدیریت می تواند این سؤال را ببیند"
+msgstr ""
+"Doar tu ca autor și administatorul acestui site veți putea vedea întrebarea"
 
 #: ../inc/template-functions.php:309
 msgid "Ask Question"
-msgstr "ثبت سؤال"
+msgstr "Adaugă întrebarea"
 
 #: ../inc/template-functions.php:324
 msgid "Answer this Question"
-msgstr "پاسخ دادن به این سؤال"
+msgstr "Răspunde la această întrebare"
 
 #: ../inc/template-functions.php:360
 msgid "Add answer"
-msgstr "ثبت پاسخ"
+msgstr "Adaugă răspuns"
 
 #: ../inc/template-functions.php:498
 msgid "Name"
-msgstr "نام"
+msgstr "Nume"
 
 #: ../inc/template-functions.php:500
 msgid "Email"
-msgstr "ایمیل"
+msgstr "E-mail"
 
 #: ../inc/template-functions.php:502
 msgid "Website"
-msgstr "وبسایت"
+msgstr "Site web"
 
 #: ../inc/template-functions.php:506
 #, php-format
 msgid "Required fields are marked %s"
-msgstr "اطلاعات ضروری نشان دار شده اند%s"
+msgstr "Câmpurile obligatorii sunt marcate %s"
 
 #: ../inc/template-functions.php:518
 msgctxt "noun"
 msgid "Comment"
-msgstr "نظر"
+msgstr "Comentează"
 
 #: ../inc/template-functions.php:519
 #, php-format
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr ""
+"Trebuie să te <a href=\"%s\">autentifici</a> pentru a adăuga un comentariu."
 
 #: ../inc/template-functions.php:520
 #, php-format
@@ -1353,12 +1356,12 @@ msgid ""
 "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
 "this account\">Log out?</a>"
 msgstr ""
-"وارد شده با نام <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out "
-"of this account\">میخواهید خارج شوید ؟</a>"
+"Autentificat ca <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Ieșire "
+"din cont\">Ieșire?</a>"
 
 #: ../inc/template-functions.php:521
 msgid "Your email address will not be published."
-msgstr "ایمیل شما منتشر نخواهد شد."
+msgstr "Adresa ta de e-mail nu va fi publicată."
 
 #: ../inc/template-functions.php:522
 #, php-format
@@ -1366,241 +1369,262 @@ msgid ""
 "You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
 "and attributes: %s"
 msgstr ""
+"Poți folosi aceste etichete și atribute <abbr title=\"HyperText Markup "
+"Language\">HTML</abbr>: %s"
 
 #: ../inc/template-functions.php:525
 msgid "Leave a Reply"
-msgstr "یک پاسخ بگذارید"
+msgstr "Adaugă un răspuns"
 
 #: ../inc/template-functions.php:526
 #, php-format
 msgid "Leave a Reply to %s"
-msgstr "یک پاسخ بذارید برای %s"
+msgstr "Oferă-i un răspuns lui %s"
 
 #: ../inc/template-functions.php:527
 msgid "Cancel reply"
-msgstr "منصرف شدن از پاسخ"
+msgstr "Anulează răspunsul"
 
 #: ../inc/template-functions.php:528
 msgid "Post Comment"
-msgstr "ارسال نظر"
+msgstr "Adaugă comentariu"
 
 #: ../inc/template-functions.php:711
-#, fuzzy
 msgid "Sticky Question"
-msgstr "ثبت سؤال"
+msgstr "Întrebare fixată"
 
 #: ../inc/templates/default/answers.php:45
 #: ../inc/templates/default/content-question.php:55
 #: ../inc/templates/default/content-question.php:58
 msgid "answer"
 msgid_plural "answers"
-msgstr[0] "پاسخ"
-msgstr[1] "پاسخ"
+msgstr[0] "răspuns"
+msgstr[1] "răspunsuri"
+msgstr[2] "răspunsuri"
 
 #: ../inc/templates/default/answers.php:91
 msgid "You do not have permission to view answers"
-msgstr "شما اجازه دیدن پاسخ ها را ندارید"
+msgstr "Nu ai permisiunea să vezi răspunsurile"
 
 #: ../inc/templates/default/answers.php:99
 msgid "This question has been closed"
-msgstr "سؤال بسته شده است"
+msgstr "Această întrebare a fost închisă"
 
 #: ../inc/templates/default/answers.php:107
 msgid "You do not have permission to submit answer."
-msgstr "شما اجازه ثبت سؤال ندارید"
+msgstr "Nu ai permisiunea să aduagi răspuns."
 
 #: ../inc/templates/default/answers.php:112
-#, fuzzy
 msgid "Please login or"
-msgstr "لطفا وارد شوید"
+msgstr "Te rugăm să te autentifici"
 
 #: ../inc/templates/default/answers.php:115
-#, fuzzy
 msgid "to Submit Answer"
-msgstr "بتوانید سؤال ثبت کنید"
+msgstr "pentru a răspunde"
 
 #: ../inc/templates/default/comments.php:12
 msgid "View previous comments"
-msgstr "دیدن نظرات قبلی"
+msgstr "Vezi comentariile anterioare"
 
 #: ../inc/templates/default/comments.php:13
 msgid "of"
-msgstr "از"
+msgstr "din"
 
 #: ../inc/templates/default/comments.php:30
 msgid "Write a reply..."
-msgstr ""
+msgstr "Scrie un răspuns..."
 
 #: ../inc/templates/default/content-answer.php:20
 #: ../inc/templates/default/single-question.php:22 ../thesis/dwqa/box.php:338
 msgid "Vote Up"
-msgstr "امتیاز مثبت"
+msgstr "Plus"
 
 #: ../inc/templates/default/content-answer.php:30
 #: ../inc/templates/default/single-question.php:24 ../thesis/dwqa/box.php:340
 msgid "Vote Down"
-msgstr "امتیاز منفی"
+msgstr "Minus"
 
 #: ../inc/templates/default/content-answer.php:38
 msgid "This is the best answer"
-msgstr "این بهترین پاسخ است"
+msgstr "Acesta este cel mai bun răspuns"
 
 #: ../inc/templates/default/content-answer.php:50
 #: ../inc/templates/default/content-comment.php:12
 msgid "Staff"
-msgstr "مدیریت"
+msgstr "Echipa"
 
 #: ../inc/templates/default/content-answer.php:58
 msgid "Link to answer"
-msgstr "لینک به پاسخ"
+msgstr "Legătura la răspuns"
 
 #: ../inc/templates/default/content-answer.php:84
 msgid "Draft"
-msgstr "پیشنویس"
+msgstr "Ciornă"
 
 #: ../inc/templates/default/content-answer.php:117
 msgid "This answer was flagged as spam."
-msgstr "این پاسخ به عنوان اسپم نشان دار شده است"
+msgstr "Acest răspuns a fost marcat ca spam."
 
 #: ../inc/templates/default/content-answer.php:127
 msgid "The answer link"
-msgstr "لینک پاسخ"
+msgstr "Legătura la răspuns"
 
 #: ../inc/templates/default/content-comment.php:10
 msgid "Post by"
-msgstr "پست شده توسط"
+msgstr "Adăugat de"
 
 #: ../inc/templates/default/content-comment.php:25
 msgid "Link to comment"
-msgstr "لینک به نظر"
+msgstr "Legătura la comentariu"
 
 #: ../inc/templates/default/content-question.php:12
 #, php-format
 msgid "Permalink to %s"
-msgstr "لینک پایدار به %s"
+msgstr "Legătură permanentă la %s"
 
 #: ../inc/templates/default/content-question.php:21
 #, php-format
 msgid "Posts by %s"
-msgstr "تمام پست ها از %s"
+msgstr "Adăugate de %s"
 
 #: ../inc/templates/default/content-question.php:27
 msgid "by"
-msgstr "توسط :"
+msgstr "de"
 
 #: ../inc/templates/default/content-question.php:41
 #: ../inc/templates/default/content-question.php:44
 msgid "view"
 msgid_plural "views"
-msgstr[0] "بازدید"
-msgstr[1] "بازدید"
+msgstr[0] "afișare"
+msgstr[1] "afișări"
+msgstr[2] "afișări"
 
 #: ../inc/templates/default/content-question.php:69
 #: ../inc/templates/default/content-question.php:72
 msgid "vote"
 msgid_plural "votes"
-msgstr[0] "امتیاز"
-msgstr[1] "امتیازها"
+msgstr[0] "vot"
+msgstr[1] "voturi"
+msgstr[2] "voturi"
 
 #: ../inc/templates/default/single-question.php:33
-#, fuzzy
 msgid "Unstick this Question to the front page"
-msgstr "ارسال این سؤال به صورت خصوصی."
+msgstr "Defixează această întrebare de pe prima pagină"
 
 #: ../inc/templates/default/single-question.php:33
 msgid "Stick this Question to the front page"
-msgstr ""
+msgstr "Fixează această întrebare pe prima pagină"
 
 #: ../inc/templates/default/single-question.php:80 ../thesis/dwqa/box.php:367
 msgid "Posts by"
-msgstr "پست ها توسط"
+msgstr "Adăugate de"
 
 #: ../inc/templates/default/single-question.php:91 ../thesis/dwqa/box.php:378
 msgid "asked"
-msgstr "پرسیده شده"
+msgstr "întrebate"
 
 #: ../inc/templates/default/single-question.php:126 ../thesis/dwqa/box.php:413
 msgid "Category"
-msgstr "دسته"
+msgstr "Categorie"
 
 #: ../inc/templates/default/single-question.php:127 ../thesis/dwqa/box.php:414
 msgid "All questions from"
-msgstr "تمام سؤالات از "
+msgstr "Toate întrebările de la"
 
 #: ../inc/widgets.php:16
 msgid ""
 "Show a list of questions that related to a question. Just show in single "
 "question page"
 msgstr ""
+"Arată o listă de întrebări similare acesteia. Doar afișează într-o singură "
+"pagină"
 
 #: ../inc/widgets.php:17
 msgid "DWQA Related Questions"
-msgstr "سؤالات مرتبط"
+msgstr "DWQA Întrebări similare"
 
 #: ../inc/widgets.php:53 ../inc/widgets.php:124
 msgid "Widget title"
-msgstr "عنوان ابزارک"
+msgstr "Denumire widget"
 
 #: ../inc/widgets.php:56 ../inc/widgets.php:127
 msgid "Number of posts"
-msgstr "تعداد پست ها"
+msgstr "Numărul de postări"
 
 #: ../inc/widgets.php:72
 msgid "Show a list of questions that was ordered by views."
-msgstr "نشان دادن یک لیست از سؤالات که برا اساس بازدید تنظیم شده است"
+msgstr "Afișează o listă de întrebări ordonată după vizualizări."
 
 #: ../inc/widgets.php:73
 msgid "DWQA Popular Questions"
-msgstr "سؤالات محبوب"
+msgstr "DWQA Întrebări populare"
 
 #: ../thesis/dwqa/box.php:14
-#, fuzzy
 msgid "DW Q&A Box"
-msgstr "پرسش و پاسخ"
+msgstr "DW Căsuță Q&A"
 
 #: ../thesis/dwqa/box.php:21
 msgid "Container Padding"
-msgstr ""
+msgstr "Margine container"
 
 #: ../thesis/dwqa/box.php:23
 msgid "Container padding size"
-msgstr ""
+msgstr "Mărime margine container"
 
 #: ../thesis/dwqa/box.php:25
 msgid ""
 "By default,The container is not have gutter. You can set padding width to "
 "make a gutter. You make it by update setting here."
 msgstr ""
+"În mod implicit, containerul nu are margine. Poți specifica lățimea "
+"marginii. Actualizează aici setarea."
 
 #: ../thesis/dwqa/box.php:305
 msgid "You can ask question <a href=\""
-msgstr ""
+msgstr "Poți adăuga o întrebare <a href=\""
 
 #: ../thesis/dwqa/box.php:309
 msgid "Please <a href=\""
-msgstr ""
-
-#~ msgid "Email Template"
-#~ msgstr "قالب ایمیل"
-
-#~ msgid "Create Submit Question Page"
-#~ msgstr "یک صفحه ثبت سؤال درست کنید"
-
-#, fuzzy
-#~ msgid "Preview:"
-#~ msgstr "قبلی"
-
-#~ msgid "ago"
-#~ msgstr "قبل"
+msgstr "Te rugăm să <a href=\""
 
 #~ msgid "YCaptcha is not correct"
-#~ msgstr "کپچا نادرست است"
+#~ msgstr "YCaptcha nu este corect"
+
+#~ msgid "You need a support channel inside wordpress page?"
+#~ msgstr "Ai nevoie de un canal de suport în cadrul unei pagini wordpress?"
+
+#~ msgid "Create Submit Question Page"
+#~ msgstr "Crează pagină pentru adăugarea de întrebări"
+
+#~ msgid "How to create submit question page?"
+#~ msgstr "Cum să creezi o pagină pentru adăugarea de întrebări?"
+
+#~ msgid "Go to <strong>Dashboard -> Question -> Settings</strong>"
+#~ msgstr "Mergi în <strong>Panoul de control -> Întrebare -> Setări</strong>"
+
+#~ msgid "Available Settings"
+#~ msgstr "Setări disponibile"
+
+#~ msgid "Go to config your support channel"
+#~ msgstr "Configurează canalul tău de suport"
+
+#~ msgid "Go to ...?"
+#~ msgstr "Mergi la ...?"
+
+#~ msgid "DesignWall Team"
+#~ msgstr "Echipa DesignWall"
+
+#~ msgid "Documentations"
+#~ msgstr "Documentări"
+
+#~ msgid "Support"
+#~ msgstr "Suport"
+
+#~ msgid "DesignWall Homepage"
+#~ msgstr "Pagina DesignWall "
+
+#~ msgid "Email Template"
+#~ msgstr "Șablon e-mail"
 
 #~ msgid "Email logo"
-#~ msgstr "لوگوی ایمیل"
-
-#~ msgid "or"
-#~ msgstr "یا"
-
-#~ msgid "to"
-#~ msgstr "تا"
+#~ msgstr "Logo e-mail"
