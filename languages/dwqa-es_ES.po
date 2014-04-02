@@ -1223,12 +1223,24 @@ msgstr "Estatus de publicacion invalido"
 #: ../inc/template-functions.php:159
 msgid "You need an account to submit question and get answers. Create one:"
 msgstr ""
-"Necesita estar registrado para envier preguntas y obtener respuestas.  "
+"Necesita estar registrado para enviar preguntas y obtener respuestas.  "
 "Registrarse:"
 
 #: ../inc/template-functions.php:161 ../inc/template-functions.php:193
 msgid "Type your email"
 msgstr "Escriba su email"
+
+#: ../inc/template-functions.php:164
+msgid "Choose your username"
+msgstr "Elija su nombre de usuario"
+
+#: ../inc/template-functions.php:172
+msgid "Type your username"
+msgstr "Escriba su nombre de usuario"
+
+#: ../inc/template-functions.php:175
+msgid "Type your password"
+msgstr "Escriba su contraseña"
 
 #: ../inc/template-functions.php:166
 msgid "Already a member?"

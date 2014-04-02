@@ -1,465 +1,382 @@
+# Ruly Aperta <globalaperta@gmail.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: DW Question Answer v1.2.3\n"
+"Project-Id-Version: DW Question Answer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-24 13:55+0700\n"
-"PO-Revision-Date: 2014-03-24 13:55+0700\n"
+"POT-Creation-Date: 2014-04-02 10:57+0700\n"
+"PO-Revision-Date: 2014-04-02 10:58+0700\n"
 "Last-Translator: DesignWall <webmaster@designwall.com>\n"
-"Language-Team: \n"
-"Language: ru\n"
+"Language-Team: IT Solutions\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Textdomain-Support: yes\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-# @ dwqa
 #: ../dw-question-answer.php:62
 msgid "DWQA Questions"
 msgstr ""
 
-# @ dwqa
 #: ../dw-question-answer.php:75
 msgid "DWQA Ask Question"
 msgstr ""
 
-# @ default
 #: ../dw-question-answer.php:129
 msgctxt "post type general name"
 msgid "Question"
-msgstr ""
+msgstr "Pertanyaan"
 
-# @ default
 #: ../dw-question-answer.php:130
 msgctxt "post type singular name"
 msgid "Question"
-msgstr ""
+msgstr "Pertanyaan"
 
-# @ default
 #: ../dw-question-answer.php:131 ../dw-question-answer.php:165
 msgctxt "theme"
 msgid "Add New"
-msgstr ""
+msgstr "Tambah"
 
-# @ default
 #: ../dw-question-answer.php:132
 msgid "Add New Question"
-msgstr ""
+msgstr "Tambah Pertanyan Baru"
 
-# @ default
 #: ../dw-question-answer.php:133
 msgid "Edit Question"
-msgstr ""
+msgstr "Ubah Pertanyaan"
 
-# @ default
-# @ dwqa
 #: ../dw-question-answer.php:134 ../inc/settings.php:875
 msgid "New Question"
-msgstr "Новый вопрос"
+msgstr "Pertanyaan Baru"
 
-# @ default
 #: ../dw-question-answer.php:135
 msgid "All Questions"
-msgstr ""
+msgstr "Semua Pertanyaa"
 
-# @ default
 #: ../dw-question-answer.php:136
 msgid "View Question"
-msgstr ""
+msgstr "Lihat Pertanyaan"
 
-# @ default
 #: ../dw-question-answer.php:137
 msgid "Search Question"
-msgstr ""
+msgstr "Cari Pertanyaan"
 
-# @ default
 #: ../dw-question-answer.php:138
 msgid "No questions found"
-msgstr ""
+msgstr "Pertanyaan Tidak Ditemukan"
 
-# @ default
 #: ../dw-question-answer.php:139
 msgid "No questions found in Trash"
-msgstr ""
+msgstr "Tidak ada Pertanyaan di Tempat Sampah"
 
-# @ default
 #: ../dw-question-answer.php:141
 msgid "DW Q&A"
-msgstr ""
+msgstr "DW Q&A"
 
-# @ default
 #: ../dw-question-answer.php:163
 msgctxt "post type general name"
 msgid "Answer"
-msgstr ""
+msgstr "Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:164
 msgctxt "post type singular name"
 msgid "Answer"
-msgstr ""
+msgstr "Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:166
 msgid "Add new answer"
-msgstr ""
+msgstr "Tambah jawaban baru"
 
-# @ default
 #: ../dw-question-answer.php:167
 msgid "Edit answer"
-msgstr ""
+msgstr "Ubah jawaban"
 
-# @ default
-# @ dwqa
 #: ../dw-question-answer.php:168 ../inc/settings.php:876
 msgid "New Answer"
-msgstr "Новый ответ"
+msgstr "Jawaban Baru"
 
-# @ default
 #: ../dw-question-answer.php:169
 msgid "All Answers"
-msgstr ""
+msgstr "Semua Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:170
 msgid "View Answer"
-msgstr ""
+msgstr "Lihat Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:171
 msgid "Search Answer"
-msgstr ""
+msgstr "Cari Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:172
 msgid "No Answers found"
-msgstr ""
+msgstr "Tidak di temukan Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:173
 msgid "No Answers found in Trash"
-msgstr ""
+msgstr "Tidak ada Jawaban di Tempat Sampah"
 
-# @ default
-# @ dwqa
 #: ../dw-question-answer.php:175 ../dw-question-answer.php:464
-#: ../inc/settings.php:429 ../inc/shortcodes.php:145
+#: ../inc/settings.php:429 ../inc/shortcodes.php:164
 #: ../inc/templates/default/archive-question.php:111
 #: ../thesis/dwqa/box.php:172
 msgid "Answer"
-msgstr "Ответы"
+msgstr "Jawaban"
 
-# @ default
 #: ../dw-question-answer.php:197
 msgctxt "taxonomy general name"
 msgid "Categories"
-msgstr ""
+msgstr "Kategori"
 
-# @ default
 #: ../dw-question-answer.php:198
 msgctxt "taxonomy singular name"
 msgid "Category"
-msgstr ""
+msgstr "Kategori"
 
-# @ default
 #: ../dw-question-answer.php:199
 msgid "Search Categories"
-msgstr ""
+msgstr "Cari Kategori"
 
-# @ default
 #: ../dw-question-answer.php:200
 msgid "All Categories"
-msgstr ""
+msgstr "Semua Kategori"
 
-# @ default
 #: ../dw-question-answer.php:201
 msgid "Parent Category"
-msgstr ""
+msgstr "Kategori Utama"
 
-# @ default
 #: ../dw-question-answer.php:202
 msgid "Parent Category:"
-msgstr ""
+msgstr "Kategori Utama:"
 
-# @ default
 #: ../dw-question-answer.php:203
 msgid "Edit Category"
-msgstr ""
+msgstr "Ubah Kategori"
 
-# @ default
 #: ../dw-question-answer.php:204
 msgid "Update Category"
-msgstr ""
+msgstr "Perbarui Kategori"
 
-# @ default
 #: ../dw-question-answer.php:205
 msgid "Add New Category"
-msgstr ""
+msgstr "Kategori Baru"
 
-# @ default
 #: ../dw-question-answer.php:206
 msgid "New Category Name"
-msgstr ""
+msgstr "Nama Kategori Baru"
 
-# @ default
 #: ../dw-question-answer.php:207
 msgid "Question Categories"
-msgstr ""
+msgstr "Kategori Pertanyaan"
 
-# @ default
 #: ../dw-question-answer.php:226
 msgctxt "taxonomy general name"
 msgid "Tags"
-msgstr ""
+msgstr "Tag"
 
-# @ default
 #: ../dw-question-answer.php:227
 msgctxt "taxonomy singular name"
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
-# @ default
 #: ../dw-question-answer.php:228
 msgid "Search Tags"
-msgstr ""
+msgstr "Cari Tags"
 
-# @ default
 #: ../dw-question-answer.php:229
 msgid "Popular Tags"
-msgstr ""
+msgstr "Tag Populer"
 
-# @ default
 #: ../dw-question-answer.php:230
 msgid "All Tags"
-msgstr ""
+msgstr "Semua Tag"
 
-# @ default
 #: ../dw-question-answer.php:233
 msgid "Edit Tag"
-msgstr ""
+msgstr "Ubah Tag"
 
-# @ default
 #: ../dw-question-answer.php:234
 msgid "Update Tag"
-msgstr ""
+msgstr "Perbarui Tag"
 
-# @ default
 #: ../dw-question-answer.php:235
 msgid "Add New Tag"
-msgstr ""
+msgstr "Tambah Tag Baru"
 
-# @ default
 #: ../dw-question-answer.php:236
 msgid "New Tag Name"
-msgstr ""
+msgstr "Nama tag baru"
 
-# @ default
 #: ../dw-question-answer.php:237
 msgid "Separate tags with commas"
-msgstr ""
+msgstr "Pisahkan Tag dengan koma"
 
-# @ default
 #: ../dw-question-answer.php:238
 msgid "Add or remove tags"
-msgstr ""
+msgstr "Tambah atau menghapus tag"
 
-# @ default
 #: ../dw-question-answer.php:239
 msgid "Choose from the most used tags"
-msgstr ""
+msgstr "Pilih dari tag populer"
 
-# @ default
-# @ dwqa
 #: ../dw-question-answer.php:240 ../inc/template-functions.php:266
 msgid "Question Tags"
-msgstr "Метки (не обязательно)"
+msgstr "Tag Pertanyaan"
 
-# @ dwqa
 #: ../dw-question-answer.php:279 ../dw-question-answer.php:416
-#: ../inc/filter.php:83 ../inc/shortcodes.php:257
+#: ../inc/filter.php:83 ../inc/shortcodes.php:276
 #: ../inc/templates/default/navigation-archive.php:93
 #: ../thesis/dwqa/box.php:282
 msgid "Next"
-msgstr "След."
+msgstr "Selanjutnya"
 
-# @ dwqa
 #: ../dw-question-answer.php:280 ../dw-question-answer.php:417
-#: ../inc/shortcodes.php:221
+#: ../inc/shortcodes.php:240
 #: ../inc/templates/default/navigation-archive.php:57
 #: ../thesis/dwqa/box.php:246
 msgid "Prev"
-msgstr "Пред."
+msgstr "Sebelumnya"
 
-# @ dwqa
 #: ../dw-question-answer.php:282 ../dw-question-answer.php:419
 msgid "Please enter your question"
-msgstr "Пожалуйста, введите свой вопрос"
+msgstr "Silakan tuliskan pertanyaan"
 
-# @ dwqa
 #: ../dw-question-answer.php:283
 msgid "Your question must be at least 2 characters in length"
-msgstr ""
+msgstr "Pertanyaan Anda harus lebih dari 2 karakter"
 
-# @ dwqa
 #: ../dw-question-answer.php:284
 msgid "Enter a valid email address"
-msgstr "Введите существующий e-mail"
+msgstr "Masukkan alamat email yang valid"
 
-# @ dwqa
 #: ../dw-question-answer.php:285
 msgid "Enter a question title"
-msgstr ""
+msgstr "Tuliskan judul pertanyaan"
 
-# @ dwqa
 #: ../dw-question-answer.php:286
+#, fuzzy
 msgid "Please add your name"
-msgstr "Пожалуйста, напишите своё имя"
+msgstr "Silahkan tuliskan jawaban"
 
-# @ dwqa
 #: ../dw-question-answer.php:287 ../dw-question-answer.php:420
 msgid "Please enter your answer"
-msgstr "Пожалуйста, введите свой ответ"
+msgstr "Silahkan tuliskan jawaban"
 
-# @ dwqa
 #: ../dw-question-answer.php:288 ../dw-question-answer.php:421
 msgid "Please enter your comment content"
-msgstr ""
+msgstr "Silahkan tuliskan komentar"
 
-# @ dwqa
 #: ../dw-question-answer.php:289 ../dw-question-answer.php:422
 msgid "Comment must have more than 2 characters"
-msgstr ""
+msgstr "Komentar harus lebih dari 2 karakter"
 
-# @ dwqa
 #: ../dw-question-answer.php:290
 msgid "Not found! Try another keyword."
-msgstr ""
+msgstr "Tidak ditemukan! Silahkan memakai kata kunci yang lain."
 
-# @ dwqa
 #: ../dw-question-answer.php:291
 msgid "Or press <strong>ENTER</strong> to get more questions"
 msgstr ""
+"Atau tekan <strong>ENTER</strong> untuk mendapatkan pertanyaan yang lain"
 
-# @ dwqa
 #: ../dw-question-answer.php:292 ../dw-question-answer.php:423
 #: ../inc/actions.php:915 ../inc/actions.php:1011
 msgid "Update"
-msgstr ""
+msgstr "Perbarui"
 
-# @ dwqa
 #: ../dw-question-answer.php:293 ../dw-question-answer.php:424
 #: ../inc/settings.php:394 ../inc/templates/default/content-answer.php:99
 #: ../inc/templates/default/content-comment.php:48
 #: ../inc/templates/default/single-question.php:59
 msgid "Edit"
-msgstr "Правка"
+msgstr "Ubah"
 
-# @ dwqa
 #: ../dw-question-answer.php:294 ../dw-question-answer.php:425
 #: ../inc/actions.php:916 ../inc/actions.php:1012
 msgid "Cancel"
-msgstr ""
+msgstr "Batalkan"
 
-# @ dwqa
 #: ../dw-question-answer.php:295 ../dw-question-answer.php:426
 msgid "Do you want to delete this comment?"
-msgstr "Вы действительно хотите удалить этот комментарий?"
+msgstr "Apakah Anda ingin menghapus komentar ini?"
 
-# @ dwqa
 #: ../dw-question-answer.php:296 ../dw-question-answer.php:427
 msgid "Do you want to delete this answer?"
-msgstr "Вы хотите удалить этот ответ?"
+msgstr "Apakah Anda ingin menghapus jawaban ini?"
 
-# @ dwqa
 #: ../dw-question-answer.php:297
 msgid "Do you want to update this answer"
-msgstr ""
+msgstr "Apakah Anda ingin memperbarui jawaban ini?"
 
-# @ dwqa
 #: ../dw-question-answer.php:298
 msgid "Do you want to report this answer"
-msgstr ""
+msgstr "Apakah Anda ingin melaporkan Jawaban ini"
 
-# @ dwqa
 #: ../dw-question-answer.php:300
 #: ../inc/templates/default/content-answer.php:104
 msgid "Report"
-msgstr ""
+msgstr "Laporkan"
 
-# @ dwqa
 #: ../dw-question-answer.php:301
 msgid "Undo"
-msgstr ""
+msgstr "Batalkan"
 
-# @ dwqa
 #: ../dw-question-answer.php:302
 msgid "This answer will be marked as spam and hidden. Do you want to flag it?"
 msgstr ""
+"Jawaban ini akan ditandai sebagai spam dan disembunyikan. Apakah Anda ingin "
+"menandainya?"
 
-# @ dwqa
 #: ../dw-question-answer.php:303 ../dw-question-answer.php:432
 msgid "This answer was flagged as spam. Do you want to show it"
-msgstr "Этот ответ был помечен как спам. Вы хотите показать его?"
+msgstr "Jawaban ini telah ditandai sebagai spam. Apakah anda ingin melihatnya?"
 
-# @ dwqa
 #: ../dw-question-answer.php:304
 msgid "This answer was flagged as spam"
-msgstr ""
+msgstr "Jawaban ditandai sebagai spam"
 
-# @ dwqa
 #: ../dw-question-answer.php:305 ../dw-question-answer.php:433
 msgid "hide"
-msgstr ""
+msgstr "Sembunyikan"
 
-# @ dwqa
 #: ../dw-question-answer.php:306 ../dw-question-answer.php:434
 msgid "show"
-msgstr ""
+msgstr "Tampilkan"
 
-# @ dwqa
 #: ../dw-question-answer.php:308
 #: ../inc/templates/default/single-question.php:28 ../thesis/dwqa/box.php:344
 msgid "Follow This Question"
-msgstr "Следить за этим вопросом"
+msgstr "Ikuti Pertanyaan  ini."
 
-# @ dwqa
 #: ../dw-question-answer.php:309
 #: ../inc/templates/default/single-question.php:28 ../thesis/dwqa/box.php:344
 msgid "Unfollow This Question"
-msgstr "Не следить за вопросом"
+msgstr "Berhenti Mengikuti Pertanyaan  ini."
 
-# @ dwqa
 #: ../dw-question-answer.php:310
+#, fuzzy
 msgid "Stick This Question on Frontpage"
-msgstr ""
+msgstr "Tulis pertanyaan ini secara Tersembunyi."
 
-# @ dwqa
 #: ../dw-question-answer.php:311
+#, fuzzy
 msgid "Untick This Question on Frontpage"
-msgstr ""
+msgstr "Tulis pertanyaan ini secara Tersembunyi."
 
-# @ dwqa
 #: ../dw-question-answer.php:314
+#, fuzzy
 msgid "Do you want to delete this question?"
-msgstr ""
+msgstr "Apakah Anda ingin menghapus komentar ini?"
 
-# @ default
 #: ../dw-question-answer.php:334
-#, php-format
+#, fuzzy, php-format
 msgid "%s second"
 msgid_plural "%s seconds"
-msgstr[0] ""
+msgstr[0] "%s detik"
 msgstr[1] ""
-msgstr[2] ""
 
-# @ default
 #. translators: min=minute
 #: ../dw-question-answer.php:343
 #, php-format
@@ -467,186 +384,149 @@ msgid "about %s min"
 msgid_plural "%s mins"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
-# @ default
 #: ../dw-question-answer.php:349
 #, php-format
 msgid "about %s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
-# @ default
 #: ../dw-question-answer.php:355
-#, php-format
+#, fuzzy, php-format
 msgid "%s day"
 msgid_plural "%s days"
-msgstr[0] ""
+msgstr[0] "%s hari"
 msgstr[1] ""
-msgstr[2] ""
 
-# @ dwqa
 #: ../dw-question-answer.php:359
 #, php-format
 msgid "%1$s ago"
 msgstr ""
 
-# @ dwqa
 #: ../dw-question-answer.php:429
 msgid "Flag"
-msgstr ""
+msgstr "Tandai"
 
-# @ dwqa
 #: ../dw-question-answer.php:430
 msgid "Unflag"
-msgstr ""
+msgstr "Hilangkan Tanda"
 
-# @ dwqa
 #: ../dw-question-answer.php:431
 msgid "This answer will be hide when flag it. Are you sure?"
-msgstr "Этот ответ будет спрятан. Вы уверены?"
+msgstr "Jawaban ini akan disembunyikan jika ditandai, apakah anda yakin?"
 
-# @ dwqa
 #: ../dw-question-answer.php:465 ../inc/class-answers-list-table.php:77
 msgid "Author"
-msgstr ""
+msgstr "Penulis"
 
-# @ dwqa
 #: ../dw-question-answer.php:467
 msgid "In Response To"
-msgstr ""
+msgstr "Tanggapan untuk"
 
-# @ dwqa
 #: ../dw-question-answer.php:471
 msgid "Info"
-msgstr ""
+msgstr "Informasi"
 
-# @ dwqa
 #: ../dw-question-answer.php:488
 msgid "Submitted"
-msgstr ""
+msgstr "Dikirimkan"
 
-# @ dwqa
 #: ../dw-question-answer.php:489
 msgid "on"
-msgstr ""
+msgstr "pada"
 
-# @ dwqa
 #: ../dw-question-answer.php:516
 msgid "Reset all changed to default"
-msgstr "Сбросить все изменения к стандартным"
+msgstr "Ubah ke Pengaturan Awal"
 
-# @ dwqa
 #: ../dw-question-answer.php:530
 msgid "answered"
-msgstr "отвечен"
+msgstr "Sudah dijawab"
 
-# @ dwqa
 #: ../dw-question-answer.php:531
 msgid "voted"
-msgstr ""
+msgstr "ditilai"
 
-# @ dwqa
 #: ../dw-question-answer.php:532
 msgid "views"
-msgstr "просмотров"
+msgstr "lihat"
 
-# @ dwqa
-#: ../dw-question-answer.php:653 ../inc/shortcodes.php:359
+#: ../dw-question-answer.php:653 ../inc/shortcodes.php:377
 #: ../inc/widgets.php:101
 msgid "asked by"
-msgstr "спросил (а)"
+msgstr "ditanyakan oleh"
 
-# @ dwqa
 #: ../inc/actions.php:39
 msgid "Are you cheating, huh?"
-msgstr ""
+msgstr "Apakah Anda Kehilangan Arah?"
 
 #: ../inc/actions.php:53
 msgid "What "
-msgstr ""
+msgstr "Apa"
 
-# @ dwqa
 #: ../inc/actions.php:84
 msgid "You voted for this "
-msgstr ""
+msgstr "Anda memberi nilai untuk ini"
 
-# @ dwqa
 #: ../inc/actions.php:205
 msgid "Delete draft"
-msgstr ""
+msgstr "Hapus draf"
 
-# @ dwqa
 #: ../inc/actions.php:234
 msgid "Answer for "
-msgstr "Ответить на "
+msgstr "Jawaban untuk"
 
-# @ dwqa
 #: ../inc/actions.php:247 ../inc/template-functions.php:363
 msgid "Save draft"
-msgstr "Сохранить как черновик"
+msgstr "Simpan Draf"
 
-# @ dwqa
 #: ../inc/actions.php:261 ../inc/actions.php:508
 msgid "You do not have permission to submit question."
-msgstr "Вы не можете добавлять вопросы"
+msgstr "Anda tidak punya hak akses untuk menulis pertanyaan."
 
-# @ dwqa
 #: ../inc/actions.php:287 ../inc/actions.php:517
 msgid "Captcha is not correct"
-msgstr ""
+msgstr "Captcha salah"
 
-# @ dwqa
-# @ default
 #: ../inc/actions.php:375 ../inc/actions.php:520 ../inc/actions.php:727
 #: ../inc/actions.php:752 ../inc/actions.php:770 ../inc/actions.php:1494
 #: ../inc/filter.php:356 ../inc/status.php:286
 msgid "Are you cheating huh?"
-msgstr ""
+msgstr "Apakah Anda Kehilangan Arah?"
 
-# @ dwqa
 #: ../inc/actions.php:378
 msgid "Missing answer ID"
-msgstr ""
+msgstr "ID Jawaban salah"
 
-# @ dwqa
 #: ../inc/actions.php:477
 msgid "User Registration was disabled."
-msgstr ""
+msgstr "Pedaftaran User Ditutup"
 
-# @ dwqa
 #: ../inc/actions.php:480
 msgid "This email is already registered, please choose another one."
-msgstr "Этот e-mail уже зарегистрирован, пожалуйста, введите другой"
+msgstr "Email ini sudah terdaftar, silahkan pilih yang lainnya."
 
-# @ dwqa
 #: ../inc/actions.php:483
 msgid "This username is already registered. Please choose another one."
-msgstr "Этот логин уже используется, пожалуйста, введите другой"
+msgstr "Nama pengguna telah dipakai. Silakan pilih lainnya."
 
-# @ dwqa
 #: ../inc/actions.php:732
 msgid "Comment content must not be empty."
-msgstr ""
+msgstr "Komentar tidak boleh kosong."
 
-# @ dwqa
 #: ../inc/actions.php:757
 msgid "Comment ID must be show."
-msgstr ""
+msgstr "ID komentar harus ditampilkan."
 
-# @ dwqa
 #: ../inc/actions.php:773
 msgid "Missing id of answer"
-msgstr ""
+msgstr "ID jawaban hilang"
 
-# @ dwqa
 #: ../inc/actions.php:919 ../inc/actions.php:1015
 msgid "Publish"
-msgstr "Опубликовать!"
+msgstr "Terbitkan"
 
-# @ dwqa
 #: ../inc/actions.php:924 ../inc/actions.php:934
 #: ../inc/template-functions.php:368 ../inc/template-functions.php:378
 #: ../inc/templates/default/content-answer.php:63
@@ -655,23 +535,20 @@ msgstr "Опубликовать!"
 #: ../inc/templates/default/single-question.php:111 ../thesis/dwqa/box.php:387
 #: ../thesis/dwqa/box.php:398
 msgid "Public"
-msgstr "Виден всем"
+msgstr "Publik"
 
-# @ dwqa
 #: ../inc/actions.php:934 ../inc/template-functions.php:378
 #: ../inc/templates/default/content-answer.php:75
 #: ../inc/templates/default/single-question.php:111 ../thesis/dwqa/box.php:398
 msgid "Everyone can see"
-msgstr ""
+msgstr "Semua bisa melihatnya"
 
-# @ dwqa
 #: ../inc/actions.php:935 ../inc/template-functions.php:379
 #: ../inc/templates/default/content-answer.php:76
 #: ../inc/templates/default/single-question.php:112 ../thesis/dwqa/box.php:399
 msgid "Only Author and Administrator can see"
-msgstr "Только администратор сможет видеть ваш вопрос"
+msgstr "Hanya Penulis dan Admin yang dapat melihatnya"
 
-# @ dwqa
 #: ../inc/actions.php:935 ../inc/template-functions.php:379
 #: ../inc/templates/default/content-answer.php:63
 #: ../inc/templates/default/content-answer.php:76
@@ -679,96 +556,83 @@ msgstr "Только администратор сможет видеть ваш
 #: ../inc/templates/default/single-question.php:112 ../thesis/dwqa/box.php:387
 #: ../thesis/dwqa/box.php:399
 msgid "Private"
-msgstr ""
+msgstr "Pribadi"
 
-# @ dwqa
 #: ../inc/actions.php:955 ../inc/actions.php:1702
+#, fuzzy
 msgid "Hello, Are you cheating huh?"
-msgstr ""
+msgstr "\"Hallo\", Apakah Anda Salah Jalan?"
 
-# @ dwqa
 #: ../inc/actions.php:1042
 msgid "You can't post comment"
-msgstr "Вы не можете комментировать"
+msgstr "Anda tidak dapat menuliskan komentar"
 
-# @ dwqa
 #: ../inc/actions.php:1056
 msgid "Missing email infomation"
-msgstr ""
+msgstr "Informasi email tidak diketahui"
 
-# @ dwqa
 #: ../inc/actions.php:1061
 msgid "Missing name infomation"
-msgstr ""
+msgstr "Informasi nama tidak diketahui"
 
-# @ dwqa
 #: ../inc/actions.php:1322
 msgid "Choose as best answer"
-msgstr "Выберите лучший ответ"
+msgstr "Pilih jawaban terbaik"
 
-# @ dwqa
 #: ../inc/actions.php:1541 ../inc/actions.php:1571
 msgid "Invalid Post"
-msgstr ""
+msgstr "Tulisan tidak valid"
 
-# @ dwqa
 #: ../inc/actions.php:1673
+#, fuzzy
 msgid "Sticky Questions"
-msgstr ""
+msgstr "Ajukan _Pertanyaan"
 
-# @ dwqa
 #: ../inc/actions.php:1708
+#, fuzzy
 msgid "Question is not valid"
-msgstr ""
+msgstr "Halaman Daftar Pertanyaan"
 
-# @ dwqa
-#: ../inc/actions.php:1739
+#: ../inc/actions.php:1743
 msgid "Delete Action was failed"
 msgstr ""
 
-# @ dwqa
-#: ../inc/actions.php:1744
+#: ../inc/actions.php:1748
+#, fuzzy
 msgid "You do not have permission to delete this question"
-msgstr ""
+msgstr "Anda tidak punya hak akses untuk melihat pertanyaan."
 
-# @ dwqa
 #: ../inc/class-answers-list-table.php:78
 msgid "Detail"
-msgstr ""
+msgstr "Rincian"
 
-# @ dwqa
 #: ../inc/class-answers-list-table.php:97
 msgid "Answered on "
-msgstr ""
+msgstr "Dijawab pada"
 
-# @ dwqa
 #: ../inc/class-answers-list-table.php:108 ../inc/contextual-helper.php:202
 msgid "Read more"
-msgstr ""
+msgstr "Selanjutnya"
 
-# @ default
 #: ../inc/class-walker-category.php:20 ../inc/class-walker-tag-dropdown.php:19
 #, php-format
 msgid "View all posts filed under %s"
-msgstr ""
+msgstr "Lihat semua tulisan dalam %s"
 
-# @ default
 #: ../inc/class-walker-category.php:35 ../inc/class-walker-tag-dropdown.php:34
 #, php-format
 msgid "Feed for all posts filed under %s"
-msgstr ""
+msgstr "Feed semua post dalam %s"
 
-# @ dwqa
 #: ../inc/contextual-helper.php:48
 msgid "Overview"
-msgstr ""
+msgstr "Ringkasan"
 
-# @ dwqa
 #: ../inc/contextual-helper.php:49
+#, fuzzy
 msgid "DW Question Answer Plugin"
-msgstr ""
+msgstr "Mengapa menggunakan DW Question & Answer"
 
-# @ dwqa
 #: ../inc/contextual-helper.php:50
 msgid ""
 "DW Question Answer is a WordPress Plugin which helps you build a Question & "
@@ -777,1127 +641,1007 @@ msgid ""
 "answer system."
 msgstr ""
 
-# @ dwqa
 #: ../inc/contextual-helper.php:53
+#, fuzzy
 msgid "Setup Question List Page"
-msgstr ""
+msgstr "Halaman Daftar Pertanyaan"
 
-# @ dwqa
 #: ../inc/contextual-helper.php:57
+#, fuzzy
 msgid "Setup Ask Question Page"
-msgstr ""
+msgstr "Halaman Mengajukan Pertanyaan"
 
-# @ dwqa
 #: ../inc/contextual-helper.php:61
 msgid "Shortcode"
 msgstr ""
 
-# @ dwqa
 #: ../inc/contextual-helper.php:65
 msgid "Style integration"
 msgstr ""
 
-# @ default
 #: ../inc/contextual-helper.php:223
 msgid "For more information:"
-msgstr ""
+msgstr "Temukan lebih banyak informasi:"
 
-# @ default
 #: ../inc/contextual-helper.php:224
+#, fuzzy
 msgid "DW Question Answer Guide"
-msgstr ""
+msgstr "Mengapa menggunakan DW Question & Answer"
 
-# @ default
 #: ../inc/contextual-helper.php:225
+#, fuzzy
 msgid "Community"
-msgstr ""
+msgstr "Komentar"
 
-# @ default
 #: ../inc/contextual-helper.php:226
 msgid "DesignWall Wordpress Themes"
-msgstr ""
+msgstr "Tema Wordpress DesignWall"
 
-# @ default
 #: ../inc/contextual-helper.php:227
+#, fuzzy
 msgid "DesignWall Wordpress Plugins"
-msgstr ""
+msgstr "Tema Wordpress DesignWall"
 
-# @ dwqa
-#: ../inc/filter.php:101 ../inc/shortcodes.php:270
+#: ../inc/filter.php:101 ../inc/shortcodes.php:289
 #: ../inc/templates/default/archive-question-notfound.php:4
 #: ../thesis/dwqa/box.php:295
 msgid "You do not have permission to view questions"
-msgstr ""
+msgstr "Anda tidak punya hak akses untuk melihat pertanyaan."
 
-# @ dwqa
 #: ../inc/filter.php:104
 msgid "Sorry, but nothing matched your filter. "
-msgstr "Извините, ничего не найдено"
+msgstr "Maaf, tapi tidak ditemukan yang pas menurut sortingan Anda."
 
-# @ dwqa
-#: ../inc/filter.php:111 ../inc/shortcodes.php:281
+#: ../inc/filter.php:111 ../inc/shortcodes.php:300
+#, fuzzy
 msgid "You can ask question"
-msgstr ""
+msgstr "Anda dapat menulis pertanyaan <a href=\""
 
-# @ dwqa
-#: ../inc/filter.php:113 ../inc/shortcodes.php:283
+#: ../inc/filter.php:113 ../inc/shortcodes.php:302
 msgid "here"
 msgstr ""
 
-# @ dwqa
-#: ../inc/filter.php:119 ../inc/shortcodes.php:289
+#: ../inc/filter.php:119 ../inc/shortcodes.php:308
 #: ../inc/templates/default/archive-question-notfound.php:14
+#, fuzzy
 msgid "Please"
-msgstr ""
+msgstr "Silahkan masuk"
 
-# @ dwqa
-#: ../inc/filter.php:121 ../inc/shortcodes.php:291
+#: ../inc/filter.php:121 ../inc/shortcodes.php:310
 #: ../inc/templates/default/archive-question-notfound.php:16
 msgid "Login"
 msgstr ""
 
-# @ dwqa
-#: ../inc/filter.php:125 ../inc/shortcodes.php:296
+#: ../inc/filter.php:125 ../inc/shortcodes.php:315
 #: ../inc/templates/default/archive-question-notfound.php:17
 #: ../thesis/dwqa/box.php:313
 msgid " or"
-msgstr ""
+msgstr " atau"
 
-# @ dwqa
-#: ../inc/filter.php:127 ../inc/shortcodes.php:298
+#: ../inc/filter.php:127 ../inc/shortcodes.php:317
 #: ../inc/templates/default/archive-question-notfound.php:18
 #: ../thesis/dwqa/box.php:315
 msgid " to submit question."
-msgstr ""
+msgstr " untuk menulis pertanyaan."
 
-# @ dwqa
 #: ../inc/filter.php:364
 msgid "Search query are empty"
-msgstr ""
+msgstr "Hasil pencarian kosong"
 
-# @ dwqa
 #: ../inc/metaboxes.php:5
 msgid "Answers"
-msgstr "Ответов"
+msgstr "Jawaban"
 
-# @ dwqa
 #: ../inc/metaboxes.php:29
+#, fuzzy
 msgid "Question Meta Data"
-msgstr ""
+msgstr "Rincian Pertanyaan"
 
-# @ dwqa
 #: ../inc/metaboxes.php:44 ../inc/templates/default/single-question.php:138
 #: ../thesis/dwqa/box.php:425
 msgid "Status"
-msgstr "Статус"
+msgstr "Status"
 
-# @ dwqa
-#: ../inc/metaboxes.php:46 ../inc/shortcodes.php:64 ../inc/status.php:277
+#: ../inc/metaboxes.php:46 ../inc/shortcodes.php:83 ../inc/status.php:277
 #: ../inc/templates/default/archive-question.php:30 ../thesis/dwqa/box.php:91
 msgid "Open"
-msgstr "Открыт"
+msgstr "Dibuka"
 
-# @ dwqa
 #: ../inc/metaboxes.php:47 ../inc/status.php:264
 #: ../inc/templates/default/content-question.php:8
 #: ../inc/templates/default/single-question.php:166 ../thesis/dwqa/box.php:453
 msgid "Pending"
-msgstr "На рассмотрении"
+msgstr "Ditunda"
 
-# @ dwqa
-#: ../inc/metaboxes.php:48 ../inc/shortcodes.php:70 ../inc/status.php:261
+#: ../inc/metaboxes.php:48 ../inc/shortcodes.php:89 ../inc/status.php:261
 #: ../inc/templates/default/archive-question.php:36
 #: ../inc/templates/default/single-question.php:171 ../thesis/dwqa/box.php:97
 #: ../thesis/dwqa/box.php:458
 msgid "Resolved"
-msgstr "Решено"
+msgstr "Diselesaikan"
 
-# @ dwqa
 #: ../inc/metaboxes.php:49 ../inc/status.php:267
 #: ../inc/templates/default/single-question.php:156 ../thesis/dwqa/box.php:443
 msgid "Re-Open"
-msgstr "Открыть заново"
+msgstr "Dibuka Kembali"
 
-# @ dwqa
-#: ../inc/metaboxes.php:50 ../inc/shortcodes.php:73 ../inc/status.php:270
+#: ../inc/metaboxes.php:50 ../inc/shortcodes.php:92 ../inc/status.php:270
 #: ../inc/templates/default/archive-question.php:39
 #: ../inc/templates/default/single-question.php:161 ../thesis/dwqa/box.php:100
 #: ../thesis/dwqa/box.php:448
 msgid "Closed"
-msgstr "Закрыт"
+msgstr "Ditutup"
 
-# @ dwqa
 #: ../inc/metaboxes.php:56
 msgid "Sticky"
 msgstr ""
 
-# @ dwqa
 #: ../inc/metaboxes.php:60
 msgid "Sticky question on top of archive page."
 msgstr ""
 
-# @ dwqa
 #: ../inc/notification.php:27
 msgid "A new question was posted on {site_name}"
-msgstr ""
+msgstr "Pertanyaan baru telah ditulis di {site_name}"
 
-# @ dwqa
 #: ../inc/notification.php:120
 msgid "A new answer for \"{question_title}\" was posted on {site_name}"
 msgstr ""
+"Jawaban baru untuk \"{question_title}\" telah di tulis pada {site_name}"
 
-# @ dwqa
 #: ../inc/notification.php:148 ../inc/notification.php:150
 #: ../inc/settings.php:418 ../inc/settings.php:459 ../inc/settings.php:500
 #: ../inc/templates/default/content-answer.php:53
 #: ../inc/templates/default/content-comment.php:15
 #: ../inc/templates/default/content-question.php:25
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonim"
 
-# @ dwqa
 #: ../inc/notification.php:188
 msgid "You got new answer for your followed question"
-msgstr ""
+msgstr "Jawaban baru dari pertanyaan yang Anda ikuti"
 
-# @ dwqa
-#: ../inc/notification.php:284 ../inc/notification.php:330
+#: ../inc/notification.php:287 ../inc/notification.php:333
+#, fuzzy
 msgid "[{site_name}] You have a new comment for question {question_title}"
 msgstr ""
+"[{site_name}] Anda mendapat tanggapan untuk pertanyaan {question_title}"
 
-# @ dwqa
-#: ../inc/notification.php:289 ../inc/notification.php:335
+#: ../inc/notification.php:292 ../inc/notification.php:338
 msgid "[{site_name}] You have a new comment for answer"
-msgstr ""
+msgstr "[{site_name}] Anda mendapatkan tanggapan untuk jawaban Anda"
 
-# @ dwqa
 #: ../inc/pointer-helper.php:57
+#, fuzzy
 msgid "How to use DW Question Answer"
-msgstr ""
+msgstr "Mengapa menggunakan DW Question & Answer"
 
-# @ dwqa
 #: ../inc/pointer-helper.php:58
 msgid "Documents, Support From DesignWall (help)"
 msgstr ""
 
-# @ dwqa
 #: ../inc/pointer-helper.php:67
 msgid "Config your support channel"
-msgstr ""
+msgstr "Pengaturan halaman support"
 
-# @ dwqa
 #: ../inc/pointer-helper.php:68
 msgid "Change comment setting, and create submit question page."
-msgstr ""
+msgstr "Ubah pengaturan komentar, dan halaman mengirim pertanyaan."
 
-# @ dwqa
 #: ../inc/settings.php:9
 msgid "Login required. No anonymous allowed"
-msgstr ""
+msgstr "Harus masuk terlebih dahulu. Tamu tidak diperbolehkan"
 
-# @ dwqa
 #: ../inc/settings.php:21
 msgid "Select Archive Question Page"
-msgstr ""
+msgstr "Pilih Halaman Arsip Pertanyaan "
 
-# @ dwqa
 #: ../inc/settings.php:25
 msgid "A page where displays all questions"
-msgstr ""
+msgstr "Halaman yang menampilkan semua pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:32
 msgid "hours"
-msgstr "часа"
+msgstr "jam"
 
-# @ dwqa
 #: ../inc/settings.php:32
 msgid ""
 "A period of time in which new questions are highlighted and marked as New"
 msgstr ""
+"Periode waktu dimana pertanyaan baru di sorot dan ditandai sebagai Baru"
 
-# @ dwqa
 #: ../inc/settings.php:37
 msgid "days"
-msgstr ""
+msgstr "hari"
 
-# @ dwqa
 #: ../inc/settings.php:37
 msgid ""
 "A Question will be marked as overdue if passes this period of time, starting "
 "from the date the question was submitted"
 msgstr ""
+"Pertanyaan akan di tandai sebagai kadaluarsa, jika sudah melebihi batas "
+"waktu yang ditentukan, dimulai dari saat pertanyaan dikirim "
 
-# @ dwqa
 #: ../inc/settings.php:48
 msgid "Select Submit Question Page"
-msgstr ""
+msgstr "Pilih halaman Mengirimkan Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:53
+#, fuzzy
 msgid "A page where users can submit questions."
-msgstr ""
+msgstr "Halaman untuk user dapat mengirim pertanyaan."
 
-# @ dwqa
 #: ../inc/settings.php:69
 msgid "Upload"
-msgstr ""
+msgstr "Unggah"
 
-# @ dwqa
 #: ../inc/settings.php:69
 msgid "Upload or choose a logo to be displayed at the top of the email"
-msgstr ""
-"Загрузите или выберите логотип, который будет отображен вверху вашего e-mail"
+msgstr "Unggah atau pilih logo untuk ditampilkan di bagian atas email"
 
-# @ dwqa
 #: ../inc/settings.php:108
 msgid "Enable notification for new question"
-msgstr ""
+msgstr "Bolehkan pemberitahuan untuk pertayaan baru"
 
-# @ dwqa
 #: ../inc/settings.php:113 ../inc/settings.php:149 ../inc/settings.php:186
 #: ../inc/settings.php:223 ../inc/settings.php:260 ../inc/settings.php:297
 #: ../inc/settings.php:334
 msgid "Email subject"
-msgstr ""
+msgstr "Judul Email"
 
-# @ dwqa
 #: ../inc/settings.php:118 ../inc/settings.php:154 ../inc/settings.php:191
 #: ../inc/settings.php:228 ../inc/settings.php:265 ../inc/settings.php:302
 #: ../inc/settings.php:339
 msgid "Email Content"
-msgstr ""
+msgstr "Isi Email"
 
-# @ dwqa
 #: ../inc/settings.php:144
 msgid "Enable notification for new answer"
-msgstr ""
+msgstr "Bolehkan pemberitahuan untuk jawaban baru"
 
-# @ dwqa
 #: ../inc/settings.php:181
 msgid "Enable notification for new answer (to Followers)"
-msgstr ""
+msgstr "Bolehkan pemberitahuan untuk jawaban baru (kepada Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:218 ../inc/settings.php:255
 msgid "Enable notification for new comment of question"
-msgstr ""
+msgstr "Bolehkan pemberitahuan untuk tanggapan baru atas pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:292 ../inc/settings.php:329
 msgid "Enable notification for new comment of answer"
-msgstr ""
+msgstr "Bolehkan pemberitahuan untuk tanggapan baru atas jawaban"
 
-# @ dwqa
 #: ../inc/settings.php:387
 msgid "Question"
-msgstr ""
+msgstr "Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:392
+#, fuzzy
 msgid "Read"
-msgstr ""
+msgstr "Selanjutnya"
 
-# @ dwqa
 #: ../inc/settings.php:393
+#, fuzzy
 msgid "Post"
-msgstr ""
+msgstr "Dikirimkan oleh"
 
-# @ dwqa
 #: ../inc/settings.php:395 ../inc/templates/default/content-answer.php:102
 #: ../inc/templates/default/content-comment.php:51
 #: ../inc/templates/default/single-question.php:62
 msgid "Delete"
-msgstr "Удалить"
+msgstr "Hapus"
 
-# @ dwqa
 #: ../inc/settings.php:427 ../inc/settings.php:468 ../inc/settings.php:510
 msgid "Reset Default"
-msgstr ""
+msgstr "Set Ulang ke Standar"
 
-# @ dwqa
 #: ../inc/settings.php:470
 msgid "Comment"
-msgstr ""
+msgstr "Komentar"
 
-# @ dwqa
 #: ../inc/settings.php:519
 msgid "Enable/Disable captcha on submit question page"
-msgstr ""
+msgstr "Aktif/Non Aktifkan captcha pada halaman mengirim pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:525
 msgid "Enable/Disable captcha on single question page"
-msgstr ""
+msgstr "Aktif/Non Aktifkan captcha pada halaman pertanyaan tunggal"
 
-# @ dwqa
 #: ../inc/settings.php:543
+#, fuzzy
 msgid "questions"
-msgstr ""
+msgstr "Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:549
 msgid "Allow members to post private question"
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:567
 msgid "Plugin Settings"
-msgstr ""
+msgstr "Pengaturan Plugin"
 
-# @ dwqa
 #: ../inc/settings.php:567
 msgid "Settings"
-msgstr ""
+msgstr "Pengaturan"
 
-# @ dwqa
 #: ../inc/settings.php:593
 msgid "Question List Page"
-msgstr ""
+msgstr "Halaman Daftar Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:601
 msgid "Archive page show at most"
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:609
 msgid "Ask Question Page"
-msgstr ""
+msgstr "Halaman Mengajukan Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:616
+#, fuzzy
 msgid "Private Question"
-msgstr ""
+msgstr "Ubah Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:624
 msgid "Time settings"
-msgstr ""
+msgstr "Pengaturan waktu"
 
-# @ dwqa
 #: ../inc/settings.php:631
 msgid "New Question Time Frame"
-msgstr ""
+msgstr "Pengaturan Waktu Pertanyaan Baru"
 
-# @ dwqa
 #: ../inc/settings.php:639
 msgid "Question Overdue - Time Frame"
-msgstr ""
+msgstr "Pertanyaan telewat - Pengaturan Waktu"
 
-# @ dwqa
 #: ../inc/settings.php:649
 msgid "Captcha settings"
-msgstr ""
+msgstr "Pengaturan Captcha"
 
-# @ dwqa
 #: ../inc/settings.php:656
 msgid "Captcha in Submit Question Page"
-msgstr ""
+msgstr "Captcha di halaman Mengirim Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:664
 msgid "Captcha in Single Question Page"
-msgstr ""
+msgstr "Captha di Halaman Detail Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:672
 msgid "Google Captcha Public Key"
-msgstr ""
+msgstr "Google Captcha Public Key"
 
-# @ dwqa
 #: ../inc/settings.php:680
 msgid "Google Captcha Private Key"
-msgstr ""
+msgstr "Google Captch Privavte Key"
 
-# @ dwqa
 #: ../inc/settings.php:690
 msgid "Permalink Settings"
-msgstr ""
+msgstr "Pengaturan Permalink"
 
-# @ dwqa
 #: ../inc/settings.php:697
 msgid "Single Question"
-msgstr ""
+msgstr "Pertanyaan Tunggal"
 
-# @ dwqa
 #: ../inc/settings.php:705
 msgid "Single Category"
-msgstr ""
+msgstr "Kategori Tunggal"
 
-# @ dwqa
 #: ../inc/settings.php:713
 msgid "Single Tag"
-msgstr ""
+msgstr "Tag Tunggal"
 
-# @ dwqa
 #: ../inc/settings.php:762
+#, fuzzy
 msgid "From Email"
-msgstr ""
+msgstr "Email"
 
-# @ dwqa
 #: ../inc/settings.php:826 ../inc/settings.php:833
 msgid "Group Permission"
-msgstr ""
+msgstr "Hak akses Kelompok"
 
-# @ dwqa
 #: ../inc/settings.php:846
 msgid "DWQA Settings"
-msgstr "Настройки"
+msgstr "Pengaturan DWQA"
 
-# @ dwqa
 #: ../inc/settings.php:851
 msgid "General"
-msgstr ""
+msgstr "Umum"
 
-# @ dwqa
 #: ../inc/settings.php:852
 msgid "Notification"
-msgstr ""
+msgstr "Pemberitahuan"
 
-# @ dwqa
 #: ../inc/settings.php:853
 msgid "Permission"
-msgstr ""
+msgstr "Hak Akses"
 
-# @ dwqa
 #: ../inc/settings.php:861
+#, fuzzy
 msgid "Email setup"
-msgstr ""
+msgstr "Judul Email"
 
-# @ dwqa
 #: ../inc/settings.php:865
 msgid "Email Logo"
-msgstr ""
+msgstr "Logo Email"
 
-# @ dwqa
 #: ../inc/settings.php:877
 msgid "New Comment to Question"
-msgstr ""
+msgstr "Jawaban Baru untuk Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:878
 msgid "New Comment to Answer"
-msgstr ""
+msgstr "Tanggapan baru untuk Pertanyaan"
 
-# @ dwqa
 #: ../inc/settings.php:879
 msgid "New Answer (to Followers)"
-msgstr ""
+msgstr "Jawaban Baru (untuk Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:880
 msgid "New Comment to Question (to Followers)"
-msgstr ""
+msgstr "Tanggapan baru untuk Pertanyaan (untuk Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:881
 msgid "New Comment to Answer (to Followers)"
-msgstr ""
+msgstr "Tanggapan baru untuk Jawaban (untuk Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:888
 msgid "New Question Notification"
-msgstr ""
+msgstr "Pemberitahuan Pertanyaan Baru"
 
-# @ dwqa
 #: ../inc/settings.php:895 ../inc/settings.php:904 ../inc/settings.php:913
 #: ../inc/settings.php:922 ../inc/settings.php:932 ../inc/settings.php:940
 #: ../inc/settings.php:950
 msgid "Save all changes"
-msgstr "Сохранить все изменения"
+msgstr "Simpan perubahan"
 
-# @ dwqa
 #: ../inc/settings.php:900
 msgid "New Answer Notification"
-msgstr ""
+msgstr "Pemberitahuan Tanggapan Baru"
 
-# @ dwqa
 #: ../inc/settings.php:909
+#, fuzzy
 msgid "New Answer Notification (to Followers)"
-msgstr ""
+msgstr "Pemberitahuan Jawaban Baru (Ke Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:918
 msgid "New Comment to Question Notification"
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:928
 msgid "New Comment to Answer Notification"
-msgstr ""
+msgstr "Pemberitahuan Tanggapan Baru untuk Jawaban"
 
-# @ dwqa
 #: ../inc/settings.php:936
 msgid "New Comment to Question Notification (to Followers)"
-msgstr ""
+msgstr "Pemberitahuan Tanggapan baru untuk Pertanyaan (untuk Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:946
 msgid "New Comment to Answer Notification (to Followers)"
-msgstr ""
+msgstr "Pemberitahuan Tanggapan baru untuk Jawaban (untuk Pengikut)"
 
-# @ dwqa
 #: ../inc/settings.php:974
 msgid "Send to"
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:979
 msgid "Cc"
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:984
 msgid "Bcc"
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:989
 msgid "This address will be used as the sender of the outgoing emails."
 msgstr ""
 
-# @ dwqa
 #: ../inc/settings.php:995
 msgid "Send A Copy Of Every Email To Admin"
 msgstr ""
 
-# @ dwqa
-#: ../inc/shortcodes.php:37 ../inc/templates/default/search-question.php:4
+#: ../inc/shortcodes.php:56 ../inc/templates/default/search-question.php:4
 #: ../thesis/dwqa/box.php:64
 msgid "Search"
-msgstr "Поиск"
+msgstr "Cari"
 
-# @ dwqa
-#: ../inc/shortcodes.php:50 ../inc/shortcodes.php:264
-#: ../inc/template-functions.php:722 ../thesis/dwqa/box.php:77
+#: ../inc/shortcodes.php:69 ../inc/shortcodes.php:283
+#: ../inc/template-functions.php:721 ../thesis/dwqa/box.php:77
 #: ../thesis/dwqa/box.php:289
 msgid "Ask a question"
-msgstr "Задать вопрос"
+msgstr "Ajukan Pertanyaan"
 
-# @ default
-#: ../inc/shortcodes.php:58 ../inc/templates/default/archive-question.php:24
+#: ../inc/shortcodes.php:77 ../inc/templates/default/archive-question.php:24
 #: ../thesis/dwqa/box.php:85
 msgid "Status:"
-msgstr ""
+msgstr "Status:"
 
-# @ dwqa
-#: ../inc/shortcodes.php:60 ../inc/shortcodes.php:108
+#: ../inc/shortcodes.php:79 ../inc/shortcodes.php:127
 #: ../inc/templates/default/archive-question.php:26
 #: ../inc/templates/default/archive-question.php:74 ../thesis/dwqa/box.php:87
 #: ../thesis/dwqa/box.php:135
 msgid "All"
-msgstr "Все"
+msgstr "Semua"
 
-# @ dwqa
-#: ../inc/shortcodes.php:64 ../inc/templates/default/archive-question.php:30
+#: ../inc/shortcodes.php:83 ../inc/templates/default/archive-question.php:30
 #: ../thesis/dwqa/box.php:91
 msgid "Need Answer"
-msgstr "Нужен ответ"
+msgstr "Butuh jawaban"
 
-# @ dwqa
-#: ../inc/shortcodes.php:67 ../inc/templates/default/archive-question.php:33
+#: ../inc/shortcodes.php:86 ../inc/templates/default/archive-question.php:33
 #: ../thesis/dwqa/box.php:94
 msgid "Answered"
-msgstr "Отвечено"
+msgstr "Sudah dijawab"
 
-# @ dwqa
-#: ../inc/shortcodes.php:76 ../inc/templates/default/archive-question.php:42
+#: ../inc/shortcodes.php:95 ../inc/templates/default/archive-question.php:42
 #: ../thesis/dwqa/box.php:103
 msgid "Overdue"
-msgstr "Просрочен"
+msgstr "Lewat Waktu"
 
-# @ dwqa
-#: ../inc/shortcodes.php:77 ../inc/templates/default/archive-question.php:43
+#: ../inc/shortcodes.php:96 ../inc/templates/default/archive-question.php:43
 #: ../thesis/dwqa/box.php:104
 msgid "Queue"
-msgstr "В очереди"
+msgstr "Antrian"
 
-# @ dwqa
-#: ../inc/shortcodes.php:98 ../inc/templates/default/archive-question.php:64
+#: ../inc/shortcodes.php:117 ../inc/templates/default/archive-question.php:64
 #: ../thesis/dwqa/box.php:125
 msgid "Select a category"
-msgstr "Выбрать рубрику"
+msgstr "Pilih Kategorinya"
 
-# @ dwqa
-#: ../inc/shortcodes.php:109 ../inc/templates/default/archive-question.php:75
+#: ../inc/shortcodes.php:128 ../inc/templates/default/archive-question.php:75
 #: ../thesis/dwqa/box.php:136
 msgid "Empty"
-msgstr ""
+msgstr "Kosong"
 
-# @ dwqa
-#: ../inc/shortcodes.php:142 ../inc/templates/default/archive-question.php:108
+#: ../inc/shortcodes.php:161 ../inc/templates/default/archive-question.php:108
 #: ../thesis/dwqa/box.php:169
 msgid "View"
-msgstr "Просмотры"
+msgstr "Lihat"
 
-# @ dwqa
-#: ../inc/shortcodes.php:148 ../inc/templates/default/archive-question.php:114
+#: ../inc/shortcodes.php:167 ../inc/templates/default/archive-question.php:114
 #: ../thesis/dwqa/box.php:175
 msgid "Vote"
-msgstr "Голоса"
+msgstr "Tilai"
 
-# @ dwqa
-#: ../inc/shortcodes.php:273
+#: ../inc/shortcodes.php:292
 #: ../inc/templates/default/archive-question-notfound.php:7
 #: ../thesis/dwqa/box.php:298
 msgid "Sorry, but nothing matched your filter."
-msgstr "Извините, ничего не найдено"
+msgstr "Maaf, tapi tidak ditemukan yang pas menurut sortingan Anda."
 
-# @ dwqa
-#: ../inc/shortcodes.php:336 ../inc/widgets.php:79
+#: ../inc/shortcodes.php:354 ../inc/widgets.php:79
+#, fuzzy
 msgid "Popular Questions"
-msgstr ""
+msgstr "DWQA Pertanyaan Populer"
 
-# @ dwqa
-#: ../inc/shortcodes.php:373
+#: ../inc/shortcodes.php:391
+#, fuzzy
 msgid "Latest Answers"
-msgstr ""
+msgstr "Jawaban Baru"
 
-# @ dwqa
-#: ../inc/shortcodes.php:396
+#: ../inc/shortcodes.php:414
+#, fuzzy
 msgid "Answer at"
-msgstr ""
+msgstr "Jawaban"
 
-# @ dwqa
-#: ../inc/shortcodes.php:396 ../inc/templates/default/single-question.php:89
+#: ../inc/shortcodes.php:414 ../inc/templates/default/single-question.php:89
 #: ../thesis/dwqa/box.php:376
 msgid "Link to"
-msgstr "Ссылка"
+msgstr "Tautkan Ke"
 
-# @ dwqa
-#: ../inc/shortcodes.php:423
+#: ../inc/shortcodes.php:441
+#, fuzzy
 msgid "people are following this question."
-msgstr ""
+msgstr "Berhenti Mengikuti Pertanyaan  ini."
 
-# @ dwqa
 #: ../inc/status.php:273
 msgid "New"
-msgstr ""
+msgstr "Baru"
 
-# @ dwqa
 #: ../inc/status.php:291
+#, fuzzy
 msgid "Missing post ID"
-msgstr ""
+msgstr "ID pos tidak ditemukan"
 
-# @ dwqa
 #: ../inc/status.php:306
+#, fuzzy
 msgid "Post does not exist"
-msgstr ""
+msgstr "Tulisan tidak ditemukan"
 
-# @ dwqa
 #: ../inc/status.php:311
 msgid "Invalid post status"
-msgstr "Неверный статус"
+msgstr "Status tulisan salah"
 
-# @ dwqa
 #: ../inc/template-functions.php:159
 msgid "You need an account to submit question and get answers. Create one:"
 msgstr ""
-"Вам необходимо зарегистрироваться, чтобы задать вопрос/написать ответ. "
-"Зарегистрироваться:"
+"Silahkan mendaftar terlebih dahulu untuk menulis pertanyaan. Daftar disini:"
 
-# @ dwqa
 #: ../inc/template-functions.php:161 ../inc/template-functions.php:193
 msgid "Type your email"
-msgstr "Ваш E-mail"
+msgstr "Tulis email anda"
 
-# @ dwqa
 #: ../inc/template-functions.php:166
 msgid "Already a member?"
-msgstr "Уже зарегистрированы?"
+msgstr "Sundah Mendaftar?"
 
-# @ dwqa
 #: ../inc/template-functions.php:166
 msgid "Log In"
-msgstr "Войти"
+msgstr "Masuk"
 
-# @ dwqa
 #: ../inc/template-functions.php:170
 msgid "Login to submit your question"
-msgstr "Войти, чтобы добавить вопрос"
+msgstr "Masuk untuk mengirimkan pertanyaan"
 
-# @ dwqa
 #: ../inc/template-functions.php:177
 msgid "Not yet a member?"
-msgstr ""
+msgstr "Belum menjadi anggota?"
 
-# @ dwqa
 #: ../inc/template-functions.php:177 ../inc/templates/default/answers.php:114
 msgid "Register"
-msgstr ""
+msgstr "Mendaftar"
 
-# @ default
 #: ../inc/template-functions.php:205
 #, php-format
 msgid "Private: %s"
-msgstr ""
+msgstr "Pribadi: %s"
 
-# @ dwqa
 #: ../inc/template-functions.php:253
 msgid "Question Category"
-msgstr "Рубрика:"
+msgstr "Kategori Pertanyaan"
 
-# @ dwqa
 #: ../inc/template-functions.php:259
 msgid "Select question category"
-msgstr "Выберите подходящую рубрику"
+msgstr "Pilih kategori pertanyaan"
 
-# @ dwqa
 #: ../inc/template-functions.php:267
 msgid "tag 1, tag 2,..."
-msgstr "ключевые слова"
+msgstr "tag 1, tag 2,..."
 
-# @ dwqa
 #: ../inc/template-functions.php:272
 msgid "Your question"
-msgstr "Заголовок, вопрос вкратце"
+msgstr "Pertanyaan Anda"
 
-# @ dwqa
 #: ../inc/template-functions.php:273
 msgid "How to..."
-msgstr "Как сделать..."
+msgstr "Bagaimana caranya ..."
 
-# @ dwqa
 #: ../inc/template-functions.php:280
 msgid "Question details"
-msgstr "Полный вопрос, детали"
+msgstr "Rincian Pertanyaan"
 
-# @ dwqa
 #: ../inc/template-functions.php:286
 msgid "Post this Question as Private."
-msgstr "Оставить вопрос приватным (не рекомендуется)"
+msgstr "Tulis pertanyaan ini secara Tersembunyi."
 
-# @ dwqa
 #: ../inc/template-functions.php:286
 msgid "Only you as Author and Admin can see the question"
-msgstr "Только вы и администратор могут видеть этот вопрос"
+msgstr "Hanya Anda sebagai penulis dan Admin yang dapat melihatnya"
 
-# @ dwqa
 #: ../inc/template-functions.php:309
 msgid "Ask Question"
-msgstr "Опубликовать вопрос"
+msgstr "Ajukan _Pertanyaan"
 
-# @ dwqa
 #: ../inc/template-functions.php:324
 msgid "Answer this Question"
-msgstr "Ответить  на вопрос:"
+msgstr "Jawab Pertanyaan ini"
 
-# @ dwqa
 #: ../inc/template-functions.php:360
 msgid "Add answer"
-msgstr "Разместить ответ"
+msgstr "Tambah jawaban"
 
-# @ default
 #: ../inc/template-functions.php:498
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
-# @ default
 #: ../inc/template-functions.php:500
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
-# @ default
 #: ../inc/template-functions.php:502
 msgid "Website"
-msgstr ""
+msgstr "Situs web"
 
-# @ default
 #: ../inc/template-functions.php:506
 #, php-format
 msgid "Required fields are marked %s"
-msgstr ""
+msgstr "File yang harus ada %s"
 
-# @ default
 #: ../inc/template-functions.php:518
 msgctxt "noun"
 msgid "Comment"
-msgstr ""
+msgstr "Komentar"
 
-# @ dwqa
 #: ../inc/template-functions.php:519
 #, php-format
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-msgstr ""
+msgstr "Anda harus <a href=\"%s\">Masuk</a> untuk menuliskan komentar."
 
-# @ default
 #: ../inc/template-functions.php:520
 #, php-format
 msgid ""
 "Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
 "this account\">Log out?</a>"
 msgstr ""
+"Masuk sebagai <a href=\"%1$s\">%2$s</a>.  <a href=\"%3$s\" title=\"Keluar "
+"Akun ini\">Keluar?</a>"
 
-# @ dwqa
 #: ../inc/template-functions.php:521
 msgid "Your email address will not be published."
-msgstr "Ваш E-mail не будет опубликован"
+msgstr "Email Anda tidak akan dipublikasikan."
 
-# @ dwqa
 #: ../inc/template-functions.php:522
 #, php-format
 msgid ""
 "You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
 "and attributes: %s"
 msgstr ""
+"Anda dapat mengunakan <abbr title=\"HyperText Markup Language\">HTML</abbr> "
+"tags dan attribut: %s"
 
-# @ dwqa
 #: ../inc/template-functions.php:525
 msgid "Leave a Reply"
-msgstr "Написать ответ"
+msgstr "Tuliskan Tanggapan"
 
-# @ dwqa
 #: ../inc/template-functions.php:526
 #, php-format
 msgid "Leave a Reply to %s"
-msgstr "Написать ответ %s"
+msgstr "Tulis Tanggapan ke %s"
 
-# @ dwqa
 #: ../inc/template-functions.php:527
 msgid "Cancel reply"
-msgstr "Закрыть ответ"
+msgstr "Batal menanggapi"
 
-# @ dwqa
 #: ../inc/template-functions.php:528
 msgid "Post Comment"
-msgstr ""
+msgstr "Tuliskan Komentar"
 
-# @ dwqa
-#: ../inc/template-functions.php:711
+#: ../inc/template-functions.php:710
+#, fuzzy
 msgid "Sticky Question"
-msgstr ""
+msgstr "Ajukan _Pertanyaan"
 
-# @ dwqa
 #: ../inc/templates/default/answers.php:45
 #: ../inc/templates/default/content-question.php:55
 #: ../inc/templates/default/content-question.php:58
+#, fuzzy
 msgid "answer"
 msgid_plural "answers"
-msgstr[0] "отв."
-msgstr[1] "отв."
-msgstr[2] "отв."
+msgstr[0] "Jawaban"
+msgstr[1] ""
 
-# @ dwqa
 #: ../inc/templates/default/answers.php:91
 msgid "You do not have permission to view answers"
-msgstr ""
+msgstr "Anda tidak punya hak akses untuk melihat pertanyaan"
 
-# @ dwqa
 #: ../inc/templates/default/answers.php:99
 msgid "This question has been closed"
-msgstr ""
+msgstr "Pertanyaan ini telah ditutup"
 
-# @ dwqa
 #: ../inc/templates/default/answers.php:107
 msgid "You do not have permission to submit answer."
-msgstr ""
+msgstr "Anda tidak punya hak akses untuk menulis pertanyaan."
 
-# @ dwqa
 #: ../inc/templates/default/answers.php:112
+#, fuzzy
 msgid "Please login or"
-msgstr ""
+msgstr "Silahkan masuk"
 
-# @ dwqa
 #: ../inc/templates/default/answers.php:115
+#, fuzzy
 msgid "to Submit Answer"
-msgstr ""
+msgstr "Kirim Jawaban"
 
-# @ dwqa
 #: ../inc/templates/default/comments.php:12
 msgid "View previous comments"
-msgstr "Смотреть предыдущие комментарии"
+msgstr "Lihat tanggapan sebelumnya"
 
-# @ dwqa
 #: ../inc/templates/default/comments.php:13
 msgid "of"
-msgstr ""
+msgstr "dari"
 
-# @ dwqa
 #: ../inc/templates/default/comments.php:30
 msgid "Write a reply..."
-msgstr "Написать в ответ"
+msgstr ""
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:20
 #: ../inc/templates/default/single-question.php:22 ../thesis/dwqa/box.php:338
 msgid "Vote Up"
-msgstr "+1"
+msgstr "Tilai Positif"
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:30
 #: ../inc/templates/default/single-question.php:24 ../thesis/dwqa/box.php:340
 msgid "Vote Down"
-msgstr "-1"
+msgstr "Tilai Negatif"
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:38
 msgid "This is the best answer"
-msgstr "Это лучший ответ на вопрос!"
+msgstr "Ini adalah Jawaban teebaik"
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:50
 #: ../inc/templates/default/content-comment.php:12
 msgid "Staff"
-msgstr "Админ."
+msgstr "Staff"
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:58
 msgid "Link to answer"
-msgstr ""
+msgstr "Tautan ke jawaban"
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:84
 msgid "Draft"
-msgstr ""
+msgstr "Draf"
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:117
 msgid "This answer was flagged as spam."
-msgstr ""
+msgstr "Jawaban ditandai sebagai spam."
 
-# @ dwqa
 #: ../inc/templates/default/content-answer.php:127
 msgid "The answer link"
-msgstr "Ссылка на вопрос"
+msgstr "Tautan ke jawaban"
 
-# @ dwqa
 #: ../inc/templates/default/content-comment.php:10
 msgid "Post by"
-msgstr ""
+msgstr "Dikirimkan oleh"
 
-# @ dwqa
 #: ../inc/templates/default/content-comment.php:25
 msgid "Link to comment"
-msgstr "Ссылка на комментарий"
+msgstr "Tautan ke komentar"
 
-# @ dwqa
 #: ../inc/templates/default/content-question.php:12
 #, php-format
 msgid "Permalink to %s"
-msgstr "Постоянная ссылка %s"
+msgstr "Tautan ke %s"
 
-# @ default
 #: ../inc/templates/default/content-question.php:21
 #, php-format
 msgid "Posts by %s"
-msgstr ""
+msgstr "Dikirimkan oleh %s"
 
-# @ dwqa
 #: ../inc/templates/default/content-question.php:27
 msgid "by"
-msgstr " "
+msgstr "oleh"
 
-# @ dwqa
 #: ../inc/templates/default/content-question.php:41
 #: ../inc/templates/default/content-question.php:44
+#, fuzzy
 msgid "view"
 msgid_plural "views"
-msgstr[0] "просм."
-msgstr[1] "просм."
-msgstr[2] "просм."
+msgstr[0] "dilihat"
+msgstr[1] ""
 
-# @ dwqa
 #: ../inc/templates/default/content-question.php:69
 #: ../inc/templates/default/content-question.php:72
+#, fuzzy
 msgid "vote"
 msgid_plural "votes"
-msgstr[0] "голос(ов)"
+msgstr[0] "ditilai"
 msgstr[1] ""
-msgstr[2] ""
 
-# @ dwqa
 #: ../inc/templates/default/single-question.php:33
+#, fuzzy
 msgid "Unstick this Question to the front page"
-msgstr ""
+msgstr "Tulis pertanyaan ini secara Tersembunyi."
 
-# @ dwqa
 #: ../inc/templates/default/single-question.php:33
 msgid "Stick this Question to the front page"
 msgstr ""
 
-# @ dwqa
 #: ../inc/templates/default/single-question.php:80 ../thesis/dwqa/box.php:367
 msgid "Posts by"
-msgstr ""
+msgstr "Dikirimkan oleh"
 
-# @ dwqa
 #: ../inc/templates/default/single-question.php:91 ../thesis/dwqa/box.php:378
 msgid "asked"
-msgstr "спросил"
+msgstr "bertanya"
 
-# @ dwqa
 #: ../inc/templates/default/single-question.php:126 ../thesis/dwqa/box.php:413
 msgid "Category"
-msgstr "Рубрика"
+msgstr "Katagori"
 
-# @ dwqa
 #: ../inc/templates/default/single-question.php:127 ../thesis/dwqa/box.php:414
 msgid "All questions from"
-msgstr ""
+msgstr "Semua pertanyaan dari"
 
-# @ dwqa
 #: ../inc/widgets.php:16
 msgid ""
 "Show a list of questions that related to a question. Just show in single "
 "question page"
 msgstr ""
+"Menampilkan daftar pertanyaan yang berkaitan. Hanya ditampilakan di halaman "
+"detail pertanyaan"
 
-# @ dwqa
 #: ../inc/widgets.php:17
 msgid "DWQA Related Questions"
-msgstr "Похожие вопросы"
+msgstr "DWQA Pertanyaan Berkaitan"
 
-# @ default
 #: ../inc/widgets.php:53 ../inc/widgets.php:124
 msgid "Widget title"
-msgstr ""
+msgstr "Judul Widget"
 
-# @ default
 #: ../inc/widgets.php:56 ../inc/widgets.php:127
 msgid "Number of posts"
-msgstr ""
+msgstr "Jumlah tulisan"
 
-# @ dwqa
 #: ../inc/widgets.php:72
 msgid "Show a list of questions that was ordered by views."
-msgstr ""
+msgstr "Menampilkan daftar pertanyaan menurut terbanyak dilihat."
 
-# @ dwqa
 #: ../inc/widgets.php:73
 msgid "DWQA Popular Questions"
-msgstr "Популярные вопросы"
+msgstr "DWQA Pertanyaan Populer"
 
-# @ dwqa
 #: ../thesis/dwqa/box.php:14
+#, fuzzy
 msgid "DW Q&A Box"
-msgstr ""
+msgstr "DW Q&A"
 
-# @ dwqa
 #: ../thesis/dwqa/box.php:21
 msgid "Container Padding"
 msgstr ""
 
-# @ dwqa
 #: ../thesis/dwqa/box.php:23
 msgid "Container padding size"
 msgstr ""
 
-# @ dwqa
 #: ../thesis/dwqa/box.php:25
 msgid ""
 "By default,The container is not have gutter. You can set padding width to "
 "make a gutter. You make it by update setting here."
 msgstr ""
 
-# @ dwqa
 #: ../thesis/dwqa/box.php:305
-#, fuzzy
 msgid "You can ask question <a href=\""
-msgstr "Вы можете задать вопрос <a href=\"\">здесь</a>"
+msgstr "Anda dapat menulis pertanyaan <a href=\""
 
-# @ dwqa
 #: ../thesis/dwqa/box.php:309
-#, fuzzy
 msgid "Please <a href=\""
-msgstr "Пожалуйста, напишите своё имя"
+msgstr "Silahkan <a href=\""
+
+#~ msgid "ago"
+#~ msgstr "yang lalu"
+
+#~ msgid "YCaptcha is not correct"
+#~ msgstr "Captcha salah"
+
+#~ msgid "Email Template"
+#~ msgstr "Templat Email"
+
+#~ msgid "Email logo"
+#~ msgstr "Logo Email"
+
+#~ msgid "You need a support channel inside wordpress page?"
+#~ msgstr "Apakah Anda membutuhkan channel bantuan didalam halama wordpress?"
+
+#~ msgid "Create Submit Question Page"
+#~ msgstr "Buat halaman Mengirim Pertanyaan"
+
+#~ msgid "How to create submit question page?"
+#~ msgstr "Bagaimana carannya menulis halaman mengirim pertanyaan?"
+
+#~ msgid "Go to <strong>Dashboard -> Question -> Settings</strong>"
+#~ msgstr "Pergi ke <strong>Dashboard -> Pertanyaan -> Pengaturan</strong>"
+
+#~ msgid "Available Settings"
+#~ msgstr "Pengaturan Tersedia"
+
+#~ msgid "Go to config your support channel"
+#~ msgstr "Pergi ke Konfigurasi channel bantuan"
+
+#~ msgid "Go to ...?"
+#~ msgstr "Pergi ke ...?"
+
+#~ msgid "DesignWall Team"
+#~ msgstr "Tim DesignWall"
+
+#~ msgid "Documentations"
+#~ msgstr "Dokumentasi"
+
+#~ msgid "Support"
+#~ msgstr "Dukungan"
+
+#~ msgid "DesignWall Homepage"
+#~ msgstr "Website DesignWall"
+
+#~ msgid "or"
+#~ msgstr "atau"
+
+#~ msgid "to"
+#~ msgstr "ke"
