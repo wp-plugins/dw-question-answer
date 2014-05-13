@@ -96,7 +96,7 @@
     //Create answer form
     global $dwqa_options;
     if( dwqa_is_closed( $question_id ) ) {
-        echo '<p class="alert">'.__('This question has been closed','dwqa').'</p>';
+        echo '<p class="alert">'.__('This question is now closed','dwqa').'</p>';
         return false;
     }
 
@@ -110,7 +110,7 @@
             <?php 
                 printf('%1$s <a href="%2$s" title="%3$s">%3$s</a> %4$s',
                     __('Please login or','dwqa'),
-                    site_url( 'wp-login.php?action=register' ),
+                    wp_registration_url(),
                     __('Register','dwqa'),
                     __('to Submit Answer','dwqa')
                 );

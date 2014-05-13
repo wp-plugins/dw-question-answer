@@ -6,7 +6,7 @@ function dwqa_question_registration_setting_display(){
     global  $dwqa_general_settings;
     ?>
     <p><input type="checkbox" name="dwqa_options[answer-registration]" value="true" <?php checked( true, isset($dwqa_general_settings['answer-registration']) ? (bool) $dwqa_general_settings['answer-registration'] : false ) ; ?> id="dwqa_option_answer_registation">
-    <label for="dwqa_option_answer_registation"><span class="description"><?php _e('Login required. No anonymous allowed','dwqa'); ?></span></label></p>
+    <label for="dwqa_option_answer_registation"><span class="description"><?php _e('Login required. No anonymous post allowed','dwqa'); ?></span></label></p>
     <?php
 }
 
@@ -34,7 +34,7 @@ function dwqa_question_new_time_frame_display(){
 
 function dwqa_question_overdue_time_frame_display(){ 
     global  $dwqa_general_settings;
-    echo '<p><input type="text" name="dwqa_options[question-overdue-time-frame]" id="dwqa_options_question_new_time_frame" value="'.( isset( $dwqa_general_settings['question-overdue-time-frame'] ) ? $dwqa_general_settings['question-overdue-time-frame'] : 2 ).'" class="small-text" /><span class="description"> '.__('days','dwqa').'<span title="'.__('A Question will be marked as overdue if passes this period of time, starting from the date the question was submitted','dwqa').'">(?)</span></span></p>';
+    echo '<p><input type="text" name="dwqa_options[question-overdue-time-frame]" id="dwqa_options_question_new_time_frame" value="'.( isset( $dwqa_general_settings['question-overdue-time-frame'] ) ? $dwqa_general_settings['question-overdue-time-frame'] : 2 ).'" class="small-text" /><span class="description"> '.__('days','dwqa').'<span title="'.__('A Question will be marked as overdue if it passes this period of time, starting from the time the question was submitted','dwqa').'">(?)</span></span></p>';
 }
 
 function dwqa_submit_question_page_display(){
@@ -51,6 +51,24 @@ function dwqa_submit_question_page_display(){
             ) );
         ?>
         <span class="description"><?php _e('A page where users can submit questions.','dwqa') ?></span>
+    </p>
+    <?php
+}
+
+function dwqa_404_page_display(){
+    global  $dwqa_general_settings;
+    $submit_question_page = isset($dwqa_general_settings['pages']['404']) ? $dwqa_general_settings['pages']['404'] : 0; 
+    ?>
+    <p>
+        <?php
+            wp_dropdown_pages( array(
+                'name'              => 'dwqa_options[pages][404]',
+                'show_option_none'  => __('Select 404 DWQA Page','dwqa'),
+                'option_none_value' => 0,
+                'selected'          => $submit_question_page
+            ) );
+        ?>
+        <span class="description"><?php _e('This page will be redirected when users without authority click on a private question. You can customize the message of this page in.If not, a default 404 page will be used.','dwqa') ?></span>
     </p>
     <?php
 }
@@ -417,7 +435,7 @@ function dwqa_permission_display(){
             <tr class="group available">
                 <td><?php _e('Anonymous','dwqa') ?></td>
                 <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['read'] ); ?> name="dwqa_permission[<?php echo 'anonymous' ?>][question][read]" value="1"></td>
-                <td><input type="checkbox" disabled="disabled" name="dwqa_permission[<?php echo 'anonymous' ?>][question][post]" value="1"></td>
+                <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['post'] ); ?>  name="dwqa_permission[<?php echo 'anonymous' ?>][question][post]" value="1"></td>
                 <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['edit'] ); ?> disabled="disabled" name="dwqa_permission[<?php echo 'anonymous' ?>][question][edit]" value="1"></td>
                 <td><input type="checkbox" <?php checked( true, $perms['anonymous']['question']['delete'] ); ?> disabled="disabled"  name="dwqa_permission[<?php echo 'anonymous' ?>][question][delete]" value="1"></td>
             </tr>
@@ -549,10 +567,11 @@ function dwqa_enable_private_question_display() {
     echo '<p><label for="dwqa_options_enable_private_question"><input type="checkbox" name="dwqa_options[enable-private-question]"  id="dwqa_options_enable_private_question" value="1" '.checked( 1, (isset($dwqa_general_settings['enable-private-question']) ? $dwqa_general_settings['enable-private-question'] : false) , false ) .'><span class="description">'.__('Allow members to post private question','dwqa').'</span></label></p>';
 }
 
-function dwqa_subscrible_send_to_display(){
-
+function dwqa_enable_review_question_mode() {
+    global $dwqa_general_settings;
+    
+    echo '<p><label for="dwqa_options_enable_review_question"><input type="checkbox" name="dwqa_options[enable-review-question]"  id="dwqa_options_enable_review_question" value="1" '.checked( 1, (isset($dwqa_general_settings['enable-review-question']) ? $dwqa_general_settings['enable-review-question'] : false) , false ) .'><span class="description">'.__('Question must be manually approved','dwqa').'</span></label></p>';
 }
-
 
 class DWQA_Settings {
     public function __construct(){
@@ -618,6 +637,21 @@ class DWQA_Settings {
             'dwqa-settings', 
             'dwqa-general-settings'
         );
+        add_settings_field( 
+            'dwqa_options[enable-review-question]', 
+            __('Review Question', 'dwqa'), 
+            'dwqa_enable_review_question_mode', 
+            'dwqa-settings', 
+            'dwqa-general-settings'
+        );
+
+        add_settings_field( 
+            'dwqa_options[pages][404]', 
+            __('DWQA 404 Page', 'dwqa'), 
+            'dwqa_404_page_display', 
+            'dwqa-settings', 
+            'dwqa-general-settings'
+        );
         //Time setting
         add_settings_section( 
             'dwqa-time-settings', 
@@ -653,7 +687,7 @@ class DWQA_Settings {
 
         add_settings_field( 
             'dwqa_options[captcha-in-question]', 
-            __('Captcha in Submit Question Page', 'dwqa'), 
+            __('Captcha on Submit Question Page', 'dwqa'), 
             'dwqa_captcha_in_question_display', 
             'dwqa-settings', 
             'dwqa-captcha-settings'
@@ -661,7 +695,7 @@ class DWQA_Settings {
 
         add_settings_field( 
             'dwqa_options[captcha-in-single-question]', 
-            __('Captcha in Single Question Page', 'dwqa'), 
+            __('Captcha on Single Question Page', 'dwqa'), 
             'dwqa_captcha_in_single_question_display', 
             'dwqa-settings', 
             'dwqa-captcha-settings'

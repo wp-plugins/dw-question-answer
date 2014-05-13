@@ -1,9 +1,9 @@
 === DW Question & Answer ===
-Contributors: designwall, Farid-Gh, scheunemann, gciprian, Ahmet Kolcu, Astrotenko Roman, David Robles, Nidhal Naji, developez
+Contributors: designwall, Farid-Gh, scheunemann, gciprian, Ahmet Kolcu, Astrotenko Roman, David Robles, Nidhal Naji, developez, markhall1971
 Tags: question, answer, support, quora, stackoverflow
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,7 +47,11 @@ We provide support both on support forum on WordPress.org and our [support page]
 * Russian (ru_RU) - by [Roman Astrotenko](http://www.designwall.com/profile/shtirlitz/)
 * Spanish (es_ES) - by David Robles, [Developez](https://github.com/developez)
 * Turkish (tr_TR) - by Ahmet Kolcu
-
+* Turkish (tr_TR) - by Ahmet Kolcu
+* Thai (th) - by [Varut Vutipongsatorn](http://www.arika.co/questions)
+* Hindi (hi_IN) - by [Gaurav Tiwari](http://gauravtiwari.org)
+* Catalan (ca) - by [dactil](http://www.dactil.net/sag/)
+* Vietnamese (vi_VN) - by [Le Nghia](http://www.designwall.com/profile/delatdecatsini/)
 
 The plugin is frequently updated and more and more features added based on all the feedback from our users. This means you are welcome to give us feedback and suggestion on how you would want to have in the plugin.
 Visit our [Github](https://github.com/designwall/dw-question-answer) project or follow us at [@designwall_com](https://twitter.com/designwall_com) to get update of our next release.
@@ -69,6 +73,15 @@ Visit our [Github](https://github.com/designwall/dw-question-answer) project or 
 5. Back-end settings
 
 == Changelog ==
+
+= 1.2.6 =
+* New: Allow Anonymous post question
+* New: Allow Review new questions before publishing feature
+* New: Thai language supported
+* New: Hindi language supported
+* New: Catalan language supported
+* New: Vietnamese language supported
+* Update: Update default language file
 
 = 1.2.5 =
 * New: Arabic supported

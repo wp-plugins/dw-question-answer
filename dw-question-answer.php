@@ -4,7 +4,7 @@
  *  Description: A WordPress plugin was make by DesignWall.com to build an Question Answer system for support, asking and comunitcate with your customer 
  *  Author: DesignWall
  *  Author URI: http://www.designwall.com
- *  Version: 1.2.5
+ *  Version: 1.2.6
  *  Text Domain: dwqa
  */
 
@@ -34,6 +34,7 @@ include_once DWQA_DIR  . 'inc/shortcodes.php';
 include_once DWQA_DIR  . 'inc/status.php';
 include_once DWQA_DIR  . 'inc/roles.php';
 include_once DWQA_DIR  . 'inc/widgets.php';
+include_once DWQA_DIR  . 'inc/deprecated.php';
 
 if( ! defined('RECAPTCHA_VERIFY_SERVER') ) {
     require_once DWQA_DIR  . 'inc/lib/recaptcha-php/recaptchalib.php';
@@ -294,8 +295,8 @@ function dwqa_plugin_init(){
         'comment_edit_cancel_link'    =>  __( 'Cancel', 'dwqa' ),
         'comment_delete_confirm'        => __('Do you want to delete this comment?', 'dwqa' ),
         'answer_delete_confirm'     =>  __('Do you want to delete this answer?', 'dwqa' ),
-        'answer_update_privacy_confirm' => __('Do you want to update this answer', 'dwqa' ), 
-        'report_answer_confirm' => __('Do you want to report this answer','dwqa'),
+        'answer_update_privacy_confirm' => __('Do you want to update this answer?', 'dwqa' ), 
+        'report_answer_confirm' => __('Do you want to report this answer?','dwqa'),
         'flag'      => array(
             'label'         =>  __('Report','dwqa'),
             'label_revert'  =>  __('Undo','dwqa'),
@@ -307,8 +308,8 @@ function dwqa_plugin_init(){
         ),
         'follow_tooltip'    => __('Follow This Question','dwqa'),
         'unfollow_tooltip'  => __('Unfollow This Question','dwqa'),
-        'stick_tooltip'    => __('Stick This Question on Frontpage','dwqa'),
-        'unstick_tooltip'  => __('Untick This Question on Frontpage','dwqa'),
+        'stick_tooltip'    => __('Pin this question to top','dwqa'),
+        'unstick_tooltip'  => __('Unpin this question from top','dwqa'),
         'question_category_rewrite' => $question_category_rewrite,
         'question_tag_rewrite'      => $question_tag_rewrite,
         'delete_question_confirm' => __('Do you want to delete this question?','dwqa')
@@ -428,8 +429,8 @@ function dwqa_add_js_variable_for_admin_page(){
                     'flag'       : {
                         'label'          : '<?php echo   __('Flag','dwqa') ?>',
                         'label_revert'   : '<?php echo   __('Unflag','dwqa') ?>',
-                        'text'           : '<?php echo   __('This answer will be hide when flag it. Are you sure?', 'dwqa' ) ?>',
-                        'revert'         : '<?php echo   __('This answer was flagged as spam. Do you want to show it','dwqa') ?>',
+                        'text'           : '<?php echo   __('This answer will be hidden when flagged. Are you sure you want to flag it?', 'dwqa' ) ?>',
+                        'revert'         : '<?php echo   __('This answer was flagged as spam. Do you want to show it?','dwqa') ?>',
                         'flagged_hide'   : '<?php echo   __('hide','dwqa') ?>',
                         'flagged_show'   : '<?php echo  __('show','dwqa') ?>'
                     }
@@ -475,6 +476,24 @@ function dwqa_columns_head($defaults) {
 } 
 add_filter('manage_posts_columns', 'dwqa_columns_head');  
 
+function dwqa_answer_row_actions( $actions, $always_visible = false ) {
+    $action_count = count( $actions );
+    $i = 0;
+
+    if ( !$action_count )
+        return '';
+
+    $out = '<div class="' . ( $always_visible ? 'row-actions visible' : 'row-actions' ) . '">';
+    foreach ( $actions as $action => $link ) {
+        ++$i;
+        ( $i == $action_count ) ? $sep = '' : $sep = ' | ';
+        $out .= "<span class='$action'>$link$sep</span>";
+    }
+    $out .= '</div>';
+
+    return $out;
+}
+
 function dwqa_answer_columns_content($column_name, $post_ID) {  
     $answer = get_post( $post_ID );
     switch ($column_name) {
@@ -483,14 +502,21 @@ function dwqa_answer_columns_content($column_name, $post_ID) {
             echo '<a href="'.admin_url('edit-comments.php?p='.$post_ID ).'"  class="post-com-count"><span class="comment-count">'.$comment_count['approved'].'</span></a>';
             break;
         case 'info':
+            //Build row actions
+            $actions = array(
+                'edit'      => sprintf('<a href="%s">%s</a>', get_edit_post_link( $post_ID), __('Edit', 'edd-dw-membersip') ),
+                'delete'    => sprintf('<a href="%s">%s</a>', get_delete_post_link( $post_ID ), __('Delete', 'edd-dw-membersip' ) ),
+                'view'      => sprintf('<a href="%s">%s</a>', get_permalink( $post_ID ), __('View', 'edd-dw-membersip' ) )
+            );
             printf(
-                '%s %s <a href="%s">%s %s</a> <br /> %s',
+                '%s %s <a href="%s">%s %s</a> <br /> %s %s',
                 __('Submitted','dwqa'),
                 __('on','dwqa'),
                 get_permalink(),
                 date( 'M d Y', get_post_time( 'U', false, $answer ) ),
                 ( time() - get_post_time( 'U', false, $answer ) ) > 60 * 60 * 24 * 2 ? '' : ' at ' . human_time_diff( get_post_time( 'U', false, $answer ) ) . ' ago',
-                get_the_excerpt()
+                substr(get_the_content(), 0 , 140 ) . ' ...',
+                dwqa_answer_row_actions($actions)
 
             );
             break;
@@ -513,7 +539,7 @@ function dwqa_admin_enqueue_scripts(){
         wp_localize_script( 'dwqa-settings', 'dwqa', array(
             'ajax_url'  => admin_url( 'admin-ajax.php' ),
             'template_folder'   => DWQA_URI . 'inc/templates/email/',
-            'reset_permission_confirm_text'  => __('Reset all changed to default','dwqa')
+            'reset_permission_confirm_text'  => __('Reset all changes to default','dwqa')
         ) );
     }
     if( 'dwqa-question' == get_post_type() || 'dwqa-answer' == get_post_type() || 'dwqa-question_page_dwqa-settings' == $screen->id ) {
@@ -669,8 +695,7 @@ function dwqa_get_following_user( $question_id = false ){
         return false;
     }
     return $followers;
-
-
 }
+
 
 ?>

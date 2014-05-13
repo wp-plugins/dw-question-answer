@@ -22,7 +22,7 @@ class thesis_dwqa extends thesis_box {
                 'options'   => array(
                     'padding'   => __('Container padding size','dwqa')
                 ),
-                'tooltip' => __('By default,The container is not have gutter. You can set padding width to make a gutter. You make it by update setting here.', 'dwqa')
+                'tooltip' => __('By default, the container does not have a gutter. You can set padding width to make a gutter. You make it by updating the setting here.', 'dwqa')
             )
         );
     }
@@ -48,7 +48,7 @@ class thesis_dwqa extends thesis_box {
             echo '</div>';
         } else if( is_page( $dwqa_options['pages']['submit-question']) ) {
             echo '<div class="submit-dwqa-question" style="padding:'.$padding.'">';
-            dwqa_submit_question_form();
+            dwqa_load_template( 'submit-question', 'form' );
             echo '</div>';
         }
         echo '</div>';
