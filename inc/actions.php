@@ -29,160 +29,6 @@ $post_submit_filter     = array(
                             'ol'            => array(),
                             'pre'            => array()
                         );
-/**
- * AJAX: vote for a question/answer
- * @return json
- */
-function dwqa_action_vote(){
-    $result = array(
-        'error_code'    => 'authorization',  
-        'error_message' => __('Are you cheating, huh?', 'dwqa' )
-    );
-
-    $vote_for = isset($_POST['vote_for']) && $_POST['vote_for'] == 'question'
-                    ? 'question' : 'answer';
-
-    if( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], '_dwqa_'.$vote_for.'_vote_nonce' ) )
-    {
-        wp_send_json_error( $result );
-    }
-
-
-    if( ! isset( $_POST[ $vote_for . '_id'] ) ) {
-        $result['error_code']       = 'missing ' . $vote_for;
-        $result['error_message']    = __('What '.$vote_for.' are you looking for? ', 'dwqa');
-        wp_send_json_error( $result );
-    }
-
-    $post_id = $_POST[ $vote_for . '_id'];
-    $point = isset( $_POST['type'] ) && $_POST['type'] == 'up' ? 1 : -1;
-
-
-    //vote
-    if( is_user_logged_in() ) {
-        global $current_user;
-
-        if( ! dwqa_is_user_voted( $post_id, $point ) ) {
-            $votes = maybe_unserialize(  get_post_meta( $post_id, '_dwqa_votes_log', true ) );
-
-            $votes[$current_user->ID] = $point;
-            //update
-            update_post_meta( $post_id, '_dwqa_votes_log', serialize($votes) );
-            // Update vote point
-            dwqa_update_vote_count( $post_id );
-
-            $point = dwqa_vote_count( $post_id );
-            if( $point > 0 ) {
-                $point = '+' . $point;
-            }
-            wp_send_json_success( array(
-                'vote'  => $point
-            ) );
-
-        } else {
-            $result['error_code'] = 'voted';
-            $result['error_message']    = __( 'You voted for this ' . $vote_for,'dwqa' );
-            wp_send_json_error( $result );
-        }
-        
-    } else if( 'question' == $vote_for ) {
-        // useful of question with meta field is "_dwqa_question_useful", point of this question
-        $useful = get_post_meta( $post_id, '_dwqa_'.$vote_for.'_useful', true );
-        $useful = $useful ? (int) $useful : 0;
-        update_post_meta( $post_id, '_dwqa_'.$vote_for.'_useful', $useful+$point );
-
-        // Number of votes by guest
-        $useful_rate = get_post_meta( $post_id, '_dwqa_'.$vote_for.'_useful_rate', true );
-        $useful_rate = $useful_rate ? (int) $useful_rate : 0;
-        update_post_meta( $post_id, '_dwqa_'.$vote_for.'_useful_rate', $useful_rate + 1 );
-    }
-}
-add_action( 'wp_ajax_dwqa-action-vote', 'dwqa_action_vote' );
-add_action( 'wp_ajax_nopriv_dwqa-action-vote', 'dwqa_action_vote' );
-
-/**
- * Check for current user can vote for the question
- * @param  int  $post_id ID of object ( question /answer ) post
- * @param  int  $point       Point of vote
- * @param  boolean $user        Current user id
- * @return boolean              Voted or not
- */
-function dwqa_is_user_voted( $post_id, $point, $user = false ){
-    if( ! $user ) {
-        global $current_user;
-        $user = $current_user->ID;
-    }
-    $votes = maybe_unserialize(  get_post_meta( $post_id, '_dwqa_votes_log', true ) );
-
-    if( empty($votes) ) { 
-        return false; 
-    }
-
-    if( array_key_exists( $user, $votes) ) {
-        if( (int) $votes[$user] == $point ) {
-            return true;
-        }
-    }
-    return false;   
-}
-
-function dwqa_get_user_vote( $post_id, $user = false ){
-    if( ! $user ) {
-        global $current_user;
-        $user = $current_user->ID;
-    }
-    if( dwqa_is_user_voted( $post_id, 1, $user) ){
-        return 'up';
-    } else if( dwqa_is_user_voted( $post_id, -1, $user) ) {
-        return 'down';
-    }
-    return false;
-}
-/**
- * Calculate number of votes for specify post
- * @param  int $post_id ID of post
- * @return void              
- */
-function dwqa_update_vote_count( $post_id ) {
-    if( ! $post_id ) {
-        global $post;
-        $post_id = $post->ID;
-    }
-    $votes = maybe_unserialize(  get_post_meta( $post_id, '_dwqa_votes_log', true ) );
-    
-    if( empty($votes) ) {
-        return 0;
-    }
-
-    $total = 0;
-    foreach ($votes as $user => $vote ) {
-        $total += $vote;
-    }
-
-    update_post_meta( $post_id, '_dwqa_votes', $total );
-}
-
-/**
- * Return vote point of post
- * @param  int $post_id ID of post
- * @param  boolean $echo        Print or not
- * @return int  Vote point
- */
-function dwqa_vote_count( $post_id = false, $echo = false ){
-    if( ! $post_id ) {
-        global $post;
-        $post_id = $post->ID;
-    }
-    $votes =  get_post_meta( $post_id, '_dwqa_votes', true );
-    if( empty($votes) ) {
-        return 0;
-    } 
-    if( $echo ) {
-        echo $votes;
-    }
-    return (int) $votes;
-}
-
 
 /**
  *  ANSWER
@@ -293,9 +139,11 @@ function dwqa_add_answer(){
                     'ID'    => $_POST['answer-id'],
                     'post_content'   => $answ_content
                 );
-                if( isset($_POST['dwqa-action-draft']) && $_POST['dwqa-action-draft'] && strtolower( $_POST['submit-answer'] ) == 'publish' ) {
+                $post_status = get_post_status( $_POST['answer-id'] );
+
+                if( ($post_status == 'draft' && strtolower( $_POST['submit-answer'] ) == 'publish') || ($post_status != 'draft' && strtolower( $_POST['submit-answer'] ) == 'update') ) {
                     $answer_update['post_status'] = isset($_POST['privacy']) && 'private' == $_POST['privacy'] ? 'private' : 'publish';
-                }
+                } 
                 $old_post = get_post( $_POST['answer-id'] );
                 $answer_id = wp_update_post( $answer_update );
                 $new_post = get_post( $answer_id );
@@ -592,6 +440,7 @@ function dwqa_question_answers_count( $question_id = null){
 
     $args = array(
        'post_type' => 'dwqa-answer',
+       'posts_per_page' => -1,
        'post_status' => 'publish',
        'meta_query' => array(
            array(
@@ -599,7 +448,8 @@ function dwqa_question_answers_count( $question_id = null){
                'value' => array( $question_id ),
                'compare' => 'IN',
            )
-       )
+       ),
+       'fields' => 'ids'
     );
     $answers = new WP_Query($args);
     return $answers->post_count;
@@ -661,7 +511,6 @@ function dwqa_question_views_count( $question_id = null ){
  */
 function dwqa_question_update_status(){
     if( ! isset($_POST['nonce']) || ! wp_verify_nonce( $_POST['nonce'], '_dwqa_update_question_status_nonce' ) ) {
-        wp_die( 0 );
     } 
     if( ! isset($_POST['question']) ) {
         wp_die( 0 );
@@ -1352,41 +1201,11 @@ function dwqa_vote_best_answer_button(){
 }
 
 
-function dwqa_prepare_archive_posts(){
-    global $wp_query,$dwqa_general_settings;
-    
-    $posts_per_page = isset($dwqa_general_settings['posts-per-page']) ?  $dwqa_general_settings['posts-per-page'] : 5;
-    $query = array(
-        'post_type' => 'dwqa-question',
-        'posts_per_page' => $posts_per_page
-    );
-    if( is_tax('dwqa-question_category') ) {
-        $query['dwqa-question_category'] = get_query_var('dwqa-question_category');
-    } 
-    if( is_tax('dwqa-question_tag') ) {
-        $query['dwqa-question_tag'] = get_query_var('dwqa-question_tag');
-    } 
-    $paged = get_query_var( 'paged' );
-    $query['paged'] = $paged ? $paged : 1; 
-    $sticky_questions = get_option( 'dwqa_sticky_questions' );
-
-    if( $sticky_questions ) {
-        $query['post__not_in'] = $sticky_questions;
-    }
-    query_posts( $query );
-}
-add_action( 'dwqa-prepare-archive-posts', 'dwqa_prepare_archive_posts' );
-
-function dwqa_after_archive_posts(){
-    wp_reset_query();
-    wp_reset_postdata();
-}
-add_action( 'dwqa-after-archive-posts', 'dwqa_after_archive_posts' );
 
 function dwqa_user_post_count( $user_id, $post_type = 'post' ) {
     $posts = get_posts( array(
         'author' => $user_id,
-        'post_status'  => 'any',
+        'post_status'  => array( 'publish', 'private' ),
         'post_type'   => $post_type,
         'posts_per_page' => -1
     ) );
@@ -1500,9 +1319,9 @@ function dwqa_get_questions_permalink(){
                 ) );
             }
         } else {
-            wp_send_json_error( array(
-                'error' => 'empty'
-            ) );
+            $url = get_permalink( $dwqa_options['pages']['archive-question'] );
+            $url = $url ? $url : get_post_type_archive_link( 'dwqa-question' );
+            wp_send_json_success( array( 'url' => $url ) );
         }
     }
     wp_send_json_error();
@@ -1828,6 +1647,9 @@ function dwqa_anonymous_reload_hidden_single_post($posts){
     }
 
     $questions = $wpdb->get_results($wp_query->request);
+    if( count( $questions ) <= 0 ) {
+        return false;
+    }
     $question = $questions[0];
 
     //This is a pending question

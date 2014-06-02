@@ -3,6 +3,7 @@
 /**
  *  Inlucde all funtion for filter of dw question answer plugin
  */
+
 class DWQA_Filter {
 
     //Properties 
@@ -18,23 +19,22 @@ class DWQA_Filter {
             'order'             => 'DESC'
         );  
 
-    // Methods 
-
+    // Methods
     
     /**
      * AJAX: To make filter questions for plugins
      * @return string JSON
      */
     public function filter_question(){
-        
         if( !isset($_POST['nonce'])  ) {
             wp_die( 0 );
         }
-        check_ajax_referer( '_dwqa_filter_nonce', 'nonce' );
+        if( ! check_ajax_referer( '_dwqa_filter_nonce', 'nonce', false ) ) {
+            wp_die( 0 );
+        }
         if( !isset($_POST['type']) ) {
             wp_die( 0 );
         }
-
         // Make an query for
         global $wpdb;
         if( ! defined('DWQA_FILTERING') ) {
@@ -107,7 +107,7 @@ class DWQA_Filter {
                 if( isset($dwqa_options['pages']['submit-question']) ) {
                     $submit_link = get_permalink( $dwqa_options['pages']['submit-question'] );
                     if( $submit_link ) {
-                        printf('%s <a href="">%s</a>',
+                        printf('%s <a href="%s">%s</a>',
                             __('You can ask question','dwqa'),
                             $submit_link,
                             __('here','dwqa')
@@ -152,9 +152,7 @@ class DWQA_Filter {
         $status = array('publish');
         if( is_user_logged_in() ) {
             $status[] = 'private';
-            if( dwqa_current_user_can('edit_question') ) {
-                $status[] = 'pending';
-            }
+            $status[] = 'pending';
         }
         $sticky_questions = get_option( 'dwqa_sticky_questions', array() );
         $args = array(
@@ -182,6 +180,7 @@ class DWQA_Filter {
                 $args['orderby'] = 'meta_value_num';
                 break;
             default : 
+                $args['orderby'] = 'modified';
                 break;
         }
 
@@ -237,7 +236,7 @@ class DWQA_Filter {
             );
         }
 
-        if( isset( $this->filter['title'] ) && $this->filter['title'] ) {
+        if( isset( $this->filter['title'] ) && $this->filter['title'] && $this->filter['title'] !== 'Search'  ) {
             $args['s'] = $this->filter['title'];
         }
 
@@ -246,9 +245,19 @@ class DWQA_Filter {
     }
 
     function edit_posts_orderby($orderby_statement) {
-        if( $this->filter['type'] == 'answers' ) {
-            $order = ( $this->filter['order'] && $this->filter['order'] != 'ASC' ? 'DESC' : 'ASC' );
-            $orderby_statement = "count_answer.dwqa_answers ". $order;
+        switch ($this->filter['type']) {
+            case 'answers':
+                $order = ( $this->filter['order'] && $this->filter['order'] != 'ASC' ? 'DESC' : 'ASC' );
+                $orderby_statement = "count_answer.dwqa_answers ". $order;
+                break;
+            case 'views';
+            case 'votes';
+                break;
+            
+            default:
+                $order = ( $this->filter['order'] && $this->filter['order'] != 'ASC' ? 'DESC' : 'ASC' );
+                $orderby_statement = $this->order_filter_default( $orderby_statement, $order );
+                break;
         }
         return $orderby_statement;
     }
@@ -256,22 +265,93 @@ class DWQA_Filter {
     // Join for searching metadata
     function join_postmeta_count_answers($join) {
         global $wp_query, $wpdb;
-
-        if( $this->filter['type'] == 'answers' ) {
-            $join .= "LEFT JOIN 
-                    ( SELECT meta_value AS question, COUNT( * ) AS dwqa_answers
-                    FROM $wpdb->postmeta
-                    WHERE meta_key =  '_question'
-                    GROUP BY meta_value ) AS count_answer
-                ON $wpdb->posts.ID = count_answer.question
-            ";
+        switch ($this->filter['type']) {
+            case 'answers':
+                    $join .= "LEFT JOIN 
+                            ( SELECT meta_value AS question, COUNT( * ) AS dwqa_answers
+                            FROM $wpdb->postmeta
+                            WHERE meta_key =  '_question'
+                            GROUP BY meta_value ) AS count_answer
+                        ON $wpdb->posts.ID = count_answer.question
+                    ";
+                break;
+            case 'views';
+            case 'votes';
+                break;
+            default:
+                $join = $this->join_filter_default( $join );
+                break;
         }
         return $join;
     }
 
+
+    public function join_filter_default( $join ) {
+        global $wpdb;
+        
+        $join .= "LEFT JOIN 
+                    ( SELECT $wpdb->postmeta.meta_value as question, max( $wpdb->posts.post_modified) as post_modified 
+                        FROM $wpdb->posts, $wpdb->postmeta
+                        WHERE 
+                            $wpdb->posts.post_type = 'dwqa-answer'
+                            AND ( 
+                                $wpdb->posts.post_status = 'publish'";
+                    if( is_user_logged_in() ) {
+                        $join .= " OR $wpdb->posts.post_status = 'private' ";
+                        $join .= " OR $wpdb->posts.post_status = 'pending' ";
+                    }
+                    $join .= ")
+                            AND $wpdb->postmeta.post_id = $wpdb->posts.ID 
+                            AND $wpdb->postmeta.meta_key = '_question'
+                        GROUP BY question ) as dw_table_latest_answers 
+                    ON $wpdb->posts.ID = dw_table_latest_answers.question ";
+
+        return $join;
+    }
+
+    public function order_filter_default ( $orderby_statement, $order = 'DESC' ) {
+        global $wpdb;
+        return " ifnull(dw_table_latest_answers.post_modified, $wpdb->posts.post_modified) ".$order;
+    }
+
+    public function posts_where_filter_default( $where ) {
+        global $current_user;
+        $manager = 0;
+        if( dwqa_current_user_can('edit_question') ) {
+            $manager = 1;
+        }
+        $where .= " AND IF( post_status = 'private', IF( $manager = 1, 1, IF( post_author = $current_user->ID, 1, 0 ) ), 1 ) = 1";
+        $where .= " AND IF( post_status = 'pending', IF( $manager = 1, 1, IF( post_author = $current_user->ID, 1, 0 ) ), 1 ) = 1";
+        return $where;
+    }
+
     // Filter post where
-    function posts_where( $where ) {
+    public function posts_where( $where ) {
         global $wpdb, $dwqa_general_settings;
+        $get_question_answered_query = "SELECT `dw_latest_answer_date`.question
+            FROM `{$wpdb->prefix}posts`, 
+                ( SELECT `{$wpdb->prefix}postmeta`.meta_value as question, max( `{$wpdb->prefix}posts`.post_date) as post_date 
+                    FROM `{$wpdb->prefix}posts`, `{$wpdb->prefix}postmeta` 
+                    WHERE `{$wpdb->prefix}posts`.post_type = 'dwqa-answer' 
+                    AND ( `{$wpdb->prefix}posts`.post_status = 'publish'
+                        OR `{$wpdb->prefix}posts`.post_status = 'private' ) 
+                    AND `{$wpdb->prefix}postmeta`.post_id = `{$wpdb->prefix}posts`.ID 
+                    AND `{$wpdb->prefix}postmeta`.meta_key = '_question' 
+                    GROUP BY question ) AS dw_latest_answer_date,
+                {$wpdb->prefix}users,
+                {$wpdb->prefix}usermeta
+
+            WHERE `{$wpdb->prefix}posts`.post_status = 'publish' 
+            AND `{$wpdb->prefix}posts`.post_type = 'dwqa-answer' 
+            AND `{$wpdb->prefix}posts`.post_date = `dw_latest_answer_date`.post_date
+            AND `{$wpdb->prefix}users`.ID = `{$wpdb->prefix}posts`.post_author
+            AND `{$wpdb->prefix}usermeta`.user_id = `{$wpdb->prefix}users`.ID
+            AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities'
+            AND ( 
+                `{$wpdb->prefix}usermeta`.meta_value LIKE '%administrator%' 
+                OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%editor%' 
+                OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%author%' 
+            )";
 
         switch ( $this->filter['filter_plus'] ) {
             case 'overdue' :
@@ -279,40 +359,12 @@ class DWQA_Filter {
                 $where .= " AND post_date < '" . date('Y-m-d H:i:s', strtotime('-'.$overdue_time_frame.' days') ) . "'";
             case 'open':
                 // answered
-                $where .= " AND ID NOT IN (
-                    SELECT `t1`.question FROM 
-                        ( SELECT `{$wpdb->prefix}posts`.post_author, `{$wpdb->prefix}postmeta`.meta_value as `question`, `{$wpdb->prefix}posts`.post_date FROM `{$wpdb->prefix}posts` JOIN `{$wpdb->prefix}postmeta` ON `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}postmeta`.post_id WHERE `{$wpdb->prefix}posts`.post_type = 'dwqa-answer' AND ( `{$wpdb->prefix}posts`.post_status = 'publish' OR `{$wpdb->prefix}posts`.post_status = 'private' ) AND `{$wpdb->prefix}postmeta`.meta_key = '_question' ) as `t1`
-                    JOIN 
-                        (SELECT `{$wpdb->prefix}postmeta`.meta_value as `question`, max(`{$wpdb->prefix}posts`.post_date) as `lastdate`  FROM `{$wpdb->prefix}posts` JOIN `{$wpdb->prefix}postmeta` on `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}postmeta`.post_id WHERE post_type = 'dwqa-answer' AND ( `{$wpdb->prefix}posts`.post_status = 'publish' OR `{$wpdb->prefix}posts`.post_status = 'private' ) AND `{$wpdb->prefix}postmeta`.meta_key = '_question' GROUP BY `{$wpdb->prefix}postmeta`.meta_value) as t2
-
-                    ON `t1`.question = `t2`.question AND `t1`.post_date = `t2`.lastdate
-
-                    JOIN `{$wpdb->prefix}usermeta` ON `t1`.post_author = `{$wpdb->prefix}usermeta`.user_id
-                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' AND ( 
-                                    `{$wpdb->prefix}usermeta`.meta_value LIKE '%administrator%' 
-                                    OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%editor%' 
-                                    OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%author%' 
-                                ) ";
-                
-                $where .= " )";
+                $where .= " AND ID NOT IN (" . $get_question_answered_query . ")";
 
                 break;
             case 'replied':
                 // answered
-                $where .= " AND ID IN (
-                    SELECT `t1`.question FROM 
-                        ( SELECT `{$wpdb->prefix}posts`.post_author, `{$wpdb->prefix}postmeta`.meta_value as `question`, `{$wpdb->prefix}posts`.post_date FROM `{$wpdb->prefix}posts` JOIN `{$wpdb->prefix}postmeta` ON `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}postmeta`.post_id WHERE `{$wpdb->prefix}posts`.post_type = 'dwqa-answer' AND ( `{$wpdb->prefix}posts`.post_status = 'publish' OR `{$wpdb->prefix}posts`.post_status = 'private' ) AND `{$wpdb->prefix}postmeta`.meta_key = '_question' ) as `t1`
-                    JOIN 
-                        (SELECT `{$wpdb->prefix}postmeta`.meta_value as `question`, max(`{$wpdb->prefix}posts`.post_date) as `lastdate`  FROM `{$wpdb->prefix}posts` JOIN `{$wpdb->prefix}postmeta` on `{$wpdb->prefix}posts`.ID = `{$wpdb->prefix}postmeta`.post_id WHERE post_type = 'dwqa-answer' AND ( `{$wpdb->prefix}posts`.post_status = 'publish' OR `{$wpdb->prefix}posts`.post_status = 'private' ) AND `{$wpdb->prefix}postmeta`.meta_key = '_question' GROUP BY `{$wpdb->prefix}postmeta`.meta_value) as t2
-
-                    ON `t1`.question = `t2`.question AND `t1`.post_date = `t2`.lastdate
-
-                    JOIN `{$wpdb->prefix}usermeta` ON `t1`.post_author = `{$wpdb->prefix}usermeta`.user_id
-                    WHERE 1=1 AND `{$wpdb->prefix}usermeta`.meta_key = '{$wpdb->prefix}capabilities' AND ( `{$wpdb->prefix}usermeta`.meta_value LIKE '%administrator%' 
-                                    OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%editor%' 
-                                    OR `{$wpdb->prefix}usermeta`.meta_value LIKE '%author%' 
-                                ) 
-                )";
+                $where .= " AND ID IN (" . $get_question_answered_query. ")";
                 break;
             case 'new-comment':
                 if( current_user_can('edit_posts' ) ) {
@@ -337,6 +389,7 @@ class DWQA_Filter {
                 # code...
                 break;
         }
+
         return $where;
     }
 
@@ -361,19 +414,19 @@ class DWQA_Filter {
         }
 
         $status = 'publish';
-        if( is_user_logged_in() && ( dwqa_current_user_can('edit_question') || dwqa_current_user_can('edit_answer') ) ) {
+        if( is_user_logged_in() ) {
             $status = array( 'publish', 'private' );
         }
 
-        query_posts( array(
+        $query = new WP_Query( array(
             'post_type' => 'dwqa-question',
             'posts_per_page'    => 6,
             'post_status'   => $status,
             's'         => $_POST['title']
         )  );
-        if( have_posts() ) {
+        if( $query->have_posts() ) {
             $html = '';
-            while (have_posts()) { the_post();
+            while ($query->have_posts()) { $query->the_post();
                 $words = explode(' ', $_POST['title']);
                 $title = get_the_title();
                 foreach ($words as $w) {
@@ -404,7 +457,6 @@ class DWQA_Filter {
         add_action( 'wp_ajax_nopriv_dwqa-auto-suggest-search-result', array( $this, 'auto_suggest_for_seach' ) );
 
     }
-
 }
 global $dwqa_filter;
 $dwqa_filter = new DWQA_Filter();
