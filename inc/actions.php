@@ -143,6 +143,7 @@ function dwqa_add_answer(){
 
                 if( ($post_status == 'draft' && strtolower( $_POST['submit-answer'] ) == 'publish') || ($post_status != 'draft' && strtolower( $_POST['submit-answer'] ) == 'update') ) {
                     $answer_update['post_status'] = isset($_POST['privacy']) && 'private' == $_POST['privacy'] ? 'private' : 'publish';
+                    update_post_meta( $question_id, '_dwqa_status', 're-open' );
                 } 
                 $old_post = get_post( $_POST['answer-id'] );
                 $answer_id = wp_update_post( $answer_update );
@@ -225,6 +226,7 @@ function dwqa_remove_answer(){
     if( ! isset($_POST['answer_id']) ) {
         wp_send_json_error( array( 'message' => __('Missing answer ID','dwqa') ) );
     }
+    do_action( 'dwqa_delete_answer', $_POST['answer_id'] );
     wp_delete_post( $_POST['answer_id'] );
     wp_send_json_success();
 }
@@ -793,10 +795,9 @@ function dwqa_ajax_create_update_answer_editor(){
         </p>
         <div class="dwqa-privacy">
             <input type="hidden" name="privacy" value="publish">
-            <span class="dwqa-current-privacy"><i class="fa fa-globe"></i> <?php _e('Public','dwqa') ?></span>
             <span class="dwqa-change-privacy">
                 <div class="dwqa-btn-group">
-                    <button class="dropdown-toggle" type="button"><i class="fa fa-caret-down"></i></button>
+                    <button type="button" class="dropdown-toggle" ><span><?php echo 'private' == get_post_status() ? '<i class="fa fa-lock"></i> '.__('Private','dwqa') : '<i class="fa fa-globe"></i> '.__('Public','dwqa'); ?></span> <i class="fa fa-caret-down"></i></button>
                     <div class="dwqa-dropdown-menu">
                         <div class="dwqa-dropdown-caret">
                             <span class="dwqa-caret-outer"></span>
@@ -1158,6 +1159,7 @@ function dwqa_vote_best_answer(){
     $q = get_post_meta( $_POST['answer'], '_question', true );
     $question = get_post( $q );
     if( $current_user->ID == $question->post_author || current_user_can( 'edit_posts' ) ) {
+        do_action( 'dwqa_vote_best_answer', $_POST['answer'] );
         update_post_meta( $q, '_dwqa_best_answer', $_POST['answer'] );
     }
 }
@@ -1173,6 +1175,7 @@ function dwqa_unvote_best_answer(){
     $q = get_post_meta( $_POST['answer'], '_question', true );
     $question = get_post( $q );
     if( $current_user->ID == $question->post_author || current_user_can( 'edit_posts' ) ) {
+        do_action( 'dwqa_unvote_best_answer', $_POST['answer'] );
         delete_post_meta( $q, '_dwqa_best_answer' );
     }
     
@@ -1207,7 +1210,8 @@ function dwqa_user_post_count( $user_id, $post_type = 'post' ) {
         'author' => $user_id,
         'post_status'  => array( 'publish', 'private' ),
         'post_type'   => $post_type,
-        'posts_per_page' => -1
+        'posts_per_page' => -1,
+        'fields' => 'ids'
     ) );
     if( $posts ) {
         return count($posts);
@@ -1387,11 +1391,13 @@ function dwqa_follow_question(){
     if( is_user_logged_in() ) {
         global $current_user;
         if( ! dwqa_is_followed( $question->ID )  ) {
+            do_action( 'dwqa_follow_question', $question->ID, $current_user->ID );
             add_post_meta( $question->ID, '_dwqa_followers', $current_user->ID );
             wp_send_json_success( array(
                 'code' => 'followed'
             ) );
         } else {
+            do_action( 'dwqa_unfollow_question', $question->ID, $current_user->ID );
             delete_post_meta( $question->ID, '_dwqa_followers', $current_user->ID );
             wp_send_json_success( array(
                 'code' => 'unfollowed'
@@ -1576,6 +1582,7 @@ function dwqa_delete_question(){
 
         if( $delete ) {
             global $dwqa_options;
+            do_action( 'dwqa_delete_question', $question->ID );
             wp_send_json_success( array(
                 'question_archive_url' => get_permalink( $dwqa_options['pages']['archive-question'] )
             ) );
@@ -1653,9 +1660,9 @@ function dwqa_anonymous_reload_hidden_single_post($posts){
     $question = $questions[0];
 
     //This is a pending question
-    if( 'pending' != get_post_status( $question->ID ) ) {
+    if( 'pending' == get_post_status( $question->ID ) || 'private' == get_post_status( $question->ID ) ) {
         $warning_page_id = isset($dwqa_options['pages']['404']) ? $dwqa_options['pages']['404'] : false;
-        if( ! dwqa_current_user_can('read_question') && $warning_page_id ) {
+        if( ! dwqa_current_user_can('edit_question') && $warning_page_id ) {
             $query = $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."posts WHERE ID = %d ",
                 $warning_page_id
             );
@@ -1680,5 +1687,15 @@ function dwqa_anonymous_reload_hidden_single_post($posts){
     return $questions;
 }
 add_filter('the_posts','dwqa_anonymous_reload_hidden_single_post');
+
+
+function dwqa_comment_author_link_anonymous( $comment ) {
+    // global $current_comment;
+    if( $comment->user_id <= 0 ) {
+        $comment->comment_author = __('Anonymous','dwqa');
+    }
+    return $comment ;
+}
+add_filter( 'get_comment', 'dwqa_comment_author_link_anonymous' );
 
 ?>

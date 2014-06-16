@@ -34,6 +34,7 @@ function dwqa_action_vote(){
 
             $votes[$current_user->ID] = $point;
             //update
+            do_action( 'dwqa_vote_'.$vote_for, $post_id, (int) $point );
             update_post_meta( $post_id, '_dwqa_votes_log', serialize($votes) );
             // Update vote point
             dwqa_update_vote_count( $post_id );
@@ -56,6 +57,8 @@ function dwqa_action_vote(){
         // useful of question with meta field is "_dwqa_question_useful", point of this question
         $useful = get_post_meta( $post_id, '_dwqa_'.$vote_for.'_useful', true );
         $useful = $useful ? (int) $useful : 0;
+
+        do_action( 'dwqa_vote_'.$vote_for, $post_id, (int) $point );
         update_post_meta( $post_id, '_dwqa_'.$vote_for.'_useful', $useful+$point );
 
         // Number of votes by guest
@@ -87,7 +90,7 @@ function dwqa_is_user_voted( $post_id, $point, $user = false ){
 
     if( array_key_exists( $user, $votes) ) {
         if( (int) $votes[$user] == $point ) {
-            return true;
+            return $votes[$user];
         }
     }
     return false;   
