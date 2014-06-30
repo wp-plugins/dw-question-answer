@@ -149,6 +149,7 @@ function dwqa_add_answer(){
                     ) );
                 }
 
+
                 $answer_update = array(
                     'ID'    => $_POST['answer-id'],
                     'post_content'   => $answ_content
@@ -494,7 +495,7 @@ function dwqa_question_answers_count( $question_id = null){
  */ 
 function dwqa_question_view(){
     global $post;
-    if( is_single() && get_post_type() === 'dwqa-question' ) {
+    if( is_singular( 'dwqa-question' ) ) {
         $refer = wp_get_referer();
         if( is_user_logged_in() ) {
             global $current_user;
@@ -503,7 +504,7 @@ function dwqa_question_view(){
                 update_post_meta( $post->ID, '_dwqa_admin_checked_id', $current_user->ID );
             }
         }
-        if( $refer && $refer != get_permalink( $post->ID ) ) {
+        if( ($refer && $refer != get_permalink( $post->ID )) || ! $refer ) {
             if( is_single() && 'dwqa-question' == get_post_type() ) {
                 $views = get_post_meta( $post->ID, '_dwqa_views', true );
 
@@ -517,7 +518,7 @@ function dwqa_question_view(){
         }
     }
 }
-add_action( 'dwqa_before_page', 'dwqa_question_view' );
+add_action( 'wp', 'dwqa_question_view' );
 
 /**
  * Count number of views for a questions
@@ -554,15 +555,19 @@ function dwqa_question_update_status(){
 
     global $current_user;
     $question = get_post( $_POST['question'] );
-    if( current_user_can( 'edit_posts', $_POST['question']   ) || $current_user->ID == $question->post_author ) { 
+
+    if( dwqa_current_user_can('edit_question') || $current_user->ID == $question->post_author ) { 
         update_post_meta( $_POST['question'], '_dwqa_status', $_POST['status'] );
         if( $_POST['status'] == 'resolved' ) {
             update_post_meta( $_POST['question'], '_dwqa_resolved_time', time() );
         } 
+    } else {
+        wp_send_json_error( array(
+            'message'   => __('You do not have permission to edit question status', 'dwqa' )
+        ) );
     }
 }
-add_action( 'wp_ajax_dwqa-update-question-status', 
-                'dwqa_question_update_status' );   
+add_action( 'wp_ajax_dwqa-update-question-status', 'dwqa_question_update_status' );   
 
 
 
@@ -859,6 +864,13 @@ function dwqa_update_question(){
             'message'   => __('Hello, Are you cheating huh?','dwqa')
         ) );
     }
+
+    if( ! dwqa_current_user_can('edit_question', $_POST['question']) ) {
+        wp_send_json_error( array(
+            'message'   => __('You do not have permission to edit question','dwqa')
+        ) );
+    }
+
     if( isset($_POST['dwqa-action']) && $_POST['dwqa-action'] == 'update-question' ) {
         //Start update question
         $question_id = $_POST['question'];
@@ -882,6 +894,7 @@ function dwqa_update_question(){
     }
 }
 add_action( 'wp_ajax_dwqa-update-question', 'dwqa_update_question' );
+
 
 function dwqa_ajax_create_update_question_editor(){
 
@@ -1590,7 +1603,7 @@ function dwqa_delete_question(){
 
     $question = get_post( $_POST['question'] );
     global $current_user;
-    if( dwqa_current_user_can('delete_question') || $current_user->ID == $question->post_author ) {
+    if( dwqa_current_user_can('delete_question', $question->ID) ) {
         //Get all answers that is tired with this question
         $answers = get_posts( array(
             'post_type' => 'dwqa-answer',
@@ -1728,5 +1741,31 @@ function dwqa_comment_author_link_anonymous( $comment ) {
     return $comment ;
 }
 add_filter( 'get_comment', 'dwqa_comment_author_link_anonymous' );
+
+function dwqa_update_shortcode_content() {
+    global $dwqa_options;
+    if( isset($dwqa_options['pages']['archive-question']) && $dwqa_options['pages']['archive-question'] ) {
+
+        $content = get_post_field( 'post_content', $dwqa_options['pages']['archive-question'] );
+        if( strpos($content, '[dwqa-list-questions]') === false ) {
+            wp_update_post( array(
+                'ID'    => $dwqa_options['pages']['archive-question'],
+                'post_content' => $content . '[dwqa-list-questions]'
+            ) );
+        }
+    }
+    if( isset($dwqa_options['pages']['submit-question']) && $dwqa_options['pages']['submit-question'] ) {
+
+        $content = get_post_field( 'post_content', $dwqa_options['pages']['submit-question'] );
+        if( strpos($content, '[dwqa-submit-question-form]') === false ) {
+            wp_update_post( array(
+                'ID'    => $dwqa_options['pages']['submit-question'],
+                'post_content' => $content . '[dwqa-submit-question-form]'
+            ) );
+        }
+    }
+}
+add_action( 'init', 'dwqa_update_shortcode_content' );
+
 
 ?>

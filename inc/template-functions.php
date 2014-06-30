@@ -1,79 +1,5 @@
 <?php  
-/**
- * Custom template for each page of plugin
- * @param  string $single_template template url 
- * @return string                  New url of custom template for each page of dwqa plugin
- */ 
-function dwqa_generate_template_for_plugin($template) {
-    global $post, $dwqa_options;
-    if( is_singular( 'dwqa-answer' ) ) {
-        $question_id = get_post_meta( $post->ID, '_question', true );
-        if( $question_id ) {
-            wp_safe_redirect( get_permalink( $question_id ) );
-            query_posts( 'p='.$question_id.'&post_type=dwqa-question' );
-            return dwqa_load_template( 'single', 'question', false );
-        }
-    } 
 
-    if( is_singular( 'dwqa-question' ) ) {
-        return dwqa_load_template( 'single', 'question', false );
-    }
-    return $template;
-}
-add_filter( "single_template", "dwqa_generate_template_for_plugin", 20 ) ;
-
-/**
- * Filter new page for submit question form
- * @param  string $template Template path
- * @return string           Submit question template path
- */ 
-function dwqa_generate_template_for_submit_question_page($template) {
-    global $post, $dwqa_options;
-    if( isset($dwqa_options['pages']['submit-question']) && is_page( $dwqa_options['pages']['submit-question'] ) ){
-        $template = dwqa_load_template( 'submit', 'question', false );
-    }
-    if( isset($dwqa_options['pages']['archive-question']) && is_page( $dwqa_options['pages']['archive-question'])  ){
-        return dwqa_load_template( 'archive', 'question', false );
-    }
-    return $template;
-}
-add_filter( 'page_template', 'dwqa_generate_template_for_submit_question_page', 20 );
-
-
-/**
- * Override template path of comment form in singe page for question custom post type
- * @param  string $comment_template Template path 
- * @return string                   New template path
- */
-function dwqa_generate_template_for_comment_form( $comment_template ) {
-    if (  is_single() && ('dwqa-question' == get_post_type() || 'dwqa-answer' == get_post_type()) ) {
-        return dwqa_load_template( 'comments', false, false );
-    }
-    return $comment_template;
-}
-
-add_filter( "comments_template", "dwqa_generate_template_for_comment_form", 20 );
-
-/**
- * Override template path for archive of question post type template
- * @param  string $template template path
- * @return string           New template path
- */
-function dwqa_generate_template_for_questions_list_page($template) {
-    if( is_archive() 
-        &&  ( 'dwqa-question' == get_post_type() 
-                || 'dwqa-question' == get_query_var( 'post_type' ) 
-                || 'dwqa-question_category' == get_query_var( 'taxonomy' ) 
-                || 'dwqa-question_tag' == get_query_var( 'taxonomy' ) ) 
-    ) {
-        return dwqa_load_template( 'archive', 'question', false );
-    }
-    return $template;
-}
-add_filter( 'taxonomy_template', 
-    'dwqa_generate_template_for_questions_list_page', 20 );
-add_filter( 'archive_template', 
-    'dwqa_generate_template_for_questions_list_page', 20 );
 /**
  * Print class for question detail container
  */
@@ -315,7 +241,7 @@ function dwqa_submit_answer_form(){
 
 function dwqa_paged_query(){
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-    echo '<input type="hidden" name="dwqa-paged" id="dwqa-paged" value="'.$paged.'" >';
+    echo '<div><input type="hidden" name="dwqa-paged" id="dwqa-paged" value="'.$paged.'" ></div>';
 }
 add_action( 'dwqa-prepare-archive-posts', 'dwqa_paged_query' );
 
@@ -394,7 +320,6 @@ function dwqa_enqueue_scripts(){
         $single_script_vars['question_id'] = get_the_ID();
         wp_localize_script( 'dwqa-single-question', 'dwqa', $single_script_vars );
     }
-
 
     if( (is_archive() && 'dwqa-question' == get_post_type()) || ( isset( $dwqa_options['pages']['archive-question'] ) && is_page( $dwqa_options['pages']['archive-question'] ) ) ) {
         wp_enqueue_script( 'dwqa-questions-list', $assets_folder . 'js/dwqa-questions-list.js', array( 'jquery' ), $version, true );
@@ -646,7 +571,19 @@ function dwqa_get_ask_question_link( $echo = true, $label = false, $class = fals
     global $dwqa_options;
     $submit_question_link = get_permalink( $dwqa_options['pages']['submit-question'] );
     if( $dwqa_options['pages']['submit-question'] && $submit_question_link ) {
-        $label = $label ? $label : __('Ask a question','dwqa');
+
+
+        if( dwqa_current_user_can('post_question') ) {
+            $label = $label ? $label : __('Ask a question','dwqa');
+        } elseif( ! is_user_logged_in() ) {
+            $label = $label ? $label : __('Login to ask a question','dwqa');
+            $submit_question_link = wp_login_url( $submit_question_link );
+        } else {
+            return false;
+        }
+        //Add filter to change ask question link text
+        $label = apply_filters( 'dwqa_ask_question_link_label', $label );
+
         $class = $class ? $class  : 'dwqa-btn-success';
         $button = '<a href="'.$submit_question_link.'" class="dwqa-btn '.$class.'">'.$label.'</a>';
         $button = apply_filters( 'dwqa_ask_question_link', $button, $submit_question_link );
@@ -781,11 +718,11 @@ function dwqa_question_meta_button( $post_id = false ) {
     }
     ?>
     <div class="dwqa-meta">
-        <span class="dwqa-vote" data-type="question" data-nonce="<?php echo wp_create_nonce( '_dwqa_question_vote_nonce' ) ?>" data-question="<?php echo $post_id; ?>" >
+        <div class="dwqa-vote" data-type="question" data-nonce="<?php echo wp_create_nonce( '_dwqa_question_vote_nonce' ) ?>" data-question="<?php echo $post_id; ?>" >
             <a class="dwqa-vote-dwqa-btn dwqa-vote-up" data-vote="up" href="#"  title="<?php _e('Vote Up','dwqa') ?>"><?php _e('Vote Up','dwqa') ?></a>
             <div class="dwqa-vote-count"><?php $point = dwqa_vote_count(); echo $point > 0 ? '+'.$point:$point; ?></div>
             <a class="dwqa-vote-dwqa-btn dwqa-vote-down" data-vote="down" href="#"  title="<?php _e('Vote Down','dwqa') ?>"><?php _e('Vote Down','dwqa') ?></a>
-        </span>
+        </div>
         
         <?php dwqa_question_status_button( $post_id ); ?>
 
@@ -818,4 +755,298 @@ function dwqa_question_meta_button( $post_id = false ) {
     <?php
 }
 
-?>
+
+class DWQA_Template {
+
+    public $filters;
+
+    public function __construct() {
+        $this->filters = new stdClass();
+        add_filter( 'template_include', array( $this, 'question_content' ) );
+        add_filter( 'term_link', array( $this, 'force_term_link_to_setting_page'), 10, 3 );
+        add_filter( 'comments_open', array( $this, 'close_default_comment') );
+
+        //Template Include Hook
+        add_filter( 'single_template', array( $this, 'redirect_answer_to_question'), 20 ) ;
+        add_filter( 'comments_template', array( $this, 'generate_template_for_comment_form'), 20 );
+    }
+
+    public function redirect_answer_to_question($template) {
+        global $post, $dwqa_options;
+        if( is_singular( 'dwqa-answer' ) ) {
+            $question_id = get_post_meta( $post->ID, '_question', true );
+            if( $question_id ) {
+                wp_safe_redirect( get_permalink( $question_id ) );
+                exit(0);
+            }
+        }
+        return $template;
+    }
+
+    public function generate_template_for_comment_form( $comment_template ) {
+        if (  is_single() && ('dwqa-question' == get_post_type() || 'dwqa-answer' == get_post_type()) ) {
+            return dwqa_load_template( 'comments', false, false );
+        }
+        return $comment_template;
+    }
+
+    public function question_content( $template ) {
+        global $dwqa_options;
+
+        if( is_singular( 'dwqa-question' ) ) {
+            ob_start();
+
+            remove_filter( 'comments_open', array( $this, 'close_default_comment') );
+
+            echo '<div class="dwqa-container" >';
+            dwqa_load_template('single', 'question');
+            echo '</div>';
+
+            $content = ob_get_contents();
+
+            add_filter( 'comments_open', array( $this, 'close_default_comment') );
+            
+            ob_end_clean();
+
+            // Reset post
+            $this->reset_content( array(
+                'ID'             => get_the_ID(),
+                'post_title'     => get_the_title(),
+                'post_author'    => 0,
+                'post_date'      => get_the_date(),
+                'post_content'   => $content,
+                'post_type'      => 'dwqa-question',
+                'post_status'    => get_post_status(),
+                'is_single'      => true
+            ) );
+            if( file_exists( trailingslashit( get_template_directory() ) . 'page.php' ) ) {
+                $this->remove_all_filters( 'the_content' );
+                return trailingslashit ( get_template_directory() ) . 'page.php';
+            }
+        }
+        if( is_tax( 'dwqa-question_category' ) || is_tax( 'dwqa-question_tax' ) ) {
+
+            ob_start();
+            echo '<div class="dwqa-container" >';
+            dwqa_load_template('question', 'list');
+            echo '</div>';
+            $content = ob_get_contents();
+            ob_end_clean();
+            $post_id = isset($dwqa_options['pages']['archive-question']) ? $dwqa_options['pages']['archive-question'] : 0;
+            if( $post_id ) {
+                $post_title = get_the_title( $post_id );
+                $post_date = get_post_field( 'post_date', $post_id );
+                $post_status = get_post_status( $post_id );
+                $this->reset_content( array(
+                    'ID'             => $post_id,
+                    'post_title'     => $post_title,
+                    'post_author'    => 0,
+                    'post_date'      => $post_date,
+                    'post_content'   => $content,
+                    'post_type'      => 'dwqa-question',
+                    'post_status'    => $post_status,
+                    'is_archive'        => true,
+                    'comment_status' => 'closed'
+                ) );
+                if( file_exists( trailingslashit( get_template_directory() ) . 'page.php' ) ) {
+                    $this->remove_all_filters( 'the_content' );
+                    return trailingslashit ( get_template_directory() ) . 'page.php';
+                }
+            }
+        }
+        return $template;
+    }
+
+    public function reset_content( $args ) {
+        global $wp_query;
+        if ( isset( $wp_query->post ) ) {
+            $dummy = wp_parse_args( $args, array(
+                'ID'                    => $wp_query->post->ID,
+                'post_status'           => $wp_query->post->post_status,
+                'post_author'           => $wp_query->post->post_author,
+                'post_parent'           => $wp_query->post->post_parent,
+                'post_type'             => $wp_query->post->post_type,
+                'post_date'             => $wp_query->post->post_date,
+                'post_date_gmt'         => $wp_query->post->post_date_gmt,
+                'post_modified'         => $wp_query->post->post_modified,
+                'post_modified_gmt'     => $wp_query->post->post_modified_gmt,
+                'post_content'          => $wp_query->post->post_content,
+                'post_title'            => $wp_query->post->post_title,
+                'post_excerpt'          => $wp_query->post->post_excerpt,
+                'post_content_filtered' => $wp_query->post->post_content_filtered,
+                'post_mime_type'        => $wp_query->post->post_mime_type,
+                'post_password'         => $wp_query->post->post_password,
+                'post_name'             => $wp_query->post->post_name,
+                'guid'                  => $wp_query->post->guid,
+                'menu_order'            => $wp_query->post->menu_order,
+                'pinged'                => $wp_query->post->pinged,
+                'to_ping'               => $wp_query->post->to_ping,
+                'ping_status'           => $wp_query->post->ping_status,
+                'comment_status'        => $wp_query->post->comment_status,
+                'comment_count'         => $wp_query->post->comment_count,
+                'filter'                => $wp_query->post->filter,
+
+                'is_404'                => false,
+                'is_page'               => false,
+                'is_single'             => false,
+                'is_archive'            => false,
+                'is_tax'                => false,
+            ) );
+        } else {
+            $dummy = wp_parse_args( $args, array(
+                'ID'                    => -1,
+                'post_status'           => 'private',
+                'post_author'           => 0,
+                'post_parent'           => 0,
+                'post_type'             => 'page',
+                'post_date'             => 0,
+                'post_date_gmt'         => 0,
+                'post_modified'         => 0,
+                'post_modified_gmt'     => 0,
+                'post_content'          => '',
+                'post_title'            => '',
+                'post_excerpt'          => '',
+                'post_content_filtered' => '',
+                'post_mime_type'        => '',
+                'post_password'         => '',
+                'post_name'             => '',
+                'guid'                  => '',
+                'menu_order'            => 0,
+                'pinged'                => '',
+                'to_ping'               => '',
+                'ping_status'           => '',
+                'comment_status'        => 'closed',
+                'comment_count'         => 0,
+                'filter'                => 'raw',
+
+                'is_404'                => false,
+                'is_page'               => false,
+                'is_single'             => false,
+                'is_archive'            => false,
+                'is_tax'                => false,
+            ) );
+        }
+
+        // Bail if dummy post is empty
+        if ( empty( $dummy ) ) {
+            return;
+        }
+
+        // Set the $post global
+        $post = new WP_Post( (object) $dummy );
+
+        // Copy the new post global into the main $wp_query
+        $wp_query->post       = $post;
+        $wp_query->posts      = array( $post );
+
+        // Prevent comments form from appearing
+        $wp_query->post_count = 1;
+        $wp_query->is_404     = $dummy['is_404'];
+        $wp_query->is_page    = $dummy['is_page'];
+        $wp_query->is_single  = $dummy['is_single'];
+        $wp_query->is_archive = $dummy['is_archive'];
+        $wp_query->is_tax     = $dummy['is_tax'];
+    }
+
+    public function close_default_comment( $open ) {
+        global $dwqa_options;
+        if( is_singular( 'dwqa-question' ) 
+            || is_singular( 'dwqa-answer' ) 
+            || ( $dwqa_options['pages']['archive-question'] && is_page( $dwqa_options['pages']['archive-question']) )
+            || ( $dwqa_options['pages']['submit-question'] && is_page( $dwqa_options['pages']['submit-question']) )
+        ) {
+            return false;
+        }
+        return $open;
+    }
+
+    public function force_term_link_to_setting_page( $termlink, $term, $taxonomy ) {
+        global $dwqa_options;
+        if( $taxonomy == 'dwqa-question_category' || $taxonomy == 'dwqa-question_tag' ) {
+            $termlink = add_query_arg( array(
+                'taxonomy'  => $taxonomy,
+                $taxonomy   => $term->slug
+            ), get_permalink( $dwqa_options['pages']['archive-question'] ) );
+        }
+        return $termlink;
+    }
+
+    public function remove_all_filters( $tag, $priority = false ) {
+        global $wp_filter, $merged_filters;
+
+        // Filters exist
+        if ( isset( $wp_filter[$tag] ) ) {
+
+            // Filters exist in this priority
+            if ( !empty( $priority ) && isset( $wp_filter[$tag][$priority] ) ) {
+
+                // Store filters in a backup
+                $this->filters->wp_filter[$tag][$priority] = $wp_filter[$tag][$priority];
+
+                // Unset the filters
+                unset( $wp_filter[$tag][$priority] );
+
+            // Priority is empty
+            } else {
+
+                // Store filters in a backup
+                $this->filters->wp_filter[$tag] = $wp_filter[$tag];
+
+                // Unset the filters
+                unset( $wp_filter[$tag] );
+            }
+        }
+
+        // Check merged filters
+        if ( isset( $merged_filters[$tag] ) ) {
+
+            // Store filters in a backup
+            $this->filters->merged_filters[$tag] = $merged_filters[$tag];
+
+            // Unset the filters
+            unset( $merged_filters[$tag] );
+        }
+
+        return true;
+    }
+
+    public function restore_all_filters( $tag, $priority = false ) {
+        global $wp_filter, $merged_filters;
+
+        // Filters exist
+        if ( isset( $this->filters->wp_filter[$tag] ) ) {
+
+            // Filters exist in this priority
+            if ( !empty( $priority ) && isset( $this->filters->wp_filter[$tag][$priority] ) ) {
+
+                // Store filters in a backup
+                $wp_filter[$tag][$priority] = $this->filters->wp_filter[$tag][$priority];
+
+                // Unset the filters
+                unset( $this->filters->wp_filter[$tag][$priority] );
+
+            // Priority is empty
+            } else {
+
+                // Store filters in a backup
+                $wp_filter[$tag] = $this->filters->wp_filter[$tag];
+
+                // Unset the filters
+                unset( $this->filters->wp_filter[$tag] );
+            }
+        }
+
+        // Check merged filters
+        if ( isset( $this->filters->merged_filters[$tag] ) ) {
+
+            // Store filters in a backup
+            $merged_filters[$tag] = $this->filters->merged_filters[$tag];
+
+            // Unset the filters
+            unset( $this->filters->merged_filters[$tag] );
+        }
+
+        return true;
+    }
+}
+$GLOBALS['dwqa_template_compat'] = new DWQA_Template();
