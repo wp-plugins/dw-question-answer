@@ -1,5 +1,4 @@
 <?php  
-
 /**
  * Print class for question detail container
  */
@@ -792,6 +791,7 @@ class DWQA_Template {
 
     public function question_content( $template ) {
         global $dwqa_options;
+        $template_folder = trailingslashit ( get_template_directory() );
 
         if( is_singular( 'dwqa-question' ) ) {
             ob_start();
@@ -809,22 +809,32 @@ class DWQA_Template {
             ob_end_clean();
 
             // Reset post
+            global $post;
             $this->reset_content( array(
-                'ID'             => get_the_ID(),
-                'post_title'     => get_the_title(),
+                'ID'             => $post->ID,
+                'post_title'     => $post->post_title,
                 'post_author'    => 0,
-                'post_date'      => get_the_date(),
+                'post_date'      => $post->post_date,
                 'post_content'   => $content,
                 'post_type'      => 'dwqa-question',
-                'post_status'    => get_post_status(),
+                'post_status'    => $post->post_status,
                 'is_single'      => true
             ) );
-            if( file_exists( trailingslashit( get_template_directory() ) . 'page.php' ) ) {
+
+            $single_template = isset($dwqa_options['single-template']) ? $dwqa_options['single-template'] : false;
+
+            if( $single_template && file_exists( $template_folder . $single_template ) ) {
                 $this->remove_all_filters( 'the_content' );
-                return trailingslashit ( get_template_directory() ) . 'page.php';
+                return  $template_folder . $single_template;
+            } else if( file_exists( $template_folder . $single_template ) ) {
+                $this->remove_all_filters( 'the_content' );
+                return $template_folder . 'single.php';
+            } else if( file_exists( $template_folder . 'page.php' ) ) {
+                $this->remove_all_filters( 'the_content' );
+                return $template_folder . 'page.php';
             }
         }
-        if( is_tax( 'dwqa-question_category' ) || is_tax( 'dwqa-question_tax' ) ) {
+        if( is_tax( 'dwqa-question_category' ) || is_tax( 'dwqa-question_tax' ) || is_post_type_archive( 'dwqa-question' ) || is_post_type_archive( 'dwqa-answer' ) ) {
 
             ob_start();
             echo '<div class="dwqa-container" >';
@@ -834,17 +844,16 @@ class DWQA_Template {
             ob_end_clean();
             $post_id = isset($dwqa_options['pages']['archive-question']) ? $dwqa_options['pages']['archive-question'] : 0;
             if( $post_id ) {
-                $post_title = get_the_title( $post_id );
-                $post_date = get_post_field( 'post_date', $post_id );
-                $post_status = get_post_status( $post_id );
+                $post = get_post( $post_id );
+
                 $this->reset_content( array(
                     'ID'             => $post_id,
-                    'post_title'     => $post_title,
+                    'post_title'     => $post->post_title,
                     'post_author'    => 0,
-                    'post_date'      => $post_date,
+                    'post_date'      => $post->post_date,
                     'post_content'   => $content,
                     'post_type'      => 'dwqa-question',
-                    'post_status'    => $post_status,
+                    'post_status'    => $post->post_status,
                     'is_archive'        => true,
                     'comment_status' => 'closed'
                 ) );

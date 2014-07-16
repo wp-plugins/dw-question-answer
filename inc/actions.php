@@ -138,7 +138,8 @@ function dwqa_add_answer(){
                 $answer_author = get_post_field( 'post_author', $_POST['answer-id'] );
                 
                 global $current_user;
-                if( ! dwqa_current_user_can( 'delete_answer' ) || ( is_user_logged_in() && $answer_author != $current_user->ID ) ) {
+
+                if( !(dwqa_current_user_can( 'edit_answer' ) || ( is_user_logged_in() && $answer_author == $current_user->ID )) ) {
                     wp_send_json_error( array(
                         'message'   => __('You do not have permission to edit this post','dwqa')
                     ) );
@@ -245,7 +246,7 @@ function dwqa_remove_answer(){
     global $current_user;
     $answer_author = get_post_field( 'post_author', $_POST['answer_id'] );
 
-    if( ! dwqa_current_user_can( 'delete_answer' ) || ( is_user_logged_in() && $answer_author != $current_user->ID ) ) {
+    if( !( dwqa_current_user_can( 'delete_answer' ) || ( is_user_logged_in() && $answer_author == $current_user->ID )) ) {
         wp_send_json_error( array(
             'message'   => __('You do not have permission to edit this post','dwqa')
         ) );
@@ -518,7 +519,7 @@ function dwqa_question_view(){
         }
     }
 }
-add_action( 'wp', 'dwqa_question_view' );
+add_action( 'wp_head', 'dwqa_question_view' );
 
 /**
  * Count number of views for a questions
@@ -830,7 +831,7 @@ function dwqa_ajax_create_update_answer_editor(){
             <?php } ?>
         </p>
         <div class="dwqa-privacy">
-            <input type="hidden" name="privacy" value="publish">
+            <input type="hidden" name="privacy" value="<?php echo $answer->post_status ?>">
             <span class="dwqa-change-privacy">
                 <div class="dwqa-btn-group">
                     <button type="button" class="dropdown-toggle" ><span><?php echo 'private' == get_post_status() ? '<i class="fa fa-lock"></i> '.__('Private','dwqa') : '<i class="fa fa-globe"></i> '.__('Public','dwqa'); ?></span> <i class="fa fa-caret-down"></i></button>
@@ -1735,10 +1736,10 @@ add_filter('the_posts','dwqa_anonymous_reload_hidden_single_post');
 
 function dwqa_comment_author_link_anonymous( $comment ) {
     // global $current_comment;
-    if( $comment->user_id <= 0 ) {
+    if( $comment->user_id <= 0 && ( get_post_type( $comment->comment_post_ID ) == 'dwqa-question' || get_post_type( $comment->comment_post_ID ) == 'dwqa-answer') ) {
         $comment->comment_author = __('Anonymous','dwqa');
     }
-    return $comment ;
+    return $comment;
 }
 add_filter( 'get_comment', 'dwqa_comment_author_link_anonymous' );
 
