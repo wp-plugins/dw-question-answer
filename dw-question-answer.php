@@ -40,7 +40,13 @@ include_once DWQA_DIR  . 'inc/widgets/popular-question.php';
 include_once DWQA_DIR  . 'inc/widgets/latest-question.php';
 include_once DWQA_DIR  . 'inc/widgets/list-closed-question.php';
 
+// include_once DWQA_DIR  . 'inc/database_upgrade.php';
+
+include_once DWQA_DIR  . 'inc/cache.php';
+
 include_once DWQA_DIR  . 'inc/deprecated.php';
+
+
 
 function dwqa_include_recaptcha_library() {
 	if ( ! defined( 'RECAPTCHA_VERIFY_SERVER' ) ) {
@@ -83,20 +89,10 @@ function dwqa_posttype_init() {
 			'slug' => $question_rewrite,
 			'with_front'    => false,
 		),
-		'capability_type' => 'post',
 		'has_archive' => true, 
 		'hierarchical' => true,
 		'menu_icon' => '',
-		'supports' => array( 'title', 'editor', 'comments', 'author', 'page-attributes' ),
-		'capabilities' => array(
-			'edit_post' => 'dwqa_can_edit_question',
-			'edit_posts' => 'dwqa_can_edit_question',
-			'edit_others_posts' => 'dwqa_can_edit_question',
-			'publish_posts' => 'dwqa_can_post_question',
-			'read_post' => 'dwqa_can_read_question',
-			'read_private_posts' => 'read_private_posts',
-			'delete_post' => 'dwqa_can_delete_question',
-		)
+		'supports' => array( 'title', 'editor', 'comments', 'author', 'page-attributes' )
 	); 
 	register_post_type( 'dwqa-question', $question_args );
 	
@@ -124,20 +120,10 @@ function dwqa_posttype_init() {
 		'show_in_menu' => 'edit.php?post_type=dwqa-question', 
 		'query_var' => true,
 		'rewrite' => true,
-		'capability_type' => 'post',
 		'has_archive' => false, 
 		'hierarchical' => true,
 		'menu_icon' => '',
-		'supports' => array( 'title', 'editor', 'comments', 'custom-fields', 'author', 'page-attributes', ),
-		'capabilities' => array(
-			'edit_post' => 'dwqa_can_edit_answer',
-			'edit_posts' => 'dwqa_can_edit_answer',
-			'edit_others_posts' => 'dwqa_can_edit_answer',
-			'publish_posts' => 'dwqa_can_post_answer',
-			'read_post' => 'dwqa_can_read_answer',
-			'read_private_posts' => 'read_private_posts',
-			'delete_post' => 'dwqa_can_delete_answer',
-		),
+		'supports' => array( 'title', 'editor', 'comments', 'custom-fields', 'author', 'page-attributes', )
 	); 
 	register_post_type( 'dwqa-answer', $answer );
 
@@ -351,6 +337,7 @@ function dwqa_deactivate_hook() {
 register_deactivation_hook( __FILE__, 'dwqa_deactivate_hook' );
 
 /* Flush rewrite rules for custom post types. */
+
 add_action( 'after_switch_theme', 'dwqa_flush_rewrite_rules' );
 function dwqa_flush_rewrite_rules() {
      flush_rewrite_rules();
@@ -443,9 +430,6 @@ add_filter( 'get_comment_date', 'dwqa_comment_human_time_diff_for_date', 10, 2 )
 
 
 function dwqa_tinymce_addbuttons() {
-	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) )
-		return;
-
 	if ( get_user_option( 'rich_editing' ) == 'true' && ! is_admin() ) {
 		add_filter( 'mce_external_plugins', 'dwqa_add_custom_tinymce_plugin' );
 		add_filter( 'mce_buttons', 'dwqa_register_custom_button' );
